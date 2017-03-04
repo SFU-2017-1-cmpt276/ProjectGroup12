@@ -9,6 +9,7 @@ target 'AdventureSFU' do
 pod 'Firebase/Core'
 pod ‘Firebase/Database’
 pod ‘Firebase/Storage’
+pod ‘Mapbox-iOS-SDK’, ‘~> 3.4’
   target 'AdventureSFUTests' do
     inherit! :search_paths
     # Pods for testing

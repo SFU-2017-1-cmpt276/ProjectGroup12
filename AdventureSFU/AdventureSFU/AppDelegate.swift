@@ -11,7 +11,7 @@ import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    //var theUser = "this is aviable"
+    //var theUser = "this is available"
     var window: UIWindow?
 
 
