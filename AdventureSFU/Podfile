@@ -9,6 +9,7 @@ target 'AdventureSFU' do
 pod 'Firebase/Core'
 pod ‘Firebase/Database’
 pod ‘Firebase/Storage’
+pod 'Firebase/Auth'
 pod ‘Mapbox-iOS-SDK’, ‘~> 3.4’
   target 'AdventureSFUTests' do
     inherit! :search_paths
@@ -16,6 +17,7 @@ pod ‘Mapbox-iOS-SDK’, ‘~> 3.4’
 pod 'Firebase/Core'
 pod ‘Firebase/Database’
 pod ‘Firebase/Storage’
+pod 'Firebase/Auth'
   end
 
   target 'AdventureSFUUITests' do
@@ -24,6 +26,7 @@ pod ‘Firebase/Storage’
 pod ‘Firebase/Core’
 pod ‘Firebase/Database’
 pod ‘Firebase/Storage’
+pod 'Firebase/Auth'
   end
 
 end
