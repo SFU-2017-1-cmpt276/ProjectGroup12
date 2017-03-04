@@ -3,7 +3,7 @@
 //  asd
 //
 //  Created by Karan Aujla on 3/2/17.
-//  Copyright © 2017 Karan Aujla. All rights reserved.
+//  Copyright © 2017 Group12. All rights reserved.
 //
 
 import UIKit
