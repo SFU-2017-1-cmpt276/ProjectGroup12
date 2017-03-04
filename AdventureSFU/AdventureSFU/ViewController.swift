@@ -9,6 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController {
+	
     var enteredUsername: String?
     var enteredPassword: String?
     @IBOutlet weak var userNameField: UITextField!
