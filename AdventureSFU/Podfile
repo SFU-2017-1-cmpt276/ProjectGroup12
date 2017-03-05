@@ -11,6 +11,7 @@ pod ‘Firebase/Database’
 pod ‘Firebase/Storage’
 pod 'Firebase/Auth'
 pod ‘Mapbox-iOS-SDK’, ‘~> 3.4’
+pod 'MapboxDirections.swift', :git => 'https://github.com/mapbox/MapboxDirections.swift.git', :commit => 'ceaf58b780fc17ea44a9150041b602d017c1e567'
 
   target 'AdventureSFUTests' do
     inherit! :search_paths

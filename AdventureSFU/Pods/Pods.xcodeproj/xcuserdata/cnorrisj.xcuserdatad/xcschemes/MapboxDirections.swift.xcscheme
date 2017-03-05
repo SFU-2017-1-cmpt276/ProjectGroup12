@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1379ABFD233F3C7EBA6D0DD66CCF4EEF"
-               BuildableName = "Pods_AdventureSFU.framework"
-               BlueprintName = "Pods-AdventureSFU"
+               BlueprintIdentifier = "AAD616609C789739A241CC784B233D5D"
+               BuildableName = "MapboxDirections.framework"
+               BlueprintName = "MapboxDirections.swift"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1379ABFD233F3C7EBA6D0DD66CCF4EEF"
-            BuildableName = "Pods_AdventureSFU.framework"
-            BlueprintName = "Pods-AdventureSFU"
+            BlueprintIdentifier = "AAD616609C789739A241CC784B233D5D"
+            BuildableName = "MapboxDirections.framework"
+            BlueprintName = "MapboxDirections.swift"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
