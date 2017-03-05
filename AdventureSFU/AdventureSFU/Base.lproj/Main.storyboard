@@ -6,10 +6,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Log In-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="AdventureSFU" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Log In" id="BYZ-38-t0r" customClass="ViewController" customModule="AdventureSFU" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -63,16 +63,12 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Sign In" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YWe-h8-1Z4">
-                                <frame key="frameInset" minX="186" minY="143" width="121" height="47"/>
+                                <frame key="frameInset" minX="91" minY="56" width="121" height="47"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="39"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="aN1-DJ-MSS">
-                                <frame key="frameInset" minX="91" minY="62" width="121" height="47"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -177,10 +173,10 @@
             </objects>
             <point key="canvasLocation" x="244" y="263.11844077961024"/>
         </scene>
-        <!--View Run-->
+        <!--View Run Controller-->
         <scene sceneID="JCD-km-H9E">
             <objects>
-                <viewController id="3yT-BT-JeF" customClass="ViewRun" customModule="AdventureSFU" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="3yT-BT-JeF" customClass="ViewRunController" customModule="AdventureSFU" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="HWX-y2-I7d"/>
                         <viewControllerLayoutGuide type="bottom" id="J7A-Oz-jL6"/>
@@ -201,9 +197,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Start!"/>
                                 <connections>
-                                    <segue destination="Kff-5F-2P6" kind="popoverPresentation" popoverAnchorView="9d2-24-8zy" id="MFT-hz-F2u">
-                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                    </segue>
+                                    <segue destination="Kff-5F-2P6" kind="show" identifier="StartRun" id="MFT-hz-F2u"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zU1-2t-e2w">
@@ -281,16 +275,16 @@
             </objects>
             <point key="canvasLocation" x="1268" y="-513.19340329835086"/>
         </scene>
-        <!--View Controller-->
+        <!--MapUI-->
         <scene sceneID="N78-77-RPG">
             <objects>
-                <viewController id="C3T-LZ-wuo" sceneMemberID="viewController">
+                <viewController title="MapUI" id="C3T-LZ-wuo" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="czA-N3-HYj"/>
                         <viewControllerLayoutGuide type="bottom" id="vZL-Qk-WDw"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="PKA-hu-saH" customClass="MGLMapView">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <userDefinedRuntimeAttributes>
@@ -311,10 +305,10 @@
             </objects>
             <point key="canvasLocation" x="1327" y="484"/>
         </scene>
-        <!--View Controller-->
+        <!--RunBuddy-->
         <scene sceneID="wXT-rQ-zPo">
             <objects>
-                <viewController id="Kff-5F-2P6" sceneMemberID="viewController">
+                <viewController title="RunBuddy" id="Kff-5F-2P6" customClass="RunBuddy" customModule="AdventureSFU" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="M06-hR-9y0"/>
                         <viewControllerLayoutGuide type="bottom" id="VSv-Y3-qKf"/>
@@ -323,13 +317,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C9O-LA-QzC">
-                                <frame key="frameInset" height="543" maxY="124"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <connections>
-                                    <segue destination="C3T-LZ-wuo" kind="presentation" id="qfb-tU-aIf"/>
-                                </connections>
-                            </containerView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N7w-BR-Lbm">
                                 <frame key="frameInset" minX="35" minY="601" width="32" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -338,6 +325,13 @@
                                     <segue destination="3yT-BT-JeF" kind="show" id="sbx-KY-vXF"/>
                                 </connections>
                             </button>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VlM-fN-4Jf">
+                                <frame key="frameInset" minX="54" height="128" maxX="81" maxY="394"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <segue destination="C3T-LZ-wuo" kind="embed" id="exK-Aa-rZT"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -348,8 +342,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="qfb-tU-aIf"/>
         <segue reference="sbx-KY-vXF"/>
+        <segue reference="exK-Aa-rZT"/>
         <segue reference="F4x-Bf-aXV"/>
     </inferredMetricsTieBreakers>
 </document>

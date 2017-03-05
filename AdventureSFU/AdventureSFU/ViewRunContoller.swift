@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewRun: UIViewController {
+class ViewRunController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
