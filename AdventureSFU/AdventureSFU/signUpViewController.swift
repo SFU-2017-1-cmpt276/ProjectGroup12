@@ -14,7 +14,7 @@ class signUpViewController: UIViewController {
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var userNameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
-
+    var newUser: userProfile?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +31,8 @@ class signUpViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+
+
     @IBAction func createAccount(){
 		
 		//If not all fields entered in, give an alert error
@@ -57,9 +59,6 @@ class signUpViewController: UIViewController {
 														self.present(alertController, animated: true, completion: nil)
 													}
 			})
-		}
-		
-		
     }
     
 
