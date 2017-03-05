@@ -57,6 +57,8 @@ class ViewController: UIViewController {
 		}
 	}
 	
-	
+	@IBAction func createAccount() {
+		performSegue(withIdentifier: "signInToAccountCreation", sender: self)
+	}
 	
 }

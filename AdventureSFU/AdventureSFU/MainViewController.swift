@@ -31,7 +31,7 @@ class MainViewController: UIViewController {
     @IBAction func logoutAction(){
         //do any tasks we need to do before someone logs out
 		try! FIRAuth.auth()?.signOut()
-        dismiss(animated: true, completion: nil)
+        performSegue(withIdentifier: "logOut", sender: self)
         
     }
     
@@ -58,8 +58,16 @@ class MainViewController: UIViewController {
         alert.addAction(alertConfirmation)
         present(alert, animated: true, completion: nil)
     }
+	
+	@IBAction func toStatsPage() {
+		performSegue(withIdentifier: "mainToStats", sender: self)
+	}
+	
+	@IBAction func toRunControllerPage() {
+		performSegue(withIdentifier: "mainToRunController", sender: self)
+	}
     /*
-     
+	
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation

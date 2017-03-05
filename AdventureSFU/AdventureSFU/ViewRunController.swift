@@ -20,8 +20,14 @@ class ViewRunController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+	
+	@IBAction func toRunBuddy() {
+		performSegue(withIdentifier: "StartRun", sender: self)
+	}
 
+	@IBAction func runToMain() {
+		performSegue(withIdentifier: "runControllerToMain", sender: self)
+	}
     /*
     // MARK: - Navigation
 
