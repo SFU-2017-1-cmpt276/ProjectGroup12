@@ -25,6 +25,6 @@ After github has finished downloading the file, open the ProjectGroup12 file, th
 
 ***Team Members***
 
-Eleanor Lewis, Karan Aujla, Carlos Abaffy, Chris Norris-Jones
+Eleanor Lewis, Gurkaran Aujla, Carlos Abaffy, Chris Norris-Jones
 
 ***Click [HERE](https://sites.google.com/view/cmpt276-group12/home) to see our Group Website***
