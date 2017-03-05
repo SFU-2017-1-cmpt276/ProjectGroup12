@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MapUI.swift
 //  asd
 //
 //  Created by Karan Aujla on 3/2/17.
@@ -8,6 +8,8 @@
 
 import UIKit
 import Firebase
+import Mapbox
+import MapboxDirections
 
 class ViewController: UIViewController {
 	
