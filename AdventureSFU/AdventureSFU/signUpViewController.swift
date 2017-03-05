@@ -12,7 +12,7 @@ class signUpViewController: UIViewController {
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var userNameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
-
+    var newUser: userProfile?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,11 +30,11 @@ class signUpViewController: UIViewController {
     }
     
     @IBAction func signUp(){
-        let newUser = userProfile(enteredPassword: passwordField.text!,
+        newUser = userProfile(enteredPassword: passwordField.text!,
                                   enteredUsername: userNameField.text!,
                                   enteredEmail: emailField.text!)
         let userAlert = UIAlertController(title: "Congratuatuons",
-                                          message: "you created a new profile named \(newUser.username)",
+                                          message: "you created a new profile named \(newUser?.username)",
                                           preferredStyle: .alert)
         
         let confirmation = UIAlertAction(title: "ok", style: .default, handler: nil)
