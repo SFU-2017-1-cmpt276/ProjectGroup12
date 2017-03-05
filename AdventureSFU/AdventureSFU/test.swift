@@ -12,7 +12,7 @@ class userProfile {
     var email: String
     var username: String
     var password: String
-    // add more things later
+    // add more things later test test test
     
     init(enteredPassword: String, enteredUsername: String, enteredEmail: String ) {
         //create validations later, right now it is just assuming you entered valid stuff

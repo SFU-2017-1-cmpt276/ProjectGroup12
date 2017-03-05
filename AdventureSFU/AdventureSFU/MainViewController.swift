@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class MainViewController: UIViewController {
     var isLoggedIn = false
@@ -27,14 +28,15 @@ class MainViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func Logout(){
+    @IBAction func logoutAction(){
         //do any tasks we need to do before someone logs out
+		try! FIRAuth.auth()?.signOut()
         dismiss(animated: true, completion: nil)
         
     }
     
     //to be replaced with a segue to the run module
-    @IBAction func RunModuleButton(){
+    /*@IBAction func RunModuleButton(){
             let alert = UIAlertController(title: "Error", message: defaultWIPMessage, preferredStyle: .alert)
             let alertConfirmation = UIAlertAction(title: "ok", style: .default, handler: nil)
             alert.addAction(alertConfirmation)
@@ -42,7 +44,7 @@ class MainViewController: UIViewController {
             print("the view loaded and login is is \(isLoggedIn)")
 
     }
-    
+    */
     @IBAction func ExploreModuleButton(){
         let alert = UIAlertController(title: "Error", message: defaultWIPMessage, preferredStyle: .alert)
         let alertConfirmation = UIAlertAction(title: "ok", style: .default, handler: nil)
