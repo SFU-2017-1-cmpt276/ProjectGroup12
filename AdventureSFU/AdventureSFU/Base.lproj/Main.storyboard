@@ -303,6 +303,7 @@
                             <userDefinedRuntimeAttribute type="number" keyPath="zoomLevel">
                                 <real key="value" value="15"/>
                             </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="showsUserLocation" value="YES"/>
                         </userDefinedRuntimeAttributes>
                     </view>
                 </viewController>
@@ -349,6 +350,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="qfb-tU-aIf"/>
         <segue reference="sbx-KY-vXF"/>
-        <segue reference="E0m-XV-1ur"/>
+        <segue reference="F4x-Bf-aXV"/>
     </inferredMetricsTieBreakers>
 </document>
