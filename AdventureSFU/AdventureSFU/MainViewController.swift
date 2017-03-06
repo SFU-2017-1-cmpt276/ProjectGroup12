@@ -14,7 +14,7 @@ class MainViewController: UIViewController {
 	//variables/Outlets
 	
 	var ref: FIRDatabaseReference?
-	var databaseHandle: FIRDatabaseHandle?
+	//var databaseHandle: FIRDatabaseHandle?
 	
 	@IBOutlet weak var welcomeUserLabel: UILabel!
     let defaultWIPMessage = "this module is still in development, please comeback later"
