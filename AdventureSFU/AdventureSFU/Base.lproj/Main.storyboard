@@ -294,7 +294,6 @@
                                 </state>
                                 <connections>
                                     <action selector="toRunBuddy" destination="3yT-BT-JeF" eventType="touchUpInside" id="CcS-zJ-SVr"/>
-                                    <segue destination="Kff-5F-2P6" kind="show" identifier="StartRun" id="MFT-hz-F2u"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zU1-2t-e2w">
@@ -431,7 +430,7 @@
         <!--MapUI-->
         <scene sceneID="N78-77-RPG">
             <objects>
-                <viewController title="MapUI" id="C3T-LZ-wuo" sceneMemberID="viewController">
+                <viewController title="MapUI" id="C3T-LZ-wuo" customClass="MapUI" customModule="AdventureSFU" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="czA-N3-HYj"/>
                         <viewControllerLayoutGuide type="bottom" id="vZL-Qk-WDw"/>
@@ -458,44 +457,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OV5-5r-eFr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1327" y="484"/>
-        </scene>
-        <!--RunBuddy-->
-        <scene sceneID="wXT-rQ-zPo">
-            <objects>
-                <viewController title="RunBuddy" id="Kff-5F-2P6" customClass="RunBuddy" customModule="AdventureSFU" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="M06-hR-9y0"/>
-                        <viewControllerLayoutGuide type="bottom" id="VSv-Y3-qKf"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="V18-WD-AV6">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N7w-BR-Lbm">
-                                <frame key="frameInset" minX="171" minY="515" width="32" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Stop">
-                                    <color key="titleColor" red="0.44725483659999998" green="0.16517576580000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="3yT-BT-JeF" kind="show" identifier="runBuddyToRunDetails" id="sbx-KY-vXF"/>
-                                </connections>
-                            </button>
-                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VlM-fN-4Jf">
-                                <frame key="frameInset" minX="1" height="487" maxY="249"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <connections>
-                                    <segue destination="C3T-LZ-wuo" kind="embed" id="exK-Aa-rZT"/>
-                                </connections>
-                            </containerView>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </view>
-                    <nil key="simulatedStatusBarMetrics"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Pc8-n4-rY2" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2197.5999999999999" y="-33.733133433283363"/>
         </scene>
         <!--Stats View Controller-->
         <scene sceneID="NYs-1B-w2u">
@@ -594,8 +555,7 @@
         <image name="sfu-aq-pond1" width="1998" height="3024"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ADt-zq-scG"/>
-        <segue reference="oHH-Rz-i1W"/>
-        <segue reference="8wT-Ha-vdw"/>
+        <segue reference="F4x-Bf-aXV"/>
+        <segue reference="C6c-5p-8ih"/>
     </inferredMetricsTieBreakers>
 </document>
