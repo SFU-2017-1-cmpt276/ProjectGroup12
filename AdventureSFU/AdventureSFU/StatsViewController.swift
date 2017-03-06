@@ -12,18 +12,20 @@ import Firebase
 class StatsViewController: UIViewController, UITableViewDataSource {
 	
 	@IBOutlet weak var userInfo: UITableView!
-    var testProfile = userProfile(enteredPassword: "testpass", enteredUsername: "testUSer", enteredEmail: "test@email.com")
-	
+
 	var ref: FIRDatabaseReference?
 	var email = ""
 	var username = ""
 	var kilometres = 30
-	
+
     //for the table view
 	
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 4 // change this value when actually implementing it. for testing only
     }
+    
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let celltoBeReturned: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "userInfo")!
         
@@ -86,6 +88,8 @@ class StatsViewController: UIViewController, UITableViewDataSource {
     @IBAction func BackButton(){
         dismiss(animated: true, completion: nil)
     }
+    
+    
     /*
     // MARK: - Navigation
 
