@@ -10,24 +10,42 @@ import UIKit
 import Firebase
 
 class MainViewController: UIViewController {
-    var isLoggedIn = false
+	
+	//variables/Outlets
+	
+	var ref: FIRDatabaseReference?
+	var databaseHandle: FIRDatabaseHandle?
+	
+	@IBOutlet weak var welcomeUserLabel: UILabel!
     let defaultWIPMessage = "this module is still in development, please comeback later"
-    override func viewDidLoad() {
+	
+	//Load Functions
+	
+	override func viewDidLoad() {
         super.viewDidLoad()
-//        print("the view loaded and login is is \(isLoggedIn)")
-//        if isLoggedIn == false {
-//            print("now loading the login in screen")
-//            performSegue(withIdentifier: "login", sender: nil)
-//        }
-//
-        // Do any additional setup after loading the view.
+		
+		let userID = FIRAuth.auth()?.currentUser?.uid
+		ref = FIRDatabase.database().reference()
+		
+		ref?.child("Users").child(userID!).child("username").observeSingleEvent(of: .value, with: { (snapshot) in
+			
+			let value = snapshot.value as? String
+			let username = value!
+			
+			self.welcomeUserLabel.text = "Welcome, \(username)!"
+
+		})
+		
+		
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+	
+	//Actions
+	
     @IBAction func logoutAction(){
         //do any tasks we need to do before someone logs out
 		try! FIRAuth.auth()?.signOut()
