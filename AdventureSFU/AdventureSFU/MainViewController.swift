@@ -24,7 +24,6 @@ class MainViewController: UIViewController {
 	override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.view.backgroundColor = backgroundColour
 //        print("the view loaded and login is is \(isLoggedIn)")
 //        if isLoggedIn == false {
 //            print("now loading the login in screen")

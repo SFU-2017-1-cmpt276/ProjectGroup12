@@ -12,7 +12,6 @@ import Firebase
 class StatsViewController: UIViewController, UITableViewDataSource {
 	
 	@IBOutlet weak var userInfo: UITableView!
-    var testProfile = userProfile(enteredPassword: "testpass", enteredUsername: "testUSer", enteredEmail: "test@email.com")
 
 	var ref: FIRDatabaseReference?
 	var email = ""

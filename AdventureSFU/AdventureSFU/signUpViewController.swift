@@ -22,7 +22,6 @@ class signUpViewController: UIViewController {
 	
 	
     override func viewDidLoad() {
-        self.view.backgroundColor = backgroundColour
         super.viewDidLoad()
 		
 		ref = FIRDatabase.database().reference()

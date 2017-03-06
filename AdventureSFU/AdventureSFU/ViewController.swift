@@ -26,8 +26,6 @@ class ViewController: UIViewController {
     //Run on Viewcontroller load
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = backgroundColour
-
 		
 		ref = FIRDatabase.database().reference()
 		
