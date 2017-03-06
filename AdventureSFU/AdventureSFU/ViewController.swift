@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  asd
+//
 //
 //  Created by Karan Aujla on 3/2/17.
 //  Copyright © 2017 Group12. All rights reserved.
@@ -15,6 +15,8 @@ class ViewController: UIViewController {
     var enteredEmail: String?
     var enteredPassword: String?
 	
+	var ref:FIRDatabaseReference?
+	
 	//outlets
 	@IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
@@ -26,6 +28,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = backgroundColour
 
+		
+		ref = FIRDatabase.database().reference()
 		
     }
     
