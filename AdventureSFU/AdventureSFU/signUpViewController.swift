@@ -36,7 +36,7 @@ class signUpViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-
+   
 
     @IBAction func createAccount(){
 		

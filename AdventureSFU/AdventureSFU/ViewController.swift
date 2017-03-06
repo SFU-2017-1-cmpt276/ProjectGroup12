@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 
 class ViewController: UIViewController {
-	
+   	
 	//variables
     var enteredEmail: String?
     var enteredPassword: String?
@@ -37,6 +37,7 @@ class ViewController: UIViewController {
     }
 	
     //Actions
+   
 	
 	@IBAction func loginAction(_ sender: AnyObject) {
 		if self.emailField.text == "" || self.passwordField.text == "" {

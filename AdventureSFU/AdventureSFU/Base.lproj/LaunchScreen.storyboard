@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -15,30 +16,35 @@
                         <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="AdventureSFU" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sqk-Kj-YmH">
-                                <frame key="frameInset" minX="70" minY="78" width="236" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Make Your Path " textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HhY-sz-8jp">
-                                <frame key="frameInset" minX="130" minY="224" width="117" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sfu-aq-pond1" translatesAutoresizingMaskIntoConstraints="NO" id="j7A-Ip-nrU"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AdventureSFU2" translatesAutoresizingMaskIntoConstraints="NO" id="Gub-2H-Iv0">
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Gub-2H-Iv0" secondAttribute="height" multiplier="312:107" id="HbQ-dd-fv3"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="j7A-Ip-nrU" secondAttribute="bottom" id="DCZ-S4-mQZ"/>
+                            <constraint firstItem="Gub-2H-Iv0" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="20" id="IaX-8T-J7t"/>
+                            <constraint firstItem="j7A-Ip-nrU" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="IgU-Wi-Scl"/>
+                            <constraint firstItem="Gub-2H-Iv0" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="20" id="L9w-vw-lSG"/>
+                            <constraint firstItem="j7A-Ip-nrU" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" id="M6D-D8-PRM"/>
+                            <constraint firstAttribute="trailing" secondItem="Gub-2H-Iv0" secondAttribute="trailing" constant="82" id="UwK-Ai-kpU"/>
+                            <constraint firstAttribute="trailing" secondItem="j7A-Ip-nrU" secondAttribute="trailing" id="szb-EZ-iJ4"/>
+                        </constraints>
                     </view>
+                    <nil key="simulatedStatusBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="93.599999999999994" y="117.39130434782609"/>
+            <point key="canvasLocation" x="102.89855072463769" y="134.5108695652174"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="AdventureSFU2" width="1891" height="968"/>
+        <image name="sfu-aq-pond1" width="1998" height="3024"/>
+    </resources>
 </document>
