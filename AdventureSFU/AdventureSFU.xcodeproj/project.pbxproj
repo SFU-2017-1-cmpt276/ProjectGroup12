@@ -167,12 +167,12 @@
 				9E24D9FC1E6B8DDF0093D4D1 /* StatsTableViewController.swift */,
 				2204B2801E6B7572009A6DF5 /* ViewRunController.swift */,
 				2204B2821E6B9D83009A6DF5 /* RunBuddy.swift */,
+				C9A7FDB61E6BDB7300C6562E /* MapUI.swift */,
 				9E1B86961E691C08006C0E61 /* Assets.xcassets */,
 				9E1B86981E691C08006C0E61 /* LaunchScreen.storyboard */,
 				9E1B869B1E691C08006C0E61 /* Info.plist */,
 				DEE6203C1E6B47E000B49665 /* GoogleService-Info.plist */,
 				9E1B86931E691C08006C0E61 /* AdventureSFU.xcdatamodeld */,
-				C9A7FDB61E6BDB7300C6562E /* MapUI.swift */,
 			);
 			path = AdventureSFU;
 			sourceTree = "<group>";

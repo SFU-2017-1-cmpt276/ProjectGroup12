@@ -190,7 +190,7 @@
                                 <frame key="frameInset" height="338" maxY="329"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <connections>
-                                    <segue destination="C3T-LZ-wuo" kind="embed" id="C6c-5p-8ih"/>
+                                    <segue destination="C3T-LZ-wuo" kind="embed" identifier="runpageembed" id="C6c-5p-8ih"/>
                                 </connections>
                             </containerView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9d2-24-8zy">
@@ -199,7 +199,7 @@
                                 <state key="normal" title="Start!"/>
                                 <connections>
                                     <action selector="toRunBuddy" destination="3yT-BT-JeF" eventType="touchUpInside" id="CcS-zJ-SVr"/>
-                                    <segue destination="Kff-5F-2P6" kind="show" identifier="StartRun" id="MFT-hz-F2u"/>
+                                    <segue destination="Kff-5F-2P6" kind="showDetail" identifier="StartRun" id="MFT-hz-F2u"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zU1-2t-e2w">
@@ -260,7 +260,7 @@
                                 <frame key="frameInset" height="301" maxY="308"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <connections>
-                                    <segue destination="C3T-LZ-wuo" kind="embed" id="8wT-Ha-vdw"/>
+                                    <segue destination="C3T-LZ-wuo" kind="embed" identifier="mainpageembed" id="8wT-Ha-vdw"/>
                                 </connections>
                             </containerView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZMW-gX-hNA">
@@ -293,16 +293,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="latitude">
-                                <real key="value" value="49.278108690805702"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="number" keyPath="longitude">
-                                <real key="value" value="-122.91993141174299"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="number" keyPath="zoomLevel">
-                                <real key="value" value="15"/>
-                            </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="boolean" keyPath="showsUserLocation" value="YES"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleURL__" value="mapbox://styles/ela50/cizxd4j84002m2smmlr0oax58"/>
                         </userDefinedRuntimeAttributes>
                     </view>
                     <connections>
@@ -334,10 +326,10 @@
                                 </connections>
                             </button>
                             <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VlM-fN-4Jf">
-                                <frame key="frameInset" height="487" maxY="160"/>
+                                <frame key="frameInset" height="487" maxY="152"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <connections>
-                                    <segue destination="C3T-LZ-wuo" kind="embed" id="exK-Aa-rZT"/>
+                                    <segue destination="C3T-LZ-wuo" kind="embed" identifier="runbuddyembed" id="exK-Aa-rZT"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -377,18 +369,18 @@
                                         <rect key="frame" x="0.0" y="28" width="288" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dMS-j2-suS" id="TCU-9b-DqE">
-                                            <frame key="frameInset" width="288" height="43.5"/>
+                                            <frame key="frameInset" width="288" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="GmP-T0-LcZ">
-                                                    <frame key="frameInset" minX="15" minY="12" width="33.5" height="20.5"/>
+                                                    <frame key="frameInset" minX="15" minY="11" width="34" height="21"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CFx-Ve-TVt">
-                                                    <frame key="frameInset" minX="229" minY="12" width="44" height="20.5"/>
+                                                    <frame key="frameInset" minX="229" minY="11" width="44" height="21"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -415,8 +407,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="F4x-Bf-aXV"/>
         <segue reference="sbx-KY-vXF"/>
-        <segue reference="C6c-5p-8ih"/>
+        <segue reference="F4x-Bf-aXV"/>
+        <segue reference="8wT-Ha-vdw"/>
     </inferredMetricsTieBreakers>
 </document>

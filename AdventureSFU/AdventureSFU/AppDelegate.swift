@@ -15,7 +15,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //var theUser = "this is available"
     var window: UIWindow?
 
-
+    func application(application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
+        return true
+    }
+    
+    func application(application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {
+        return true
+    }
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 		FIRApp.configure()

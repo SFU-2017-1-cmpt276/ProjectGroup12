@@ -11,8 +11,9 @@ import Mapbox
 import MapboxDirections
 
 
-  let directions = Directions.shared
-
+//  let directions = Directions.shared
+var directions = Directions.shared;
+//var restorationIdentifier: String? { get set }
 class MapUI: UIViewController {
     @IBOutlet var MapUI: MGLMapView!
 
@@ -23,29 +24,63 @@ class MapUI: UIViewController {
         MapUI = MGLMapView(frame: view.bounds)
         MapUI.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(MapUI)
+        
+        // double tapping zooms the map, so ensure that can still happen
+        let doubleTap = UITapGestureRecognizer(target: self, action: nil)
+        doubleTap.numberOfTapsRequired = 2
+      MapUI.addGestureRecognizer(doubleTap)
+        
+        
+        // delay single tap recognition until it is clearly not a double
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(handleSingleTap))
+        singleTap.require(toFail: doubleTap)
+        MapUI.addGestureRecognizer(singleTap)
+        
 
+        // convert `mapView.centerCoordinate` (CLLocationCoordinate2D)
+        // to screen location (CGPoint)
+        let centerScreenPoint: CGPoint = MapUI.convert(MapUI.centerCoordinate, toPointTo: MapUI)
+        print("Screen center: \(centerScreenPoint) = \(MapUI.center)")
         // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    var coordinates: [CLLocationCoordinate2D] = []
+   
+    
+    
+    
+    var waypoints: [Waypoint] = [Waypoint(coordinate: CLLocationCoordinate2D(latitude: 49.273515, longitude: -122.909279), name: "Home"),
+                                 Waypoint(coordinate: CLLocationCoordinate2D(latitude: 49.273515, longitude: -122.909279), name: "Home")]
+    
+    func handleSingleTap(tap: UITapGestureRecognizer) {
+        // convert tap location (CGPoint)
+        // to geographic coordinates (CLLocationCoordinate2D)
+        var location: CLLocationCoordinate2D = MapUI.convert(tap.location(in: MapUI), toCoordinateFrom: MapUI)
+        let names = "0"
+        print("You tapped at: \(location.latitude), \(location.longitude)")
         
-        let options = RouteOptions(waypoints: [
-            Waypoint(coordinate: CLLocationCoordinate2D(latitude: 38.9131752, longitude: -77.0324047), name: "Mapbox"),
-            Waypoint(coordinate: CLLocationCoordinate2D(latitude: 38.8977, longitude: -77.0365), name: "White House"),
-            ])
+        
+        waypoints.append(Waypoint(coordinate: location, name: names))
+        
+        // remove existing polyline from the map, (re)add polyline with coordinates
+        if (MapUI.annotations?.count != nil) {
+            MapUI.removeAnnotations(MapUI.annotations!)
+        }
+        
+       // let polyline = MGLPolyline(coordinates: &coordinates, count: UInt(coordinates.count))
+        
+       // MapUI.addAnnotation(polyline)
+        let options = RouteOptions(waypoints: waypoints, profileIdentifier: MBDirectionsProfileIdentifierWalking)
         options.includesSteps = true
+      
         
         _ = directions.calculate(options) { (waypoints, routes, error) in
             guard error == nil else {
                 print("Error calculating directions: \(error!)")
                 return
             }
+            
+           
             
             if let route = routes?.first, let leg = route.legs.first {
                 print("Route via \(leg):")
@@ -78,7 +113,20 @@ class MapUI: UIViewController {
                 }
             }
         }
+
     }
+  
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+   
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+      
+            }
+    
     /*
     // MARK: - Navigation
 
