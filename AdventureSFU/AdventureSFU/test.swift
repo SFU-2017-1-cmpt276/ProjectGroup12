@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class userProfile {
     var email: String
@@ -36,3 +37,10 @@ class userProfile {
         
     }
 }
+
+
+//set the background color of all the views to the same thing
+let backgroundColour = UIColor(red: 0, green: 144.0/255.0, blue: 0, alpha: 1.0)
+var testMessage = "this was defined in a different file"
+
+

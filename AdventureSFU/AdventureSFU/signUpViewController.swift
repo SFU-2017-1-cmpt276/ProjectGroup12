@@ -22,6 +22,7 @@ class signUpViewController: UIViewController {
 	
 	
     override func viewDidLoad() {
+        self.view.backgroundColor = backgroundColour
         super.viewDidLoad()
 		
 		ref = FIRDatabase.database().reference()
@@ -36,7 +37,7 @@ class signUpViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-
+   
 
     @IBAction func createAccount(){
 		
