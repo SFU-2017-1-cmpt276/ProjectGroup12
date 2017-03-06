@@ -14,12 +14,17 @@ class signUpViewController: UIViewController {
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var userNameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
-    var newUser: userProfile?
-
+	
+	var newUser: userProfile?
+	
+	var ref: FIRDatabaseReference?
+	
+	
+	
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+		
+		ref = FIRDatabase.database().reference()
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,13 +48,19 @@ class signUpViewController: UIViewController {
 			self.present(alertController, animated: true, completion: nil)
 			
 		} else {
+			
 			//Create a user account. If an error is thrown from firebase it will be displayed, otherwise the account should be created and on firebase
 			FIRAuth.auth()?.createUser(withEmail: self.emailField.text!,
 			                                    password: self.passwordField.text!,
 			                                    completion: { (user, error) in
 													if error == nil {
 														//Account Created Succesffuly, return to login page
+														
+														self.ref?.child("Users").child(user!.uid).child("email").setValue(self.emailField.text)
+														self.ref?.child("Users").child(user!.uid).child("username").setValue(self.userNameField.text)
+														self.ref?.child("Users").child(user!.uid).child("KM run").setValue(0)
 														self.dismiss(animated: true, completion: nil)
+														
 														
 													} else {
 														//Account Creation Error
