@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		02928429E16CB6AE88F022F5 /* Pods_AdventureSFU.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AB1F4A1CFAC108ADA36B46A /* Pods_AdventureSFU.framework */; };
 		2204B2811E6B7572009A6DF5 /* ViewRunController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2204B2801E6B7572009A6DF5 /* ViewRunController.swift */; };
-		2204B2831E6B9D83009A6DF5 /* RunBuddy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2204B2821E6B9D83009A6DF5 /* RunBuddy.swift */; };
 		255653E6340E58C02F320A89 /* Pods_AdventureSFUTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAE09F0A0000B662F1983D85 /* Pods_AdventureSFUTests.framework */; };
 		48B69F0079BE6F57F6C0C826 /* Pods_AdventureSFUUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE11182882D24DBBA17B1040 /* Pods_AdventureSFUUITests.framework */; };
 		9E1B868D1E691C08006C0E61 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1B868C1E691C08006C0E61 /* AppDelegate.swift */; };
@@ -25,6 +24,8 @@
 		9E24DA001E6B8E290093D4D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E24D9FE1E6B8E290093D4D1 /* Main.storyboard */; };
 		9E8C65F21E6B77BC0090CEDA /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8C65F11E6B77BC0090CEDA /* StatsViewController.swift */; };
 		9E9CFCC51E6A1571006A4E1D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9CFCC41E6A1571006A4E1D /* MainViewController.swift */; };
+		DE664EC21E6DAC7E00FC1848 /* MapViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE664EC11E6DAC7E00FC1848 /* MapViewDelegate.swift */; };
+		DE664EC41E6DAD2900FC1848 /* MapUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE664EC31E6DAD2900FC1848 /* MapUI.swift */; };
 		DEE6203D1E6B47E000B49665 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DEE6203C1E6B47E000B49665 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -62,7 +63,6 @@
 		00F931F6F541CDFC527CB24D /* Pods-AdventureSFUUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdventureSFUUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AdventureSFUUITests/Pods-AdventureSFUUITests.release.xcconfig"; sourceTree = "<group>"; };
 		023C6DE8039F3269A9EFE23D /* Pods-AdventureSFU.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdventureSFU.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AdventureSFU/Pods-AdventureSFU.debug.xcconfig"; sourceTree = "<group>"; };
 		2204B2801E6B7572009A6DF5 /* ViewRunController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewRunController.swift; sourceTree = "<group>"; };
-		2204B2821E6B9D83009A6DF5 /* RunBuddy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunBuddy.swift; sourceTree = "<group>"; };
 		425A460CC64DAC7F079B4A10 /* Pods-AdventureSFUUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdventureSFUUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AdventureSFUUITests/Pods-AdventureSFUUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		543FAA51E846E72EDDB2647C /* Pods-AdventureSFUTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdventureSFUTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AdventureSFUTests/Pods-AdventureSFUTests.release.xcconfig"; sourceTree = "<group>"; };
 		6960E9F570C617E08A93A5D1 /* Pods-AdventureSFUTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdventureSFUTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AdventureSFUTests/Pods-AdventureSFUTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -86,6 +86,8 @@
 		9E24D9FF1E6B8E290093D4D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9E8C65F11E6B77BC0090CEDA /* StatsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		9E9CFCC41E6A1571006A4E1D /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		DE664EC11E6DAC7E00FC1848 /* MapViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewDelegate.swift; sourceTree = "<group>"; };
+		DE664EC31E6DAD2900FC1848 /* MapUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapUI.swift; sourceTree = "<group>"; };
 		DEE6203C1E6B47E000B49665 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EAE09F0A0000B662F1983D85 /* Pods_AdventureSFUTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AdventureSFUTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE11182882D24DBBA17B1040 /* Pods_AdventureSFUUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AdventureSFUUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -164,7 +166,8 @@
 				9E8C65F11E6B77BC0090CEDA /* StatsViewController.swift */,
 				9E24D9FC1E6B8DDF0093D4D1 /* StatsTableViewController.swift */,
 				2204B2801E6B7572009A6DF5 /* ViewRunController.swift */,
-				2204B2821E6B9D83009A6DF5 /* RunBuddy.swift */,
+				DE664EC31E6DAD2900FC1848 /* MapUI.swift */,
+				DE664EC11E6DAC7E00FC1848 /* MapViewDelegate.swift */,
 				9E1B86961E691C08006C0E61 /* Assets.xcassets */,
 				9E1B86981E691C08006C0E61 /* LaunchScreen.storyboard */,
 				9E1B869B1E691C08006C0E61 /* Info.plist */,
@@ -493,9 +496,10 @@
 				9E1B868F1E691C08006C0E61 /* ViewController.swift in Sources */,
 				9E1B86BF1E691C39006C0E61 /* signUpViewController.swift in Sources */,
 				9E9CFCC51E6A1571006A4E1D /* MainViewController.swift in Sources */,
+				DE664EC41E6DAD2900FC1848 /* MapUI.swift in Sources */,
 				9E8C65F21E6B77BC0090CEDA /* StatsViewController.swift in Sources */,
+				DE664EC21E6DAC7E00FC1848 /* MapViewDelegate.swift in Sources */,
 				9E1B86C01E691C39006C0E61 /* test.swift in Sources */,
-				2204B2831E6B9D83009A6DF5 /* RunBuddy.swift in Sources */,
 				9E1B868D1E691C08006C0E61 /* AppDelegate.swift in Sources */,
 				9E24D9FD1E6B8DDF0093D4D1 /* StatsTableViewController.swift in Sources */,
 			);
