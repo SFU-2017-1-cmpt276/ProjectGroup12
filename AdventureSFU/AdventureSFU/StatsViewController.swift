@@ -14,11 +14,15 @@ class StatsViewController: UIViewController, UITableViewDataSource {
     
    // var profileArray: [String] = [testProfile.username, testProfile.email]
     
+    
     //for the table view
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3 // change this value when actually implementing it. for testing only
     }
+    
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let celltoBeReturned: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "userInfo")!
         
@@ -53,6 +57,8 @@ class StatsViewController: UIViewController, UITableViewDataSource {
     @IBAction func BackButton(){
         dismiss(animated: true, completion: nil)
     }
+    
+    
     /*
     // MARK: - Navigation
 

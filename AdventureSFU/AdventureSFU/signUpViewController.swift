@@ -17,6 +17,7 @@ class signUpViewController: UIViewController {
     var newUser: userProfile?
 
     override func viewDidLoad() {
+        self.view.backgroundColor = backgroundColour
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
@@ -31,7 +32,7 @@ class signUpViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-
+   
 
     @IBAction func createAccount(){
 		
