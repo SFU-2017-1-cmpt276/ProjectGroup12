@@ -5,6 +5,7 @@
 //  Created by Carlos Abaffy paz on 3/4/17.
 //  Copyright © 2017 Karan Aujla. All rights reserved.
 //
+
 import UIKit
 import Mapbox
 import MapboxDirections
@@ -20,7 +21,7 @@ class ViewRunController: UIViewController, MapViewDelegate {
 	
 	func getTime(time: Double) -> Double? {
 		self.time = time
-		timeField.text = String("min: \(time)")
+		timeField.text = String("min: \(time/60)")
 		print("searchabletime\(time)")
 		return time
 	}
@@ -28,7 +29,7 @@ class ViewRunController: UIViewController, MapViewDelegate {
 	
 	func getDistance(distance: Double) -> Double? {
 		self.distance = distance
-		distanceField.text = String("kms: \(distance)")
+		distanceField.text = String("kms: \(distance/1000)")
 		print("searchabledistance\(time)")
 		return distance
 		
@@ -64,6 +65,7 @@ class ViewRunController: UIViewController, MapViewDelegate {
 	}
 	
 	// MARK: - Navigation
+	
 	// In a storyboard-based application, you will often want to do a little preparation before navigation
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		
