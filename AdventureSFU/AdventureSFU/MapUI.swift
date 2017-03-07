@@ -1,9 +1,18 @@
 //
 //  MapUI.swift
-//  AdventureSFU
 //
-//  Created by ela50 on 3/4/17.
-//  Copyright © 2017 Karan Aujla. All rights reserved.
+//	AdventureSFU: Make Your Path
+//	Created for SFU CMPT 276, Instructor Herbert H. Tsang, P.Eng., Ph.D.
+//	AdventureSFU was a project created by Group 12 of CMPT 276
+//
+//  Created by Group 12 on 3/2/17.
+//  Copyright © 2017 . All rights reserved.
+//
+//	MapUI - The signup screen that alows users to create their account
+//	Programmers: Karan Aujla, Carlos Abaffy, Eleanor Lewis, Chris Norris-Jones
+//
+//	Known Bugs:	-Stop warning flags from unused variables from displaying, when variables are in fact being used
+//	Todo:	
 //
 
 import UIKit
@@ -15,10 +24,16 @@ import MapboxDirections
 var directions = Directions.shared;
 //var restorationIdentifier: String? { get set }
 class MapUI: UIViewController {
+	
+//View Outlets
 	@IBOutlet var MapUI: MGLMapView!
 	
+//Variables
 	var delegate: MapViewDelegate?
+	var coordinates: [CLLocationCoordinate2D] = []
+	var waypoints: [Waypoint] = []
 	
+//Load Actions
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		MapUI = MGLMapView(frame: view.bounds)
@@ -46,12 +61,7 @@ class MapUI: UIViewController {
 		// Do any additional setup after loading the view.
 	}
 	
-	var coordinates: [CLLocationCoordinate2D] = []
-	
-	
-	
-	
-	var waypoints: [Waypoint] = []
+//Functions
 	
 	func handleSingleTap(tap: UITapGestureRecognizer) {
 		// convert tap location (CGPoint)
