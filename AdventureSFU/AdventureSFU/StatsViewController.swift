@@ -28,7 +28,7 @@ class StatsViewController: UIViewController, UITableViewDataSource {
 	var ref: FIRDatabaseReference?
 	var email = ""
 	var username = ""
-	var kilometres = 30
+	var kilometres = 30.0
 
 //Functions
 	
@@ -74,7 +74,7 @@ class StatsViewController: UIViewController, UITableViewDataSource {
 			
 			let tempEmail = value?["email"]
 			let tempUsername = value?["username"]
-			let tempKilo = value?["KM run"]
+			let tempKilo = value?["KMRun"]
 			
 			if let actualEmail = tempEmail {
 				self.email = actualEmail as! String
@@ -83,7 +83,8 @@ class StatsViewController: UIViewController, UITableViewDataSource {
 				self.username = actualUsername as! String
 			}
 			if let actualKilo = tempKilo {
-				self.kilometres = actualKilo as! Int
+				self.kilometres = actualKilo as! Double
+                
 			}
 			
 			self.userInfo.reloadData()
