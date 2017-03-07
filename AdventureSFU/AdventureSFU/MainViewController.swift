@@ -1,9 +1,19 @@
 //
 //  MainViewController.swift
-//  AdventureSFU
 //
-//  Created by Karan Aujla on 3/3/17.
-//  Copyright © 2017 Karan Aujla. All rights reserved.
+//	AdventureSFU: Make Your Path
+//	Created for SFU CMPT 276, Instructor Herbert H. Tsang, P.Eng., Ph.D.
+//	AdventureSFU was a project created by Group 12 of CMPT 276
+//
+//  Created by Group 12 on 3/2/17.
+//  Copyright © 2017 . All rights reserved.
+//
+//	MainViewController - The Main screen, that allows users to go to the various application modules
+//	Programmers: Karan Aujla, Carlos Abaffy, Eleanor Lewis, Chris Norris-Jones
+//
+//	Known Bugs:
+//	Todo:	-Set up Explore Module
+//			-Improve UI, better display map
 //
 
 import UIKit
@@ -17,20 +27,12 @@ class MainViewController: UIViewController {
 	//var databaseHandle: FIRDatabaseHandle?
 	
 	@IBOutlet weak var welcomeUserLabel: UILabel!
-    let defaultWIPMessage = "this module is still in development, please comeback later"
+    let defaultWIPMessage = "This module is still in development!"
 	
 	//Load Functions
 	
 	override func viewDidLoad() {
         super.viewDidLoad()
-
-//        print("the view loaded and login is is \(isLoggedIn)")
-//        if isLoggedIn == false {
-//            print("now loading the login in screen")
-//            performSegue(withIdentifier: "login", sender: nil)
-//        }
-//
-        // Do any additional setup after loading the view.
     
 		let userID = FIRAuth.auth()?.currentUser?.uid
 		ref = FIRDatabase.database().reference()
@@ -44,8 +46,6 @@ class MainViewController: UIViewController {
 
 		})
 		
-		
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -56,32 +56,15 @@ class MainViewController: UIViewController {
 	//Actions
 	
     @IBAction func logoutAction(){
-        //do any tasks we need to do before someone logs out
+        //Call to firebase to logout, then move back to ViewController
 		try! FIRAuth.auth()?.signOut()
         performSegue(withIdentifier: "logOut", sender: self)
         
     }
-    
-    //to be replaced with a segue to the run module
-    /*@IBAction func RunModuleButton(){
-            let alert = UIAlertController(title: "Error", message: defaultWIPMessage, preferredStyle: .alert)
-            let alertConfirmation = UIAlertAction(title: "ok", style: .default, handler: nil)
-            alert.addAction(alertConfirmation)
-            present(alert, animated: true, completion: nil)
-            print("the view loaded and login is is \(isLoggedIn)")
-
-    }
-    */
+	
     @IBAction func ExploreModuleButton(){
-        let alert = UIAlertController(title: "Error", message: defaultWIPMessage, preferredStyle: .alert)
+        let alert = UIAlertController(title: "We're Sorry!", message: defaultWIPMessage, preferredStyle: .alert)
         let alertConfirmation = UIAlertAction(title: "ok", style: .default, handler: nil)
-        alert.addAction(alertConfirmation)
-        present(alert, animated: true, completion: nil)
-    }
-    
-    @IBAction func StatsModuleButton(){
-        let alert = UIAlertController(title: "Error", message: defaultWIPMessage, preferredStyle: .alert)
-        let alertConfirmation = UIAlertAction(title: "ok", style: .cancel, handler: nil)
         alert.addAction(alertConfirmation)
         present(alert, animated: true, completion: nil)
     }

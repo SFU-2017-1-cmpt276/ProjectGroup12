@@ -1,9 +1,19 @@
 //
 //  signUpViewController.swift
-//  asd
 //
-//  Created by Karan Aujla on 3/2/17.
-//  Copyright © 2017 Karan Aujla. All rights reserved.
+//	AdventureSFU: Make Your Path
+//	Created for SFU CMPT 276, Instructor Herbert H. Tsang, P.Eng., Ph.D.
+//	AdventureSFU was a project created by Group 12 of CMPT 276
+//
+//  Created by Group 12 on 3/2/17.
+//  Copyright © 2017 . All rights reserved.
+//
+//	signUpViewController - The signup screen that alows users to create their account
+//	Programmers: Karan Aujla, Carlos Abaffy, Eleanor Lewis, Chris Norris-Jones
+//
+//	Known Bugs: None Currently
+//	Todo:	-Integrate Further User Details into account creation
+//			-Set up Team Create Page
 //
 
 import UIKit
@@ -11,12 +21,13 @@ import Firebase
  
 class signUpViewController: UIViewController {
 	
+	//Storyboard Outlets
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var userNameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
 	
+	//Variables
 	var newUser: userProfile?
-	
 	var ref: FIRDatabaseReference?
 	
 	
@@ -31,13 +42,13 @@ class signUpViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+	
+	//Actions
+	
     @IBAction func BackButton(){
         dismiss(animated: true, completion: nil)
     }
     
-   
-
     @IBAction func createAccount(){
 		
 		//If not all fields entered in, give an alert error
@@ -54,7 +65,7 @@ class signUpViewController: UIViewController {
 			                                    password: self.passwordField.text!,
 			                                    completion: { (user, error) in
 													if error == nil {
-														//Account Created Succesffuly, return to login page
+														//Account Created Successfully, enter in stats into database and return to ViewController
 														
 														self.ref?.child("Users").child(user!.uid).child("email").setValue(self.emailField.text)
 														self.ref?.child("Users").child(user!.uid).child("username").setValue(self.userNameField.text)
@@ -63,7 +74,7 @@ class signUpViewController: UIViewController {
 														
 														
 													} else {
-														//Account Creation Error
+														//Account Creation Error, throw up warning and error reason
 														let alertController = UIAlertController(title: "Account Creation Issue!", message: error?.localizedDescription, preferredStyle: .alert)
 														let defaultAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
 														alertController.addAction(defaultAction)
