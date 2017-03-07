@@ -23,14 +23,12 @@ import Mapbox
 import MapboxDirections
 import Firebase
 
-
 class ViewRunController: UIViewController, MapViewDelegate {
 	
 //View Outlets
 	@IBOutlet weak var distanceField: UILabel!
 	@IBOutlet weak var timeField: UILabel!
-	
-  
+	  
 //Variables
 	var time: Double = 0
 	var distance: Double = 0
@@ -40,39 +38,33 @@ class ViewRunController: UIViewController, MapViewDelegate {
 	let userID = FIRAuth.auth()?.currentUser?.uid
     
 //Functions
+    //Functions implementing MapViewDelegate headers
 	func getTime(time: Double) -> Double? {
 		self.time = time
 		timeField.text = String("min: \(time/60)")
-		print("searchabletime\(time)")
 		return time
 	}
 	
 	func getDistance(distance: Double) -> Double? {
 		self.distance = distance/1000
 		distanceField.text = String("kms: \(distance/1000)")
-		print("searchabledistance\(time)")
 		return distance
 		
 	}
 	
 	func getWaypoint(waypoint: Waypoint) {
 		self.waypoints.append(waypoint)
-		
 	}
 	
 	func getRoute(chosenRoute: Route) -> Route? {
 		self.route = chosenRoute
-		print("searchableroute\(chosenRoute)")
 		return chosenRoute
-		
 	}
 	
 //Load Actions
 	override func viewDidLoad() {
 		super.viewDidLoad()
         ref = FIRDatabase.database().reference()
-        
-        
 		// Do any additional setup after loading the view.
 	}
 	
@@ -87,32 +79,24 @@ class ViewRunController: UIViewController, MapViewDelegate {
 	}
 	
     @IBAction func submitRunStats(_ sender: AnyObject) {
-        
         var tempTotalKm: Double?
-        
         ref?.child("Users").child(userID!).child("KMRun").observeSingleEvent(of: .value, with: { (snapshot) in
-            
             tempTotalKm = snapshot.value as? Double
-            
             if var totalKm = tempTotalKm {
                 totalKm = self.distance + tempTotalKm!
                 self.ref?.child("Users").child(self.userID!).child("KMRun").setValue(totalKm)
             }
         })
+        //Submit current route kms to user stats in database.
     }
-	// MARK: - Navigation
 	
-	// In a storyboard-based application, you will often want to do a little preparation before navigation
+// Navigation
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		
 		if segue.identifier == "runpageembed" {
 			let childViewController = segue.destination as? MapUI
 			childViewController?.delegate = self
-			
 		}
-		
-		// Get the new view controller using segue.destinationViewController.
-		// Pass the selected object to the new view controller.
+		//Define self as MapViewDelegate for embedded MapUI.
 	}
  
 	

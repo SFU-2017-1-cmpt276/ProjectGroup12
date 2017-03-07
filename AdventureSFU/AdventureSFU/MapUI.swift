@@ -19,10 +19,6 @@ import UIKit
 import Mapbox
 import MapboxDirections
 
-
-//  let directions = Directions.shared
-var directions = Directions.shared;
-//var restorationIdentifier: String? { get set }
 class MapUI: UIViewController {
 	
 //View Outlets
@@ -32,6 +28,7 @@ class MapUI: UIViewController {
 	var delegate: MapViewDelegate?
 	var coordinates: [CLLocationCoordinate2D] = []
 	var waypoints: [Waypoint] = []
+    var directions = Directions.shared;
 	
 //Load Actions
 	override func viewDidLoad() {
@@ -41,94 +38,65 @@ class MapUI: UIViewController {
 		view.addSubview(MapUI)
 		MapUI.setCenter(CLLocationCoordinate2D(latitude: 49.273382, longitude: -122.908837),
 		                zoomLevel: 15, animated: false)
-		// double tapping zooms the map, so ensure that can still happen
-		let doubleTap = UITapGestureRecognizer(target: self, action: nil)
+
+        // define doubleTap so singleTap can be distinguished from it
+        let doubleTap = UITapGestureRecognizer(target: self, action: nil)
 		doubleTap.numberOfTapsRequired = 2
 		MapUI.addGestureRecognizer(doubleTap)
 		
-		
-		
-		// delay single tap recognition until it is clearly not a double
+		// define singleTap relative to doubleTap
 		let singleTap = UITapGestureRecognizer(target: self, action: #selector(handleSingleTap))
 		singleTap.require(toFail: doubleTap)
 		MapUI.addGestureRecognizer(singleTap)
-		
-		
-		// convert `mapView.centerCoordinate` (CLLocationCoordinate2D)
-		// to screen location (CGPoint)
-		let centerScreenPoint: CGPoint = MapUI.convert(MapUI.centerCoordinate, toPointTo: MapUI)
-		print("Screen center: \(centerScreenPoint) = \(MapUI.center)")
-		// Do any additional setup after loading the view.
-	}
+		//Load map centred at specified coordinates. Add gesture recognizers doubleTap and singleTap.
+}
 	
 //Functions
-	
 	func handleSingleTap(tap: UITapGestureRecognizer) {
-		// convert tap location (CGPoint)
-		// to geographic coordinates (CLLocationCoordinate2D)
 		var location: CLLocationCoordinate2D = MapUI.convert(tap.location(in: MapUI), toCoordinateFrom: MapUI)
 		let names = "0"
-		print("You tapped at: \(location.latitude), \(location.longitude)")
 		
 		let wpt: Waypoint = Waypoint(coordinate: location, name: names)
 		waypoints.append(wpt)
-		self.delegate?.getWaypoint(waypoint: wpt)
+		//update current list of coordinates
+    
+        self.delegate?.getWaypoint(waypoint: wpt)
+        //sends waypoint to delegate array
 		
-		
-		// remove existing polyline from the map, (re)add polyline with coordinates
 		if (MapUI.annotations?.count != nil) {
 			MapUI.removeAnnotations(MapUI.annotations!)
+            // remove drawn route so new route can be drawn
 		}
 		
-		// let polyline = MGLPolyline(coordinates: &coordinates, count: UInt(coordinates.count))
+		// if at least 2 points are specified, calculate and draw route. update local and delegate stats.
 		if waypoints.count > 1 {
-			// MapUI.addAnnotation(polyline)
+            
 			let options = RouteOptions(waypoints: waypoints, profileIdentifier: MBDirectionsProfileIdentifierWalking)
-			options.includesSteps = true
-			
+			//define directions info - coordinates and travel speed
 			
 			_ = directions.calculate(options) { (waypoints, routes, error) in
 				guard error == nil else {
-					print("Error calculating directions: \(error!)")
+					print("Error calculating directions") //for debugging purposes
 					return
 				}
-				
-				
-				
-				if let route = routes?.first, let leg = route.legs.first {
-					print("Route via \(leg):")
+        
+				if let route = routes?.first {
 					self.delegate?.getRoute(chosenRoute: route)
-					let distanceFormatter = LengthFormatter()
-					let formattedDistance = distanceFormatter.string(fromMeters: route.distance)
-					
-					let travelTimeFormatter = DateComponentsFormatter()
-					travelTimeFormatter.unitsStyle = .short
-					let formattedTravelTime = travelTimeFormatter.string(from: route.expectedTravelTime)
 					self.delegate?.getTime(time: route.expectedTravelTime)
 					self.delegate?.getDistance(distance: route.distance)
-					print("Distance: \(formattedDistance); ETA: \(formattedTravelTime!)")
+                    //submit route, distance and time info to delegate
 					
-					for step in leg.steps {
-						print("\(step.instructions)")
-						if step.distance > 0 {
-							let formattedDistance = distanceFormatter.string(fromMeters: step.distance)
-							print("searchableview — \(formattedDistance) —")
-						}
-					}
-					
-					if route.coordinateCount > 0 {
-						// Convert the route’s coordinates into a polyline.
-						var routeCoordinates = route.coordinates!
-						let routeLine = MGLPolyline(coordinates: &routeCoordinates, count: route.coordinateCount)
-						
-						// Add the polyline to the map and fit the viewport to the polyline.
-						self.MapUI.addAnnotation(routeLine)
-						self.MapUI.setVisibleCoordinates(&routeCoordinates, count: route.coordinateCount, edgePadding: .zero, animated: true)
-					}
+
+                    var routeCoordinates = route.coordinates!
+                    let routeLine = MGLPolyline(coordinates: &routeCoordinates, count: route.coordinateCount)
+                    self.MapUI.addAnnotation(routeLine)
+                    self.MapUI.setVisibleCoordinates(&routeCoordinates, count: route.coordinateCount, edgePadding: .zero, animated: true)
+                    //redraw route
 				}
 			}
 		}
-	}
+       //Updates route with coordinates selected by singleTap.
+    }
 	
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
@@ -140,16 +108,7 @@ class MapUI: UIViewController {
 		super.viewDidAppear(animated)
 		
 	}
-	
-	/*
-	// MARK: - Navigation
-	// In a storyboard-based application, you will often want to do a little preparation before navigation
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-	// Get the new view controller using segue.destinationViewController.
-	// Pass the selected object to the new view controller.
-	}
-	*/
-	
+
 }
 
 
