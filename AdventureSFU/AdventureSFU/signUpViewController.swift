@@ -69,7 +69,7 @@ class signUpViewController: UIViewController {
 														
 														self.ref?.child("Users").child(user!.uid).child("email").setValue(self.emailField.text)
 														self.ref?.child("Users").child(user!.uid).child("username").setValue(self.userNameField.text)
-														self.ref?.child("Users").child(user!.uid).child("KM run").setValue(0)
+														self.ref?.child("Users").child(user!.uid).child("KMRun").setValue(0.0)
 														self.dismiss(animated: true, completion: nil)
 														
 														
