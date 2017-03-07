@@ -21,6 +21,7 @@
 import UIKit
 import Mapbox
 import MapboxDirections
+import Firebase
 
 
 class ViewRunController: UIViewController, MapViewDelegate {
@@ -29,12 +30,15 @@ class ViewRunController: UIViewController, MapViewDelegate {
 	@IBOutlet weak var distanceField: UILabel!
 	@IBOutlet weak var timeField: UILabel!
 	
+  
 //Variables
 	var time: Double = 0
 	var distance: Double = 0
 	var waypoints: [Waypoint] = []
 	var route: Route?
-	
+    var ref: FIRDatabaseReference?
+	let userID = FIRAuth.auth()?.currentUser?.uid
+    
 //Functions
 	func getTime(time: Double) -> Double? {
 		self.time = time
@@ -44,7 +48,7 @@ class ViewRunController: UIViewController, MapViewDelegate {
 	}
 	
 	func getDistance(distance: Double) -> Double? {
-		self.distance = distance
+		self.distance = distance/1000
 		distanceField.text = String("kms: \(distance/1000)")
 		print("searchabledistance\(time)")
 		return distance
@@ -66,7 +70,9 @@ class ViewRunController: UIViewController, MapViewDelegate {
 //Load Actions
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
+        ref = FIRDatabase.database().reference()
+        
+        
 		// Do any additional setup after loading the view.
 	}
 	
@@ -80,6 +86,20 @@ class ViewRunController: UIViewController, MapViewDelegate {
 		performSegue(withIdentifier: "runControllerToMain", sender: self)
 	}
 	
+    @IBAction func submitRunStats(_ sender: AnyObject) {
+        
+        var tempTotalKm: Double?
+        
+        ref?.child("Users").child(userID!).child("KMRun").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            tempTotalKm = snapshot.value as? Double
+            
+            if var totalKm = tempTotalKm {
+                totalKm = self.distance + tempTotalKm!
+                self.ref?.child("Users").child(self.userID!).child("KMRun").setValue(totalKm)
+            }
+        })
+    }
 	// MARK: - Navigation
 	
 	// In a storyboard-based application, you will often want to do a little preparation before navigation
