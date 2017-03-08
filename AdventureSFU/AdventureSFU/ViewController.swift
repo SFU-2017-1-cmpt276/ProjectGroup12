@@ -18,7 +18,7 @@
 import UIKit
 import Firebase
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
 	
 //Outlets
 	@IBOutlet weak var emailField: UITextField!
@@ -29,6 +29,12 @@ class ViewController: UIViewController {
 	var enteredEmail: String?
 	var enteredPassword: String?
 	var ref:FIRDatabaseReference?
+
+//Functions
+	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+		textField.resignFirstResponder()
+		return false
+	}
 	
 //Load Actions
     override func viewDidLoad() {
