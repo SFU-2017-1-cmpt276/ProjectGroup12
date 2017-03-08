@@ -87,6 +87,10 @@ class ViewRunController: UIViewController, MapViewDelegate {
                 self.ref?.child("Users").child(self.userID!).child("KMRun").setValue(totalKm)
             }
         })
+		let alertController = UIAlertController(title: "Congratulations!", message: "I hope you had a great run!", preferredStyle: .alert)
+		let defaultAction = UIAlertAction(title: "Thanks", style: .cancel, handler: nil)
+		alertController.addAction(defaultAction)
+		self.present(alertController, animated: true, completion: nil)
         //Submit current route kms to user stats in database.
     }
 	
