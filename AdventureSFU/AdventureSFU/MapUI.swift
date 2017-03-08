@@ -49,7 +49,7 @@ class MapUI: UIViewController {
 		singleTap.require(toFail: doubleTap)
 		MapUI.addGestureRecognizer(singleTap)
 		//Load map centred at specified coordinates. Add gesture recognizers doubleTap and singleTap.
-}
+    }
 	
 //Functions
 	func handleSingleTap(tap: UITapGestureRecognizer) {
