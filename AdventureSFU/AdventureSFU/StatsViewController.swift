@@ -28,7 +28,7 @@ class StatsViewController: UIViewController, UITableViewDataSource {
 	var ref: FIRDatabaseReference?
 	var email = ""
 	var username = ""
-	var kilometres = 30.0
+    var kilometres: Double = 0.0
 
 //Functions
 	

@@ -1,22 +1,33 @@
 //
 //  test.swift
-//  asd
 //
-//  Created by Karan Aujla on 3/2/17.
-//  Copyright © 2017 Karan Aujla. All rights reserved.
+//	AdventureSFU: Make Your Path
+//	Created for SFU CMPT 276, Instructor Herbert H. Tsang, P.Eng., Ph.D.
+//	AdventureSFU was a project created by Group 12 of CMPT 276
+//
+//  Created by Group 12 on 3/2/17.
+//  Copyright © 2017 . All rights reserved.
+//
+//	class: userProfile - defines the userProfile object used in Signup and Login.
+//	Programmers: Karan Aujla, Carlos Abaffy, Eleanor Lewis, Chris Norris-Jones
+//
+//	Known Bugs:
+//	Todo:
 //
 
 import Foundation
 import UIKit
 
 class userProfile {
+    
+//Variables
     var email: String
     var username: String
     var password: String
-    // add more things later test test test
     
+    
+//Functions
     init(enteredPassword: String, enteredUsername: String, enteredEmail: String ) {
-        //create validations later, right now it is just assuming you entered valid stuff
         if enteredEmail.isEmpty == false {
             email = enteredEmail
         } else{
@@ -38,7 +49,6 @@ class userProfile {
     }
 }
 
-//set the background color of all the views to the same thing
 
 var testMessage = "this was defined in a different file"
 
