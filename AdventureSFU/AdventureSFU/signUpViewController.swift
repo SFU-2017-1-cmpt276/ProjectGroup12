@@ -19,19 +19,24 @@
 import UIKit
 import Firebase
  
-class signUpViewController: UIViewController {
+class signUpViewController: UIViewController, UITextFieldDelegate {
 	
-	//Storyboard Outlets
+//Outlets
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var userNameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
 	
-	//Variables
+//Variables
 	var newUser: userProfile?
 	var ref: FIRDatabaseReference?
 	
+//Functions
+	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+		textField.resignFirstResponder()
+		return false
+	}
 	
-	
+//Load Actions
     override func viewDidLoad() {
         super.viewDidLoad()
 		
@@ -43,7 +48,7 @@ class signUpViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 	
-	//Actions
+//Actions
 	
     @IBAction func BackButton(){
         dismiss(animated: true, completion: nil)

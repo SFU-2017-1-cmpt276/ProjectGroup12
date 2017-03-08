@@ -21,15 +21,18 @@ import Firebase
 
 class MainViewController: UIViewController {
 	
-	//variables/Outlets
+//Variables
 	
 	var ref: FIRDatabaseReference?
 	//var databaseHandle: FIRDatabaseHandle?
 	
 	@IBOutlet weak var welcomeUserLabel: UILabel!
     let defaultWIPMessage = "This module is still in development!"
+
 	
-	//Load Functions
+//Functions
+
+//Load Actions
 	
 	override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +56,7 @@ class MainViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 	
-	//Actions
+//Actions
 	
     @IBAction func logoutAction(){
         //Call to firebase to logout, then move back to ViewController
