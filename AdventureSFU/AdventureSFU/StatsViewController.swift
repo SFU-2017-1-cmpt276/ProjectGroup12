@@ -19,16 +19,17 @@
 import UIKit
 import Firebase
 
-class StatsViewController: UIViewController, UITableViewDataSource {
+class StatsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	
 //Outlets
 	@IBOutlet weak var userInfo: UITableView!
-
+   
 //Varibles
 	var ref: FIRDatabaseReference?
 	var email = ""
 	var username = ""
     var kilometres: Double = 0.0
+    var canEditUserInfo = false //used to track if the user can edit their info
 
 //Functions
 	
@@ -58,7 +59,35 @@ class StatsViewController: UIViewController, UITableViewDataSource {
         
         return celltoBeReturned
     }
-	
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+       //print("selected row \(indexPath.row)")
+        //only allow the user info to be edited if the edit button has been tapped
+        if canEditUserInfo {
+            
+            //if the username row is selected
+            if indexPath.row == 0 {
+                //create an alert to
+                let changeUsernameAlert = UIAlertController(title: "new Username", message: "please enter your new username", preferredStyle: .alert)
+                changeUsernameAlert.addTextField(configurationHandler: nil)
+                
+                let confirmChange = UIAlertAction(title: "confirm", style: .default, handler: {confirmChange in
+                    self.username = (changeUsernameAlert.textFields!.last?.text)!
+                    print("username is now: \(self.username)")
+                    self.userInfo.reloadData()
+                    })
+                changeUsernameAlert.addAction(confirmChange)
+                
+                let cancelChange = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+                changeUsernameAlert.addAction(cancelChange)
+                present(changeUsernameAlert, animated: true)
+                
+                
+//                username = (changeUsernameAlert.textFields!.last?.text)!
+//                print("username is now: \(username)")
+//                self.userInfo.reloadData()
+        }
+        }
+    }
 
 //Load Actions
       override func viewDidLoad() {
@@ -102,6 +131,23 @@ class StatsViewController: UIViewController, UITableViewDataSource {
     @IBAction func BackButton(){
         dismiss(animated: true, completion: nil)
     }
+    
+    //beginning the editing process
+    @IBAction func beginEditing(_ sender: UIButton) {
+    
+        canEditUserInfo = !(canEditUserInfo)//flips between editing and non editing state
+        print("canEditUserInfo is currently \(canEditUserInfo)")
+        //change the text to let the user now that they tapped the button, maybe add more visual cues later
+        if canEditUserInfo == true {
+            sender.setTitle("DONE", for: .normal)
+            print("set titlelabel to  done")
+        } else {
+            sender.setTitle("EDIT", for: .normal)
+            print("set titlelabel to edit")
+        }
+        
+    }
+    
     
     
     /*
