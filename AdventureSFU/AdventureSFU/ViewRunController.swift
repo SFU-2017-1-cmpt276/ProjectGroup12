@@ -34,6 +34,7 @@ class ViewRunController: UIViewController, MapViewDelegate {
 	var distance: Double = 0
 	var waypoints: [Waypoint] = []
 	var route: Route?
+    var presetRoute: Route?
     var ref: FIRDatabaseReference?
 	let userID = FIRAuth.auth()?.currentUser?.uid
     
@@ -64,6 +65,7 @@ class ViewRunController: UIViewController, MapViewDelegate {
 //Load Actions
 	override func viewDidLoad() {
 		super.viewDidLoad()
+        if (presetRoute != nil) { route = presetRoute }
         ref = FIRDatabase.database().reference()
 		// Do any additional setup after loading the view.
 	}
@@ -99,7 +101,12 @@ class ViewRunController: UIViewController, MapViewDelegate {
 		if segue.identifier == "runpageembed" {
 			let childViewController = segue.destination as? MapUI
 			childViewController?.delegate = self
+            childViewController?.preselectedRoute = self.route
 		}
+        if segue.identifier == "startRun" {
+            let childViewController = segue.destination as? ActiveRunController
+            childViewController?.presetRoute = self.route
+        }
 		//Define self as MapViewDelegate for embedded MapUI.
 	}
  

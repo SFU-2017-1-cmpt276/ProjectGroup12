@@ -29,10 +29,13 @@ class MapUI: UIViewController {
 	var coordinates: [CLLocationCoordinate2D] = []
 	var waypoints: [Waypoint] = []
     var directions = Directions.shared;
-	
+    var preselectedRoute: Route?
+    
 //Load Actions
 	override func viewDidLoad() {
 		super.viewDidLoad()
+ 
+
 		MapUI = MGLMapView(frame: view.bounds)
 		MapUI.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 		view.addSubview(MapUI)
@@ -49,6 +52,12 @@ class MapUI: UIViewController {
 		singleTap.require(toFail: doubleTap)
 		MapUI.addGestureRecognizer(singleTap)
 		//Load map centred at specified coordinates. Add gesture recognizers doubleTap and singleTap.
+ 
+        
+        if (preselectedRoute != nil) {
+        drawRoute(route: preselectedRoute!)
+        }
+        
     }
 	
 //Functions
@@ -69,8 +78,14 @@ class MapUI: UIViewController {
 		}
 		
 		// if at least 2 points are specified, calculate and draw route. update local and delegate stats.
-		if waypoints.count > 1 {
-            
+	
+            handleRoute()
+      
+    }
+    
+    
+    func handleRoute() {
+        if waypoints.count > 1 {
 			let options = RouteOptions(waypoints: waypoints, profileIdentifier: MBDirectionsProfileIdentifierWalking)
 			//define directions info - coordinates and travel speed
 			
@@ -79,8 +94,13 @@ class MapUI: UIViewController {
 					print("Error calculating directions") //for debugging purposes
 					return
 				}
-        
+    
 				if let route = routes?.first {
+                    self.drawRoute(route: route)
+                }}
+        }
+    }
+    func drawRoute(route: Route) {
 					self.delegate?.getRoute(chosenRoute: route)
 					self.delegate?.getTime(time: route.expectedTravelTime)
 					self.delegate?.getDistance(distance: route.distance)
@@ -93,10 +113,9 @@ class MapUI: UIViewController {
                     self.MapUI.setVisibleCoordinates(&routeCoordinates, count: route.coordinateCount, edgePadding: .zero, animated: true)
                     //redraw route
 				}
-			}
-		}
+	
        //Updates route with coordinates selected by singleTap.
-    }
+
 	
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
