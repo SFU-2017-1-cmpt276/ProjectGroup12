@@ -64,14 +64,19 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
         //only allow the user info to be edited if the edit button has been tapped
         if canEditUserInfo {
             
-            //if the username row is selected
+            //if the username is selected
             if indexPath.row == 0 {
-                //create an alert to
+                //create an alert to change the username
                 let changeUsernameAlert = UIAlertController(title: "new Username", message: "please enter your new username", preferredStyle: .alert)
+                
+                //the new username is inputed here
                 changeUsernameAlert.addTextField(configurationHandler: nil)
                 
+                //
                 let confirmChange = UIAlertAction(title: "confirm", style: .default, handler: {confirmChange in
                     self.username = (changeUsernameAlert.textFields!.last?.text)!
+                    //also change the username on firebase
+                    self.ref?.child("Users").child((FIRAuth.auth()?.currentUser?.uid)!).child("username").setValue(self.username)
                     print("username is now: \(self.username)")
                     self.userInfo.reloadData()
                     })
@@ -79,13 +84,10 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
                 
                 let cancelChange = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
                 changeUsernameAlert.addAction(cancelChange)
+                
                 present(changeUsernameAlert, animated: true)
                 
-                
-//                username = (changeUsernameAlert.textFields!.last?.text)!
-//                print("username is now: \(username)")
-//                self.userInfo.reloadData()
-        }
+            }
         }
     }
 
@@ -136,14 +138,14 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
     @IBAction func beginEditing(_ sender: UIButton) {
     
         canEditUserInfo = !(canEditUserInfo)//flips between editing and non editing state
-        print("canEditUserInfo is currently \(canEditUserInfo)")
+        // print("canEditUserInfo is currently \(canEditUserInfo)")
         //change the text to let the user now that they tapped the button, maybe add more visual cues later
         if canEditUserInfo == true {
             sender.setTitle("DONE", for: .normal)
-            print("set titlelabel to  done")
+           // print("set titlelabel to  done")
         } else {
             sender.setTitle("EDIT", for: .normal)
-            print("set titlelabel to edit")
+            //print("set titlelabel to edit")
         }
         
     }
