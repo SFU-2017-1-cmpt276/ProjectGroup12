@@ -10,31 +10,49 @@ import UIKit
 import Mapbox
 import MapboxDirections
 import Firebase
+import CoreLocation
 
-
-class ActiveMapUI: MapUI {
-
+class ActiveMapUI: MapUI, CLLocationManagerDelegate {
+    var locationManager: CLLocationManager!
     var activeDelegate: ActiveMapViewDelegate?
   //  var route: Route?
     
     override func viewDidLoad() {
+      self.locationManager = CLLocationManager()
+        self.locationManager.requestAlwaysAuthorization()
+   
+    
         super.viewDidLoad()
+        if (CLLocationManager.locationServicesEnabled()) {
         MapUI.userTrackingMode = .follow
-//        if (route != nil) {
-//        var routeCoordinates = route!.coordinates!
-//        let routeLine = MGLPolyline(coordinates: &routeCoordinates, count: route!.coordinateCount)
-//        self.MapUI.addAnnotation(routeLine)
-//        self.MapUI.setVisibleCoordinates(&routeCoordinates, count: route!.coordinateCount, edgePadding: .zero, animated: true)
-//        //redraw route
-//        }
-        // Do any additional setup after loading the view.
-    }
+            self.locationManager.delegate = self
+            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            
+            // Set a movement threshold for new events.
+            self.locationManager.distanceFilter = kCLLocationAccuracyBest // meters
+            self.locationManager.startUpdatingLocation()
 
+
+        print("searchable didload check")
+        }}
+    
+   
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
+
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
+    {
+        
+        let location = locations.last! as CLLocation
+        
+  
+        
+        print("searchable long and lat\(location.coordinate.longitude),\(location.coordinate.latitude)")
+        
+    }
 
     /*
     // MARK: - Navigation
