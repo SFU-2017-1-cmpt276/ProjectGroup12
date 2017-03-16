@@ -29,6 +29,7 @@
 		DE664EC21E6DAC7E00FC1848 /* MapViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE664EC11E6DAC7E00FC1848 /* MapViewDelegate.swift */; };
 		DE664EC41E6DAD2900FC1848 /* MapUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE664EC31E6DAD2900FC1848 /* MapUI.swift */; };
 		DEE6203D1E6B47E000B49665 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DEE6203C1E6B47E000B49665 /* GoogleService-Info.plist */; };
+		FD207B3B1E7AC95A000C50D5 /* ActiveMapViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD207B3A1E7AC95A000C50D5 /* ActiveMapViewDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +97,7 @@
 		EAE09F0A0000B662F1983D85 /* Pods_AdventureSFUTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AdventureSFUTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE11182882D24DBBA17B1040 /* Pods_AdventureSFUUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AdventureSFUUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5E313334D5509B9D6CF4AA0 /* Pods-AdventureSFU.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdventureSFU.release.xcconfig"; path = "Pods/Target Support Files/Pods-AdventureSFU/Pods-AdventureSFU.release.xcconfig"; sourceTree = "<group>"; };
+		FD207B3A1E7AC95A000C50D5 /* ActiveMapViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveMapViewDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +166,7 @@
 				9E24D9FE1E6B8E290093D4D1 /* Main.storyboard */,
 				C941919C1E78B95200EB6178 /* ActiveMapUI.swift */,
 				C941919A1E78B7F500EB6178 /* ActiveRunController.swift */,
+				FD207B3A1E7AC95A000C50D5 /* ActiveMapViewDelegate.swift */,
 				9E1B86BD1E691C39006C0E61 /* signUpViewController.swift */,
 				9E1B86BE1E691C39006C0E61 /* test.swift */,
 				9E1B868C1E691C08006C0E61 /* AppDelegate.swift */,
@@ -506,6 +509,7 @@
 				9E8C65F21E6B77BC0090CEDA /* StatsViewController.swift in Sources */,
 				DE664EC21E6DAC7E00FC1848 /* MapViewDelegate.swift in Sources */,
 				9E1B86C01E691C39006C0E61 /* test.swift in Sources */,
+				FD207B3B1E7AC95A000C50D5 /* ActiveMapViewDelegate.swift in Sources */,
 				9E1B868D1E691C08006C0E61 /* AppDelegate.swift in Sources */,
 				C941919B1E78B7F500EB6178 /* ActiveRunController.swift in Sources */,
 				C941919D1E78B95200EB6178 /* ActiveMapUI.swift in Sources */,

@@ -14,6 +14,7 @@ import Firebase
 
 class ActiveMapUI: MapUI {
 
+    var activeDelegate: ActiveMapViewDelegate?
   //  var route: Route?
     
     override func viewDidLoad() {

@@ -10,7 +10,7 @@ import UIKit
 import Mapbox
 import MapboxDirections
 import Firebase
-class ActiveRunController: ViewRunController {
+class ActiveRunController: ViewRunController, ActiveMapViewDelegate {
 
     
     override func viewDidLoad() {
