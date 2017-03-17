@@ -25,10 +25,19 @@ class signUpViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var userNameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
-	
+    
+    //two fields for height, one for inches and one for feet
+    @IBOutlet weak var feetHeightField: UITextField!
+    @IBOutlet weak var inchesHeightField: UITextField!
+    @IBOutlet weak var weightField: UITextField!
+    @IBOutlet weak var personalMessageField: UITextField!
+    
 //Variables
 	var newUser: userProfile?
 	var ref: FIRDatabaseReference?
+    //set default values for the optional fields
+    
+    
 	
 //Functions
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -55,7 +64,58 @@ class signUpViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func createAccount(){
-		
+        
+        //set defualt values for the optional fields, in case the user didn't enter anything
+        var validHeightFeet: Double = 0.0
+        var validHeightInches: Double = 0.0
+        var validWeight: Double = 0.0
+        var validPersonalMessage = "Hi, I just joined"
+        
+        //create a generic alert for invalid optional values
+        let invalidAlert = UIAlertController(title: "Invalid", message: "your __ was an invalid value,", preferredStyle: .alert)
+        let invalidConfirmation = UIAlertAction(title: "ok", style: .default, handler: nil)
+        invalidAlert.addAction(invalidConfirmation)
+        //setting height
+        //try to get the values from the feet height textfield
+        if let enteredHeightFeet: Double = Double(feetHeightField.text!) {
+            //make sure that the height the user entered was not negative
+            if enteredHeightFeet >= 0 {
+                //if the value works, overwrite the default value
+                validHeightFeet = enteredHeightFeet
+            } else {
+                //if the feet value was negative, adjust the generic alert and display it
+                invalidAlert.title = "invalid height"
+                invalidAlert.message = "the feet you entered is invalid. Please try again"
+                present(invalidAlert, animated: true, completion: nil)
+                
+                //then exit so the user can retry entering the values
+                
+                return
+            }
+        }
+        //try to get the value from the inches height textfield
+        if let enteredHeightInches: Double = Double(inchesHeightField.text!) {
+            //if the value works, overwrite the default value
+            validHeightInches = enteredHeightInches
+        }
+        //combine both the feet and inches values, and store it as feet
+        var userHeight: Double = (validHeightFeet )  + (validHeightInches)/12
+        
+        //just here to stop xcode from complaining
+        userHeight = userHeight + 0
+        //REMOVE LATER
+        
+        
+        //setting weight
+        if let enteredWeight:Double = Double(weightField.text!) {
+            validWeight = enteredWeight
+        }
+        if let enteredPersonalMessage: String = personalMessageField.text {
+            validPersonalMessage = enteredPersonalMessage
+        }
+        
+        //settting personal message
+        
 		//If not all fields entered in, give an alert error
 		if self.userNameField.text == "" || self.emailField.text == "" || self.passwordField.text == "" {
 			let alertController = UIAlertController(title: "Fields Missing!", message: "Please enter an email, username, and password!", preferredStyle: .alert)
