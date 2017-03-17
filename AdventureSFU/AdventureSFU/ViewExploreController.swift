@@ -20,19 +20,42 @@ import UIKit
 class ViewExploreController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
 //Variables
-	let list = ["Explore0", "Explore1", "Explore2", "Explore3", "Explore4", "Explore5", "Explore6", "Explore7", "Explore8", "Explore9"]
+	let itemTitle = ["Explore0",
+	                 "Explore1",
+	                 "Explore2",
+	                 "Explore3",
+	                 "Explore4",
+	                 "Explore5",
+	                 "Explore6",
+	                 "Explore7",
+	                 "Explore8",
+	                 "Explore9"]
+    let itemText = ["Test test test test test test 0",
+                    "Test test test test test test 1",
+                    "Test test test test test test 2",
+                    "Test test test test test test 3",
+                    "Test test test test test test 4",
+                    "Test test test test test test 5",
+                    "Test test test test test test 6",
+                    "Test test test test test test 7",
+                    "Test test test test test test 8",
+                    "Test test test test test test 9",]
+    var selectedRow:Int = -1
+    @IBOutlet weak var exploreTable: UITableView!
 //Functions
 
 	public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return(list.count)
+		return(itemTitle.count)
 	}
 	
 	public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		
 		let exploreCell = tableView.dequeueReusableCell(withIdentifier: "exploreCell", for: indexPath) as! ExploreTableViewCell
 		exploreCell.colourLight.image = UIImage(named: "red")
-		exploreCell.cellTitle.text = list[indexPath.row]
-		exploreCell.backgroundColor = UIColor.clear
+		exploreCell.cellTitle.text = itemTitle[indexPath.row]
+        exploreCell.layer.backgroundColor = UIColor.clear.cgColor
+        exploreCell.contentView.backgroundColor = UIColor.clear
+
 		return(exploreCell)
 	}
 	
@@ -40,10 +63,19 @@ class ViewExploreController: UIViewController, UITableViewDelegate, UITableViewD
 	//Will be set up to go to the Explore Map View page, currently just prints row #
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
-		let row = indexPath.row
-		print("Row: \(row)")
+        selectedRow = indexPath.row
+		self.performSegue(withIdentifier: "exploreDetail", sender: nil)
 		
 	}
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "exploreDetail" {
+            let detailView:ExploreViewOneController = segue.destination as! ExploreViewOneController
+            detailView.exploreTitle = itemTitle[selectedRow]
+            detailView.exploreText = itemText[selectedRow]
+        }
+
+    }
 	
 	//create function that takes in the row number for the cell, and then pushes to mapview page the title for the explore, the map location, the text, the ExploreID
 	
