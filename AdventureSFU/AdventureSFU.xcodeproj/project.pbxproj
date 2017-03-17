@@ -24,6 +24,9 @@
 		9E24DA001E6B8E290093D4D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E24D9FE1E6B8E290093D4D1 /* Main.storyboard */; };
 		9E8C65F21E6B77BC0090CEDA /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8C65F11E6B77BC0090CEDA /* StatsViewController.swift */; };
 		9E9CFCC51E6A1571006A4E1D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9CFCC41E6A1571006A4E1D /* MainViewController.swift */; };
+		DE23212A1E78679F00E7A8E9 /* ViewExploreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2321291E78679F00E7A8E9 /* ViewExploreController.swift */; };
+		DE23212E1E78778200E7A8E9 /* ExploreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE23212D1E78778200E7A8E9 /* ExploreTableViewCell.swift */; };
+		DE2E1AAC1E7B34A7002D206A /* ExploreViewOneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2E1AAB1E7B34A7002D206A /* ExploreViewOneController.swift */; };
 		DE664EC21E6DAC7E00FC1848 /* MapViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE664EC11E6DAC7E00FC1848 /* MapViewDelegate.swift */; };
 		DE664EC41E6DAD2900FC1848 /* MapUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE664EC31E6DAD2900FC1848 /* MapUI.swift */; };
 		DEE6203D1E6B47E000B49665 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DEE6203C1E6B47E000B49665 /* GoogleService-Info.plist */; };
@@ -86,6 +89,9 @@
 		9E24D9FF1E6B8E290093D4D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9E8C65F11E6B77BC0090CEDA /* StatsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		9E9CFCC41E6A1571006A4E1D /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		DE2321291E78679F00E7A8E9 /* ViewExploreController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewExploreController.swift; sourceTree = "<group>"; };
+		DE23212D1E78778200E7A8E9 /* ExploreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreTableViewCell.swift; sourceTree = "<group>"; };
+		DE2E1AAB1E7B34A7002D206A /* ExploreViewOneController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreViewOneController.swift; sourceTree = "<group>"; };
 		DE664EC11E6DAC7E00FC1848 /* MapViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewDelegate.swift; sourceTree = "<group>"; };
 		DE664EC31E6DAD2900FC1848 /* MapUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapUI.swift; sourceTree = "<group>"; };
 		DEE6203C1E6B47E000B49665 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -165,6 +171,9 @@
 				9E1B868E1E691C08006C0E61 /* ViewController.swift */,
 				9E8C65F11E6B77BC0090CEDA /* StatsViewController.swift */,
 				9E24D9FC1E6B8DDF0093D4D1 /* StatsTableViewController.swift */,
+				DE2321291E78679F00E7A8E9 /* ViewExploreController.swift */,
+				DE23212D1E78778200E7A8E9 /* ExploreTableViewCell.swift */,
+				DE2E1AAB1E7B34A7002D206A /* ExploreViewOneController.swift */,
 				2204B2801E6B7572009A6DF5 /* ViewRunController.swift */,
 				DE664EC31E6DAD2900FC1848 /* MapUI.swift */,
 				DE664EC11E6DAC7E00FC1848 /* MapViewDelegate.swift */,
@@ -495,6 +504,8 @@
 				2204B2811E6B7572009A6DF5 /* ViewRunController.swift in Sources */,
 				9E1B868F1E691C08006C0E61 /* ViewController.swift in Sources */,
 				9E1B86BF1E691C39006C0E61 /* signUpViewController.swift in Sources */,
+				DE23212A1E78679F00E7A8E9 /* ViewExploreController.swift in Sources */,
+				DE23212E1E78778200E7A8E9 /* ExploreTableViewCell.swift in Sources */,
 				9E9CFCC51E6A1571006A4E1D /* MainViewController.swift in Sources */,
 				DE664EC41E6DAD2900FC1848 /* MapUI.swift in Sources */,
 				9E8C65F21E6B77BC0090CEDA /* StatsViewController.swift in Sources */,
@@ -502,6 +513,7 @@
 				9E1B86C01E691C39006C0E61 /* test.swift in Sources */,
 				9E1B868D1E691C08006C0E61 /* AppDelegate.swift in Sources */,
 				9E24D9FD1E6B8DDF0093D4D1 /* StatsTableViewController.swift in Sources */,
+				DE2E1AAC1E7B34A7002D206A /* ExploreViewOneController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
