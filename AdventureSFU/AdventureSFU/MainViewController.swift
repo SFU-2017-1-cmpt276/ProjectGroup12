@@ -65,19 +65,16 @@ class MainViewController: UIViewController {
         
     }
 	
-    @IBAction func ExploreModuleButton(){
-        let alert = UIAlertController(title: "We're Sorry!", message: defaultWIPMessage, preferredStyle: .alert)
-        let alertConfirmation = UIAlertAction(title: "ok", style: .default, handler: nil)
-        alert.addAction(alertConfirmation)
-        present(alert, animated: true, completion: nil)
-    }
-	
 	@IBAction func toStatsPage() {
 		performSegue(withIdentifier: "mainToStats", sender: self)
 	}
 	
 	@IBAction func toRunControllerPage() {
 		performSegue(withIdentifier: "mainToRunController", sender: self)
+	}
+	
+	@IBAction func toExploreControllerPage() {
+		performSegue(withIdentifier: "mainToExplore", sender: self)
 	}
     /*
 	
