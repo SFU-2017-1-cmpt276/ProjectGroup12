@@ -114,8 +114,29 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
             
             //if height is selected
             } else if indexPath.row == 3 {
+                //due to there being 2 values for height (feet and inches), we need to ask what value they want to change
+                var feetChosen = false //a boolean indicating which value the user chose. False implies that they chose inches
                 
-            } 
+                
+                let chooseHeightValue = UIAlertController(title: "changing height",
+                                                          message: "please choose which value you would like to change: Feet or Inches",
+                                                          preferredStyle: .alert)
+                
+                let choseInches = UIAlertAction(title: "Inches", style: .destructive, handler: {choseInches in feetChosen = false})
+                chooseHeightValue.addAction(choseInches)
+                
+                let choseCancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+                chooseHeightValue.addAction(choseCancel)
+                
+                let choseFeet = UIAlertAction(title: "feet", style: .destructive, handler: {choseFeet in feetChosen = true})
+                chooseHeightValue.addAction(choseFeet)
+                present(chooseHeightValue, animated: true)
+                
+                let infoAlert = UIAlertController(title: "askdj", message: "feetchosen is now \(feetChosen)", preferredStyle: .alert)
+                let infoAction = UIAlertAction(title: "ok:", style: .default, handler: nil)
+                infoAlert.addAction(infoAction)
+                present(infoAlert, animated: true, completion: nil)
+            }
             
         }
     }
