@@ -26,16 +26,22 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
    
 //Varibles
 	var ref: FIRDatabaseReference?
-	var email = ""
-	var username = ""
+    //user info
+    var email: String = ""
+    var username: String = ""
     var kilometres: Double = 0.0
-    var canEditUserInfo = false //used to track if the user can edit their info
+    var height: Double = 0.0
+    var weight: Double = 0.0
+    var personalMessage: String = ""
+    
+    var canEditUserInfo: Bool = false //used to track if the user can edit their info
+
 
 //Functions
 	
 	//Create the Stats Table
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4 // Change for number of rows in table
+        return 7// Change for number of rows in table
     }
 	
     //Fill Stats Table
@@ -53,8 +59,27 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
 		}else if indexPath.row == 2{
 			celltoBeReturned.textLabel?.text = "Kilometres Run"
 			celltoBeReturned.detailTextLabel?.text = String(kilometres)
-		}else {
-            celltoBeReturned.textLabel?.text = "default for testing"
+            
+		}else if indexPath.row == 3{
+            celltoBeReturned.textLabel?.text = "height"
+            
+            let heightInInches: Int = Int(round(height * 12)) % 12
+            let heightInFeet: Int = Int(height)
+            
+            celltoBeReturned.detailTextLabel?.text = "\(heightInFeet) ft. \(heightInInches) In. "
+           
+        }else if indexPath.row == 4{
+            celltoBeReturned.textLabel?.text = "weight"
+            
+            celltoBeReturned.detailTextLabel?.text = " \(String(format: "%.1f", weight)) lbs"
+            
+        }else if indexPath.row == 5{
+            celltoBeReturned.textLabel?.text = "personal message"
+            celltoBeReturned.detailTextLabel?.text = personalMessage
+            
+        }else{
+            celltoBeReturned.textLabel?.text = ""
+            celltoBeReturned.detailTextLabel?.text = ""
         }
         
         return celltoBeReturned
@@ -86,8 +111,12 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
                 changeUsernameAlert.addAction(cancelChange)
                 
                 present(changeUsernameAlert, animated: true)
+            
+            //if height is selected
+            } else if indexPath.row == 3 {
                 
-            }
+            } 
+            
         }
     }
 
@@ -106,18 +135,35 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
 			let tempEmail = value?["email"]
 			let tempUsername = value?["username"]
 			let tempKilo = value?["KMRun"]
-			
+            let tempHeight = value?["height"]
+            let tempWeight = value?["weight"]
+            let tempPersonalMessage = value?["personalMessage"]
+            
+            
 			if let actualEmail = tempEmail {
 				self.email = actualEmail as! String
 			}
+            
 			if let actualUsername = tempUsername {
 				self.username = actualUsername as! String
-			}
+            }
+            
 			if let actualKilo = tempKilo {
 				self.kilometres = actualKilo as! Double
-                
 			}
-			
+            
+            if let actualHeight = tempHeight {
+                self.height = actualHeight as! Double
+            }
+            
+            if let actualWeight = tempWeight {
+                self.weight = actualWeight as! Double
+            }
+            
+            if let actualPersonalMessage = tempPersonalMessage {
+                self.personalMessage = actualPersonalMessage as! String
+            }
+            
 			self.userInfo.reloadData()
 			
 		})
