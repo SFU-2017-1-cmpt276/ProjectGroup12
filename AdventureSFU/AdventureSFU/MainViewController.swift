@@ -48,6 +48,17 @@ class MainViewController: UIViewController {
 			self.welcomeUserLabel.text = "Welcome, \(username)!"
 
 		})
+        
+        ref?.child("Users").child(userID!).child("1stLogin").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            let value = snapshot.value as? Bool
+            let condition = value!
+            
+            if(condition == true) {
+                self.performSegue(withIdentifier: "TeamSelect", sender: self)
+            }
+            
+        })
 		
     }
 

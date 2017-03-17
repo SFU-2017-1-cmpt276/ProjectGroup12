@@ -75,6 +75,8 @@ class signUpViewController: UIViewController, UITextFieldDelegate {
 														self.ref?.child("Users").child(user!.uid).child("email").setValue(self.emailField.text)
 														self.ref?.child("Users").child(user!.uid).child("username").setValue(self.userNameField.text)
 														self.ref?.child("Users").child(user!.uid).child("KMRun").setValue(0.0)
+                                                        self.ref?.child("Users").child(user!.uid).child("1stLogin").setValue(true)
+                                                        self.ref?.child("Users").child(user!.uid).child("Team").setValue("No Team")
 														self.dismiss(animated: true, completion: nil)
 														
 														

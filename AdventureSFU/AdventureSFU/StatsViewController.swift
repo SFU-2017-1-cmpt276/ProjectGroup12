@@ -84,7 +84,6 @@ class StatsViewController: UIViewController, UITableViewDataSource {
 			}
 			if let actualKilo = tempKilo {
 				self.kilometres = actualKilo as! Double
-                
 			}
 			
 			self.userInfo.reloadData()
