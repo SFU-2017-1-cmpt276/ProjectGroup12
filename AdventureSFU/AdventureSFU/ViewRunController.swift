@@ -17,6 +17,7 @@
 //			-Further functionality with regards to run details, user's ability to create run
 //			-Further run details information upon creating run
 //implement scrap it and start over
+//remove most recent point by shifting everything to point to globalvariables class, then modifying that waypoints object
 
 import UIKit
 import Mapbox
