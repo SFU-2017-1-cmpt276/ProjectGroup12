@@ -16,7 +16,7 @@
 //			-Have run data pulled in to database from statistics
 //			-Further functionality with regards to run details, user's ability to create run
 //			-Further run details information upon creating run
-//
+//implement scrap it and start over
 
 import UIKit
 import Mapbox
@@ -57,6 +57,10 @@ class ViewRunController: UIViewController, MapViewDelegate {
 		self.waypoints.append(waypoint)
 	}
 	
+    func deleteWaypoint() {
+        self.waypoints.remove(at: waypoints.count-1)
+    }
+    
 	func getRoute(chosenRoute: Route) -> Route? {
 		self.route = chosenRoute
 		return chosenRoute
@@ -102,10 +106,12 @@ class ViewRunController: UIViewController, MapViewDelegate {
 			let childViewController = segue.destination as? MapUI
 			childViewController?.delegate = self
             childViewController?.preselectedRoute = self.route
+            childViewController?.waypoints = self.waypoints
 		}
         if segue.identifier == "startRun" {
             let childViewController = segue.destination as? ActiveRunController
             childViewController?.presetRoute = self.route
+            childViewController?.waypoints = self.waypoints
         }
 		//Define self as MapViewDelegate for embedded MapUI.
 	}

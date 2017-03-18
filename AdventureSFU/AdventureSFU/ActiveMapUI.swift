@@ -10,31 +10,22 @@ import UIKit
 import Mapbox
 import MapboxDirections
 import Firebase
-import CoreLocation
 
-class ActiveMapUI: MapUI, CLLocationManagerDelegate {
-    var locationManager: CLLocationManager!
+class ActiveMapUI: MapUI {
+
     var activeDelegate: ActiveMapViewDelegate?
   //  var route: Route?
     
     override func viewDidLoad() {
-      self.locationManager = CLLocationManager()
-        self.locationManager.requestAlwaysAuthorization()
+
    
     
         super.viewDidLoad()
-        if (CLLocationManager.locationServicesEnabled()) {
-        MapUI.userTrackingMode = .follow
-            self.locationManager.delegate = self
-            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            
-            // Set a movement threshold for new events.
-            self.locationManager.distanceFilter = kCLLocationAccuracyBest // meters
-            self.locationManager.startUpdatingLocation()
+MapUI.userTrackingMode = .follow
+        print("searchable active waypoints \(waypoints)")
+        print("searchable active waypoints in mapui: \(waypoints.count)")
+     }
 
-
-        print("searchable didload check")
-        }}
     
    
     override func didReceiveMemoryWarning() {
@@ -42,17 +33,16 @@ class ActiveMapUI: MapUI, CLLocationManagerDelegate {
         // Dispose of any resources that can be recreated.
     }
 
-
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
-    {
-        
-        let location = locations.last! as CLLocation
-        
-  
-        
-        print("searchable long and lat\(location.coordinate.longitude),\(location.coordinate.latitude)")
-        
+    override func handleRoute() {
+        super.handleRoute()
+        print("handleRoute in active")
     }
+    
+    override func drawRoute(route: Route) {
+        super.drawRoute(route: route)
+        print("drawRoute in active")
+    }
+  
 
     /*
     // MARK: - Navigation

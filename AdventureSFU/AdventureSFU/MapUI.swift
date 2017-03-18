@@ -12,9 +12,12 @@
 //	Programmers: Karan Aujla, Carlos Abaffy, Eleanor Lewis, Chris Norris-Jones
 //
 //	Known Bugs:	-Stop warning flags from unused variables from displaying, when variables are in fact being used
-//	Todo:	
+//	Todo:	implement double-tap removes points from planned route
+//implement scrap it and start over
+//implement Active map changes to gesture recognition - fixed route
 //
-
+//remove unneeded variables, format, comment, clean up
+//use more attractive map
 import UIKit
 import Mapbox
 import MapboxDirections
@@ -30,6 +33,10 @@ class MapUI: UIViewController {
 	var waypoints: [Waypoint] = []
     var directions = Directions.shared;
     var preselectedRoute: Route?
+    var names: Int = 0
+    var start = MGLPointAnnotation()
+    var preselectedWaypoints: [Waypoint] = []
+    
     
 //Load Actions
 	override func viewDidLoad() {
@@ -41,10 +48,19 @@ class MapUI: UIViewController {
 		view.addSubview(MapUI)
 		MapUI.setCenter(CLLocationCoordinate2D(latitude: 49.273382, longitude: -122.908837),
 		                zoomLevel: 15, animated: false)
-
+        if (waypoints.count > 0) {
+            handleRoute()
+        }
+        //define tripleTap so doubleTap can be distinguished from it
+    //    let tripleTap = UITapGestureRecognizer(target: self, action: nil)
+      //  tripleTap.numberOfTapsRequired = 3
+       // MapUI.addGestureRecognizer(tripleTap)
+        
         // define doubleTap so singleTap can be distinguished from it
-        let doubleTap = UITapGestureRecognizer(target: self, action: nil)
-		doubleTap.numberOfTapsRequired = 2
+        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
+        doubleTap.numberOfTapsRequired = 2
+       // doubleTap.require(toFail: tripleTap)
+        
 		MapUI.addGestureRecognizer(doubleTap)
 		
 		// define singleTap relative to doubleTap
@@ -54,21 +70,18 @@ class MapUI: UIViewController {
 		//Load map centred at specified coordinates. Add gesture recognizers doubleTap and singleTap.
  
         
-        if (preselectedRoute != nil) {
-        drawRoute(route: preselectedRoute!)
-        }
-        
     }
 	
 //Functions
 	func handleSingleTap(tap: UITapGestureRecognizer) {
 		var location: CLLocationCoordinate2D = MapUI.convert(tap.location(in: MapUI), toCoordinateFrom: MapUI)
-		let names = "0"
 		
-		let wpt: Waypoint = Waypoint(coordinate: location, name: names)
+		
+		let wpt: Waypoint = Waypoint(coordinate: location, name: "\(names)")
 		waypoints.append(wpt)
 		//update current list of coordinates
-    
+        self.names = self.names + 1
+        
         self.delegate?.getWaypoint(waypoint: wpt)
         //sends waypoint to delegate array
 		
@@ -80,13 +93,36 @@ class MapUI: UIViewController {
 		// if at least 2 points are specified, calculate and draw route. update local and delegate stats.
 	
             handleRoute()
+       
       
     }
     
     
+    func handleDoubleTap(tap: UITapGestureRecognizer) {
+        print("searchable doubletap")
+        if (self.names > 0) {
+            waypoints.remove(at: (self.names-1))
+            self.names = self.names-1
+        
+        self.delegate?.deleteWaypoint()
+        }
+        // remove existing polyline from the map, (re)add polyline with coordinates
+       
+            MapUI.removeAnnotations(MapUI.annotations!)
+        handleRoute()
+    }
+    
+    
     func handleRoute() {
+        if waypoints.count == 1 { // Declare the marker `hello` and set its coordinates, title, and subtitle.
+            start.coordinate = waypoints[0].coordinate
+            start.title="Start"
+            // Add marker `start` to the map.
+            MapUI.addAnnotation(start)
+        
+        }
         if waypoints.count > 1 {
-			let options = RouteOptions(waypoints: waypoints, profileIdentifier: MBDirectionsProfileIdentifierWalking)
+       	let options = RouteOptions(waypoints: waypoints, profileIdentifier: MBDirectionsProfileIdentifierWalking)
 			//define directions info - coordinates and travel speed
 			
 			_ = directions.calculate(options) { (waypoints, routes, error) in
@@ -101,12 +137,16 @@ class MapUI: UIViewController {
         }
     }
     func drawRoute(route: Route) {
+        
 					self.delegate?.getRoute(chosenRoute: route)
 					self.delegate?.getTime(time: route.expectedTravelTime)
 					self.delegate?.getDistance(distance: route.distance)
                     //submit route, distance and time info to delegate
-					
 
+        start.coordinate = waypoints[0].coordinate
+        start.title="Start"
+        // Add marker `start` to the map.
+        MapUI.addAnnotation(start)
                     var routeCoordinates = route.coordinates!
                     let routeLine = MGLPolyline(coordinates: &routeCoordinates, count: route.coordinateCount)
                     self.MapUI.addAnnotation(routeLine)
