@@ -284,11 +284,81 @@
             </objects>
             <point key="canvasLocation" x="240" y="257.74647887323943"/>
         </scene>
-        <!--Team Select-->
+        <!--Team Select2-->
+        <scene sceneID="C4M-uq-rsF">
+            <objects>
+                <viewController id="qMd-3g-qbV" customClass="TeamSelect2" customModule="AdventureSFU" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="DNi-np-llW"/>
+                        <viewControllerLayoutGuide type="bottom" id="mWp-kr-Vi5"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ycy-dY-74w">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kHa-m0-vrs">
+                                <frame key="frameInset" minX="37" minY="214" width="142" height="199"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                <state key="normal" title="Bobcats">
+                                    <color key="titleColor" red="0.52756638600000005" green="0.078894269939999997" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="bobcatsSelect" destination="AVa-4F-WoA" eventType="touchUpInside" id="5Xz-M0-jMd"/>
+                                    <action selector="bobcatsSelect" destination="qMd-3g-qbV" eventType="touchUpInside" id="mh2-Of-cew"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rAe-sH-dsK">
+                                <frame key="frameInset" minX="217" minY="68" width="142" height="199"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                <state key="normal" title="Eagles">
+                                    <color key="titleColor" red="0.52756638600000005" green="0.078894269939999997" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="eaglesSelect" destination="qMd-3g-qbV" eventType="touchUpInside" id="FYr-h3-WWa"/>
+                                    <action selector="eaglesSelect" destination="AVa-4F-WoA" eventType="touchUpInside" id="YxB-hY-k47"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sAH-Zz-huh">
+                                <frame key="frameInset" minX="217" minY="405" width="142" height="199"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                <state key="normal" title="Bears">
+                                    <color key="titleColor" red="0.52756638600000005" green="0.078894269939999997" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="bearsSelect" destination="qMd-3g-qbV" eventType="touchUpInside" id="2Pr-qN-9Qy"/>
+                                    <action selector="bearsSelect" destination="AVa-4F-WoA" eventType="touchUpInside" id="SBh-Vm-6NF"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Krz-j2-Zqe">
+                                <frame key="frameInset" minX="16" minY="28" width="95" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                <state key="normal" title="Back">
+                                    <color key="titleColor" red="0.52756638600000005" green="0.078894269939999997" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="backtoMain" destination="qMd-3g-qbV" eventType="touchUpInside" id="cjP-SV-Vwg"/>
+                                    <action selector="backtoMain" destination="AVa-4F-WoA" eventType="touchUpInside" id="t2o-Ji-oeQ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="SeN-AB-Feg" kind="show" identifier="BacktoMain" id="RQ4-Tk-LG0"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZZV-sZ-9vy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3036" y="-518"/>
+        </scene>
+        <!--Team Select View Controller-->
         <scene sceneID="Za2-4R-shy">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="aYe-M0-ZMs" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="AVa-4F-WoA" customClass="TeamSelect" sceneMemberID="viewController">
+                <viewController id="AVa-4F-WoA" customClass="TeamSelectViewController" customModule="AdventureSFU" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="oGb-00-bnS"/>
                         <viewControllerLayoutGuide type="bottom" id="e4l-dt-OWN"/>
@@ -297,7 +367,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sfu-aq-pond1" translatesAutoresizingMaskIntoConstraints="NO" id="5Z9-Pb-deL">
+                            <imageView opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="sfu-aq-pond1" translatesAutoresizingMaskIntoConstraints="NO" id="5Z9-Pb-deL">
+                                <frame key="frameInset" width="375" height="667"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="5Z9-Pb-deL" secondAttribute="height" multiplier="375:667" id="nBV-xq-JmU"/>
                                 </constraints>
@@ -310,41 +381,31 @@
                                 <frame key="frameInset" minX="217" minY="87" width="142" height="162"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pxt-NW-HyS">
-                                <frame key="frameInset" minX="16" minY="20" width="124" height="75"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bobcat" translatesAutoresizingMaskIntoConstraints="NO" id="sgh-pO-ER8">
+                                <frame key="frameInset" minX="16" minY="234" width="142" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
-                                <state key="normal" title="Back">
-                                    <color key="titleColor" red="0.52756638600000005" green="0.078894269939999997" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aO8-DD-lmy" customClass="eagles">
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aO8-DD-lmy">
                                 <frame key="frameInset" minX="16" minY="234" width="142" height="199"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <state key="normal" title="Bobcats">
                                     <color key="titleColor" red="0.52756638600000005" green="0.078894269939999997" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="bobcatsSelect" destination="AVa-4F-WoA" eventType="touchUpInside" id="XeT-x4-hcN"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PYh-KX-UMd" customClass="bobcats">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PYh-KX-UMd">
                                 <frame key="frameInset" minX="217" minY="87" width="142" height="199"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <state key="normal" title="Eagles">
                                     <color key="titleColor" red="0.52756638600000005" green="0.078894269939999997" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
-                            </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bobcat" translatesAutoresizingMaskIntoConstraints="NO" id="sgh-pO-ER8">
-                                <frame key="frameInset" minX="16" minY="234" width="142" height="160"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sAH-Zz-huh" customClass="bears">
-                                <frame key="frameInset" minX="217" minY="370" width="142" height="199"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
-                                <state key="normal" title="Bears">
-                                    <color key="titleColor" red="0.52756638600000005" green="0.078894269939999997" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
+                                <connections>
+                                    <action selector="eaglesSelect" destination="AVa-4F-WoA" eventType="touchUpInside" id="7MM-Sm-n7A"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -355,7 +416,12 @@
                             <constraint firstItem="e4l-dt-OWN" firstAttribute="top" secondItem="5Z9-Pb-deL" secondAttribute="bottom" id="n8Q-Lc-F5g"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="bearSelect" destination="sAH-Zz-huh" id="aI7-Ja-miq"/>
+                        <outlet property="bobcatSelect" destination="aO8-DD-lmy" id="b4u-lc-jdp"/>
+                    </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aYe-M0-ZMs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2408.8000000000002" y="124.58770614692655"/>
         </scene>
@@ -559,7 +625,7 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="welcomeUserLabel" destination="epn-7F-ZJh" id="oHr-fK-lvJ"/>
-                        <segue destination="AVa-4F-WoA" kind="show" identifier="TeamSelect" id="haE-9n-Aa0"/>
+                        <segue destination="qMd-3g-qbV" kind="show" identifier="TeamSelect" id="9aO-A6-bAv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dJe-ZX-cj5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -700,7 +766,7 @@
         <image name="sfu-aq-pond1" width="1998" height="3024"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="oHH-Rz-i1W"/>
+        <segue reference="RQ4-Tk-LG0"/>
         <segue reference="8wT-Ha-vdw"/>
     </inferredMetricsTieBreakers>
 </document>

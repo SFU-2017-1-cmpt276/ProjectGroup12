@@ -53,7 +53,7 @@ class MainViewController: UIViewController {
             
             let value = snapshot.value as? Bool
             let condition = value!
-            
+            print("\(condition)")
             if(condition == true) {
                 self.performSegue(withIdentifier: "TeamSelect", sender: self)
             }

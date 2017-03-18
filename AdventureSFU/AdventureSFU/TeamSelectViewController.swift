@@ -9,14 +9,13 @@
 import UIKit
 import Firebase
 
-class TeamSelectViewController: UIViewController {
+class TeamSelectViewController : UIViewController {
     
     //Variables
-    var ref: FIRDatabaseReference?
-    var teamSelected : Int? = nil
-    let userID = FIRAuth.auth()?.currentUser?.uid
-    
-    
+//    var ref: FIRDatabaseReference?
+//    let userID = FIRAuth.auth()?.currentUser?.uid
+//    
+//    
     //Functions
     
     //Load
@@ -24,7 +23,7 @@ class TeamSelectViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        ref = FIRDatabase.database().reference()
+        /*ref = FIRDatabase.database().reference()
         
         let defaultWIPMessage = "If you select 'Back', you will be able to select a team on the Stats section later"
         
@@ -32,7 +31,9 @@ class TeamSelectViewController: UIViewController {
         let alert = UIAlertController(title: "Select your Team", message: defaultWIPMessage, preferredStyle: .alert)
         let alertConfirmation = UIAlertAction(title: "ok", style: .default, handler: nil)
         alert.addAction(alertConfirmation)
-        self.present(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)*/
+        
+        
         
         
         /*ref?.child("Users").child(userID!).child("1stLogin").observeSingleEvent(of: .value, with: { (snapshot) in
@@ -55,40 +56,7 @@ class TeamSelectViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        let defaultWIPMessage = "If you select 'Back', you will be able to select a team on the Stats section later"
-        
-        
-        let alert = UIAlertController(title: "Select your Team", message: defaultWIPMessage, preferredStyle: .alert)
-        let alertConfirmation = UIAlertAction(title: "ok", style: .default, handler: nil)
-        alert.addAction(alertConfirmation)
-        self.present(alert, animated: true, completion: nil)
-        
-        
-        ref?.child("Users").child(userID!).child("1stLogin").observeSingleEvent(of: .value, with: { (snapshot) in
-         
-         let value = snapshot.value as? Bool
-         let condition = value!
-         let defaultWIPMessage = "If you select 'Back', you will be able to select a team on the Stats section later"
-         
-        if(condition == true){
-         let alert = UIAlertController(title: "Select your Team", message: defaultWIPMessage, preferredStyle: .alert)
-         let alertConfirmation = UIAlertAction(title: "ok", style: .default, handler: nil)
-         alert.addAction(alertConfirmation)
-         self.present(alert, animated: true, completion: nil)
-            }
-         
-         
-         })
-        
- 
-
-     
-        
-        
-    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -96,7 +64,52 @@ class TeamSelectViewController: UIViewController {
     }
     
     //Actions
+    
+    
+    /*@IBAction func backtoMain(){
+        
+        
+        self.ref?.child("Users").child(userID!).child("1stLogin").setValue(false)
+        
+        performSegue(withIdentifier: "BacktoMain", sender: self)
+        
+        
+    }
+    
+    @IBAction func eaglesSelect(){
+        
+        
+        self.ref?.child("Users").child(userID!).child("Team").setValue("Eagles")
+        self.ref?.child("Users").child(userID!).child("1stLogin").setValue(false)
+        
+        performSegue(withIdentifier: "BacktoMain", sender: self)
+        
+        
+    }
+    
+    @IBAction func bobcatsSelect(){
+        
+        
+        self.ref?.child("Users").child(userID!).child("Team").setValue("Bobcats")
+        self.ref?.child("Users").child(userID!).child("1stLogin").setValue(false)
+        
+        performSegue(withIdentifier: "BacktoMain", sender: self)
+        
+        
+    }
+
+    @IBAction func bearsSelect(){
+        
+        
+        self.ref?.child("Users").child(userID!).child("Team").setValue("Bears")
+        self.ref?.child("Users").child(userID!).child("1stLogin").setValue(false)
+        
+        performSegue(withIdentifier: "BacktoMain", sender: self)
+        
+        
+    }*/
+
 
     
-
+  
 }
