@@ -74,7 +74,7 @@ class MapUI: UIViewController {
 	
 //Functions
 	func handleSingleTap(tap: UITapGestureRecognizer) {
-		var location: CLLocationCoordinate2D = MapUI.convert(tap.location(in: MapUI), toCoordinateFrom: MapUI)
+		let location: CLLocationCoordinate2D = MapUI.convert(tap.location(in: MapUI), toCoordinateFrom: MapUI)
 		
 		
 		let wpt: Waypoint = Waypoint(coordinate: location, name: "\(names)")

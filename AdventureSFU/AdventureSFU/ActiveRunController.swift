@@ -5,7 +5,10 @@
 //  Created by ela50 on 3/14/17.
 //  Copyright © 2017 Karan Aujla. All rights reserved.
 //
-
+//todo: draw polyline from planned route
+//draw self-updating polyline, separately, from actual route
+//log waypoints to firebase
+//figure out route storage with multiple points
 import UIKit
 import Mapbox
 import MapboxDirections
@@ -15,6 +18,14 @@ import CoreLocation
 class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationManagerDelegate {
     var locationManager:CLLocationManager!
     var running: Bool = true
+    var actualWaypointNumber: Int = 0
+    var activeDelegate: ActiveRunControllerDelegate?
+
+    var actualWaypoints: [Waypoint] = []
+    
+    let calendar = Calendar.current
+  
+    
     
     @IBOutlet weak var pauseButton: UIButton!
     
@@ -34,7 +45,7 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("searchable active waypoints.count: \(waypoints.count)")
+        GlobalVariables.sharedManager.startTime = Date()
         pauseButton.setTitle("Pause run recording", for: [])
         self.locationManager = CLLocationManager()
         self.locationManager.requestAlwaysAuthorization()
@@ -44,7 +55,7 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
             
             // Set a movement threshold for new events.
             self.locationManager.distanceFilter = kCLLocationAccuracyBest // meters
- //           self.locationManager.startUpdatingLocation()
+            self.locationManager.startUpdatingLocation()
             
             
         
@@ -59,9 +70,26 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
         let location = locations.last! as CLLocation
         
         
+        let wpt: Waypoint = Waypoint(coordinate: location.coordinate, name: "\(actualWaypointNumber)")
+        actualWaypoints.append(wpt)
+        //update current list of coordinates
+        self.actualWaypointNumber = self.actualWaypointNumber + 1
         
-        print("searchable long and lat\(location.coordinate.longitude),\(location.coordinate.latitude)")
+        GlobalVariables.sharedManager.actualWaypoints.append(wpt)
+        //sends waypoint to delegate array
+        if actualWaypointNumber > 2 {
+   self.activeDelegate?.appendToDrawnRoute()
+        }
+        let date = Date()
+        let hour = calendar.component(.hour, from: date)
+        let minutes = calendar.component(.minute, from: date)
+        let seconds = calendar.component(.second, from: date)
+   //     print("hours = \(hour):\(minutes):\(seconds)")
+    //
+   //     print("searchable long and lat\(location.coordinate.longitude),\(location.coordinate.latitude)")
         
+  
+    
     }
     
     override func didReceiveMemoryWarning() {
@@ -88,16 +116,32 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
     // Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "activerunembed" {
+            self.activeDelegate = segue.destination as? ActiveMapUI
             let childViewController = segue.destination as? ActiveMapUI
             childViewController?.delegate = self
             childViewController?.preselectedRoute = self.presetRoute
             childViewController?.waypoints = self.waypoints
         }
         if segue.identifier == "stopRun" {
+            GlobalVariables.sharedManager.hasRunData = true
+            GlobalVariables.sharedManager.endTime = Date()
+            GlobalVariables.sharedManager.elapsedTimeThisRun = GlobalVariables.sharedManager.endTime!.timeIntervalSince(GlobalVariables.sharedManager.startTime!)
+            GlobalVariables.sharedManager.distanceThisRun = GlobalVariables.sharedManager.distanceThisRun + 10
+            print("searchable time \(GlobalVariables.sharedManager.elapsedTimeThisRun)")
+print("searchable globalvariables waypoints \(GlobalVariables.sharedManager.actualWaypoints)")
+            var tempTotalKm: Double?
+            ref?.child("Users").child(userID!).child("KMRun").observeSingleEvent(of: .value, with: { (snapshot) in
+                tempTotalKm = snapshot.value as? Double
+                if var totalKm = tempTotalKm {
+                    totalKm = self.distance + tempTotalKm!
+                    self.ref?.child("Users").child(self.userID!).child("KMRun").setValue(totalKm)
+                }
+            })
+    
             let childViewController = segue.destination as? ViewRunController
             childViewController?.route = self.route
             childViewController?.presetRoute=self.presetRoute
-            childViewController?.waypoints = self.waypoints
+
         }
         //Define self as MapViewDelegate for embedded MapUI.
     }

@@ -5,13 +5,13 @@
 //  Created by ela50 on 3/14/17.
 //  Copyright © 2017 Karan Aujla. All rights reserved.
 //
-
+// implement appendto drawn route
 import UIKit
 import Mapbox
 import MapboxDirections
 import Firebase
 
-class ActiveMapUI: MapUI {
+class ActiveMapUI: MapUI, ActiveRunControllerDelegate {
 
     var activeDelegate: ActiveMapViewDelegate?
   //  var route: Route?
@@ -43,6 +43,14 @@ MapUI.userTrackingMode = .follow
         print("drawRoute in active")
     }
   
+    func appendToDrawnRoute() {
+        print("searchable test of appendToDrawnRoute delegation")
+       let coords = [GlobalVariables.sharedManager.actualWaypoints[GlobalVariables.sharedManager.actualWaypoints.count-2].coordinate, GlobalVariables.sharedManager.actualWaypoints[GlobalVariables.sharedManager.actualWaypoints.count-1].coordinate]
+        
+        let line = MGLPolyline(coordinates: coords, count: 2)
+        MapUI.addAnnotation(line)
+        
+    }
 
     /*
     // MARK: - Navigation
