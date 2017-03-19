@@ -75,8 +75,7 @@ class MapUI: UIViewController {
 //Functions
 	func handleSingleTap(tap: UITapGestureRecognizer) {
 		let location: CLLocationCoordinate2D = MapUI.convert(tap.location(in: MapUI), toCoordinateFrom: MapUI)
-		
-		
+        print("searchable lat and long: \(location.latitude), \(location.longitude)")
 		let wpt: Waypoint = Waypoint(coordinate: location, name: "\(names)")
 		waypoints.append(wpt)
 		//update current list of coordinates

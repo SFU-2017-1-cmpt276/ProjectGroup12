@@ -21,7 +21,7 @@ class GlobalVariables {
     var distanceThisRun: Double = 0
     var hasRunData: Bool = false
     var plannedWaypoints: [Waypoint] = []
-
+    var waypointsTest: [Waypoint] = []
     
     class var sharedManager: GlobalVariables {
         struct Static {

@@ -7,13 +7,9 @@
 //
 
 import Foundation
-import Mapbox
-import MapboxDirections
-import Firebase
 
 protocol ActiveRunControllerDelegate {
     
-    func appendToDrawnRoute()
-    
+    func appendToDrawnRoute() //updates user-route polyline.
     
 }

@@ -14,20 +14,15 @@ import Firebase
 class ActiveMapUI: MapUI, ActiveRunControllerDelegate {
 
     var activeDelegate: ActiveMapViewDelegate?
-  //  var route: Route?
+
     
     override func viewDidLoad() {
-
-   
-    
         super.viewDidLoad()
-MapUI.userTrackingMode = .follow
+        MapUI.userTrackingMode = .follow
         print("searchable active waypoints \(waypoints)")
         print("searchable active waypoints in mapui: \(waypoints.count)")
         self.handleRoute()
      }
-
-    
    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -46,11 +41,10 @@ MapUI.userTrackingMode = .follow
   
     func appendToDrawnRoute() {
         print("searchable test of appendToDrawnRoute delegation")
-       let coords = [GlobalVariables.sharedManager.actualWaypoints[GlobalVariables.sharedManager.actualWaypoints.count-2].coordinate, GlobalVariables.sharedManager.actualWaypoints[GlobalVariables.sharedManager.actualWaypoints.count-1].coordinate]
-        
+        let coords = [GlobalVariables.sharedManager.actualWaypoints[GlobalVariables.sharedManager.actualWaypoints.count-2].coordinate, GlobalVariables.sharedManager.actualWaypoints[GlobalVariables.sharedManager.actualWaypoints.count-1].coordinate]
         let line = MGLPolyline(coordinates: coords, count: 2)
         MapUI.addAnnotation(line)
-        
+        //Updates user-route polyline.
     }
 
     /*

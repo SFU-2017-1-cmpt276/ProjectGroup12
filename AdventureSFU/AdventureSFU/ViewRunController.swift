@@ -86,20 +86,37 @@ class ViewRunController: UIViewController, MapViewDelegate {
 	}
 	
     @IBAction func submitRunStats(_ sender: AnyObject) {
-        var tempTotalKm: Double?
-        ref?.child("Users").child(userID!).child("KMRun").observeSingleEvent(of: .value, with: { (snapshot) in
-            tempTotalKm = snapshot.value as? Double
-            if var totalKm = tempTotalKm {
-                totalKm = self.distance + tempTotalKm!
-                self.ref?.child("Users").child(self.userID!).child("KMRun").setValue(totalKm)
-            }
-        })
-        print("searchable Global variables presets: \(GlobalVariables.sharedManager.plannedWaypoints)")
+//        var tempTotalKm: Double?
+//        ref?.child("Users").child(userID!).child("KMRun").observeSingleEvent(of: .value, with: { (snapshot) in
+//            tempTotalKm = snapshot.value as? Double
+//            if var totalKm = tempTotalKm {
+//                totalKm = self.distance + tempTotalKm!
+//                self.ref?.child("Users").child(self.userID!).child("KMRun").setValue(totalKm)
+//            }
+//        })
+        
+        
+        self.ref?.child("Users").child(self.userID!).child("presetRoute").setValue("lats")
+        
+        self.ref?.child("Users").child(self.userID!).child("presetRoute").setValue("longs")
+        
+        
+        self.ref?.child("Users").child(self.userID!).child("presetRoute").child("lats").setValue([49.2743059909817, 49.2716693043483, 49.2700657079155])
+        self.ref?.child("Users").child(self.userID!).child("presetRoute").child("longs").setValue([-122.911805295561, -122.908844152737, -122.903269374788])
+        
+  //      self.ref?.child("Users").child(self.userID!).child("presetRoute").setValue(GlobalVariables.sharedManager.plannedWaypoints)
+    //    print("searchable Global variables presets: \(GlobalVariables.sharedManager.plannedWaypoints)")
         let alertController = UIAlertController(title: "Run is stored", message:nil, preferredStyle: .alert)
 		let defaultAction = UIAlertAction(title: "Thanks", style: .cancel, handler: nil)
 		alertController.addAction(defaultAction)
 		self.present(alertController, animated: true, completion: nil)
         //Submit current route kms to user stats in database.
+        var testWaypoints: [Waypoint] = []
+     //   ref?.child("Users").child(userID!).child("presetRoute").observeSingleEvent(of: .value, with: { (snapshot) in testWaypoints = (snapshot.value as! NSArray) as! [Waypoint]
+       //     GlobalVariables.sharedManager.waypointsTest = testWaypoints
+         //   print("searchable firebase test: \(GlobalVariables.sharedManager.waypointsTest)")
+       // })
+        
     }
 	
 // Navigation
