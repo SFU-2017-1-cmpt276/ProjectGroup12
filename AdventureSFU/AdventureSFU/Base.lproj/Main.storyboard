@@ -296,6 +296,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="sfu-aq-pond1" translatesAutoresizingMaskIntoConstraints="NO" id="FR7-ft-iRG">
+                                <frame key="frameInset"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kHa-m0-vrs">
                                 <frame key="frameInset" minX="37" minY="214" width="142" height="199"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -304,7 +308,6 @@
                                     <color key="titleColor" red="0.52756638600000005" green="0.078894269939999997" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="bobcatsSelect" destination="AVa-4F-WoA" eventType="touchUpInside" id="5Xz-M0-jMd"/>
                                     <action selector="bobcatsSelect" destination="qMd-3g-qbV" eventType="touchUpInside" id="mh2-Of-cew"/>
                                 </connections>
                             </button>
@@ -317,7 +320,6 @@
                                 </state>
                                 <connections>
                                     <action selector="eaglesSelect" destination="qMd-3g-qbV" eventType="touchUpInside" id="FYr-h3-WWa"/>
-                                    <action selector="eaglesSelect" destination="AVa-4F-WoA" eventType="touchUpInside" id="YxB-hY-k47"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sAH-Zz-huh">
@@ -329,7 +331,6 @@
                                 </state>
                                 <connections>
                                     <action selector="bearsSelect" destination="qMd-3g-qbV" eventType="touchUpInside" id="2Pr-qN-9Qy"/>
-                                    <action selector="bearsSelect" destination="AVa-4F-WoA" eventType="touchUpInside" id="SBh-Vm-6NF"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Krz-j2-Zqe">
@@ -341,9 +342,20 @@
                                 </state>
                                 <connections>
                                     <action selector="backtoMain" destination="qMd-3g-qbV" eventType="touchUpInside" id="cjP-SV-Vwg"/>
-                                    <action selector="backtoMain" destination="AVa-4F-WoA" eventType="touchUpInside" id="t2o-Ji-oeQ"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Bears" translatesAutoresizingMaskIntoConstraints="NO" id="iXu-zW-kw1">
+                                <frame key="frameInset" minX="217" minY="405" width="142" height="161"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bobcat" translatesAutoresizingMaskIntoConstraints="NO" id="sgh-pO-ER8">
+                                <frame key="frameInset" minX="37" minY="214" width="142" height="160"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="eagle" translatesAutoresizingMaskIntoConstraints="NO" id="gj5-KG-X4s">
+                                <frame key="frameInset" minX="217" minY="68" width="142" height="162"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -353,77 +365,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZZV-sZ-9vy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3036" y="-518"/>
-        </scene>
-        <!--Team Select View Controller-->
-        <scene sceneID="Za2-4R-shy">
-            <objects>
-                <viewController id="AVa-4F-WoA" customClass="TeamSelectViewController" customModule="AdventureSFU" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="oGb-00-bnS"/>
-                        <viewControllerLayoutGuide type="bottom" id="e4l-dt-OWN"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="knI-rP-lij">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="sfu-aq-pond1" translatesAutoresizingMaskIntoConstraints="NO" id="5Z9-Pb-deL">
-                                <frame key="frameInset" width="375" height="667"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="5Z9-Pb-deL" secondAttribute="height" multiplier="375:667" id="nBV-xq-JmU"/>
-                                </constraints>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Bears" translatesAutoresizingMaskIntoConstraints="NO" id="iXu-zW-kw1">
-                                <frame key="frameInset" minX="217" minY="370" width="142" height="161"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="eagle" translatesAutoresizingMaskIntoConstraints="NO" id="gj5-KG-X4s">
-                                <frame key="frameInset" minX="217" minY="87" width="142" height="162"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bobcat" translatesAutoresizingMaskIntoConstraints="NO" id="sgh-pO-ER8">
-                                <frame key="frameInset" minX="16" minY="234" width="142" height="160"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aO8-DD-lmy">
-                                <frame key="frameInset" minX="16" minY="234" width="142" height="199"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
-                                <state key="normal" title="Bobcats">
-                                    <color key="titleColor" red="0.52756638600000005" green="0.078894269939999997" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="bobcatsSelect" destination="AVa-4F-WoA" eventType="touchUpInside" id="XeT-x4-hcN"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PYh-KX-UMd">
-                                <frame key="frameInset" minX="217" minY="87" width="142" height="199"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
-                                <state key="normal" title="Eagles">
-                                    <color key="titleColor" red="0.52756638600000005" green="0.078894269939999997" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="eaglesSelect" destination="AVa-4F-WoA" eventType="touchUpInside" id="7MM-Sm-n7A"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="5Z9-Pb-deL" firstAttribute="leading" secondItem="knI-rP-lij" secondAttribute="leading" id="Ahv-FP-7uq"/>
-                            <constraint firstItem="5Z9-Pb-deL" firstAttribute="top" secondItem="oGb-00-bnS" secondAttribute="bottom" id="BO3-Z7-AhL"/>
-                            <constraint firstAttribute="trailing" secondItem="5Z9-Pb-deL" secondAttribute="trailing" id="eMR-Ag-8VV"/>
-                            <constraint firstItem="e4l-dt-OWN" firstAttribute="top" secondItem="5Z9-Pb-deL" secondAttribute="bottom" id="n8Q-Lc-F5g"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="bearSelect" destination="sAH-Zz-huh" id="aI7-Ja-miq"/>
-                        <outlet property="bobcatSelect" destination="aO8-DD-lmy" id="b4u-lc-jdp"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="aYe-M0-ZMs" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2408.8000000000002" y="124.58770614692655"/>
+            <point key="canvasLocation" x="2783" y="-298"/>
         </scene>
         <!--View Run Controller-->
         <scene sceneID="JCD-km-H9E">
@@ -641,7 +583,7 @@
                         <viewControllerLayoutGuide type="bottom" id="vZL-Qk-WDw"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="PKA-hu-saH" customClass="MGLMapView">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="351.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <userDefinedRuntimeAttributes>

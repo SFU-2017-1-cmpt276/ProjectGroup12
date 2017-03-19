@@ -49,7 +49,16 @@ class MainViewController: UIViewController {
 
 		})
         
-        ref?.child("Users").child(userID!).child("1stLogin").observeSingleEvent(of: .value, with: { (snapshot) in
+       
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        let userID = FIRAuth.auth()?.currentUser?.uid
+        ref = FIRDatabase.database().reference()
+        
+        ref?.child("Users").child(userID!).child("firstLogin").observeSingleEvent(of: .value, with: { (snapshot) in
             
             let value = snapshot.value as? Bool
             let condition = value!
@@ -59,7 +68,7 @@ class MainViewController: UIViewController {
             }
             
         })
-		
+
     }
 
     override func didReceiveMemoryWarning() {
