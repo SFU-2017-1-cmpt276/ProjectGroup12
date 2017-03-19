@@ -33,15 +33,16 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
     var height: Double = 0.0
     var weight: Double = 0.0
     var personalMessage: String = ""
+    var team: String = "no Team"
     
     var canEditUserInfo: Bool = false //used to track if the user can edit their info
-
+    var rowCount = 8
 
 //Functions
 	
 	//Create the Stats Table
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7// Change for number of rows in table
+        return rowCount// Change for number of rows in table
     }
 	
     //Fill Stats Table
@@ -77,9 +78,13 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
             celltoBeReturned.textLabel?.text = "personal message"
             celltoBeReturned.detailTextLabel?.text = personalMessage
             
-        }else{
+        }else if indexPath.row == 6{
+            celltoBeReturned.textLabel?.text = "team"
+            celltoBeReturned.detailTextLabel?.text = team
+        } else{
             celltoBeReturned.textLabel?.text = ""
             celltoBeReturned.detailTextLabel?.text = ""
+
         }
         
         return celltoBeReturned
@@ -159,6 +164,7 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
             let tempHeight = value?["height"]
             let tempWeight = value?["weight"]
             let tempPersonalMessage = value?["personalMessage"]
+            let tempTeam = value?["Team"]
             
             
 			if let actualEmail = tempEmail {
@@ -183,6 +189,9 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
             
             if let actualPersonalMessage = tempPersonalMessage {
                 self.personalMessage = actualPersonalMessage as! String
+            }
+            if let actualTeam = tempTeam {
+                self.team = actualTeam as! String
             }
             
 			self.userInfo.reloadData()
