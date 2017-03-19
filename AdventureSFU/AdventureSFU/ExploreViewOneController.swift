@@ -12,10 +12,13 @@ class ExploreViewOneController: UIViewController {
 
 //Variables
     @IBOutlet weak var exploreItemLabel: UILabel!
-    @IBOutlet weak var exploreTextLabel: UILabel!
+    @IBOutlet weak var exploreHint: UITextView!
 
+    
     var exploreTitle:String = ""
     var exploreText:String = ""
+    var mapLat: Double = 0.0
+    var mapLong: Double = 0.0
     
 //Functions
     
@@ -24,7 +27,7 @@ class ExploreViewOneController: UIViewController {
         super.viewDidLoad()
         
         exploreItemLabel.text = exploreTitle
-        exploreTextLabel.text = exploreText
+        exploreHint.text = exploreText
 
         // Do any additional setup after loading the view.
     }
@@ -39,6 +42,10 @@ class ExploreViewOneController: UIViewController {
     @IBAction func BackButton(){
         dismiss(animated: true, completion: nil)
     }
+    
+    @IBAction func FoundButton(_ sender: AnyObject) {
+    }
+    
     /*
     // MARK: - Navigation
 
