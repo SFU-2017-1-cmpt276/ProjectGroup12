@@ -48,7 +48,27 @@ class MainViewController: UIViewController {
 			self.welcomeUserLabel.text = "Welcome, \(username)!"
 
 		})
-		
+        
+       
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        let userID = FIRAuth.auth()?.currentUser?.uid
+        ref = FIRDatabase.database().reference()
+        
+        ref?.child("Users").child(userID!).child("firstLogin").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            let value = snapshot.value as? Bool
+            let condition = value!
+            print("\(condition)")
+            if(condition == true) {
+                self.performSegue(withIdentifier: "TeamSelect", sender: self)
+            }
+            
+        })
+
     }
 
     override func didReceiveMemoryWarning() {
