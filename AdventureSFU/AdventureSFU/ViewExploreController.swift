@@ -20,26 +20,26 @@ import UIKit
 class ViewExploreController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
 //Variables
-	let itemTitle = ["Explore0",
-	                 "Explore1",
-	                 "Explore2",
-	                 "Explore3",
-	                 "Explore4",
-	                 "Explore5",
-	                 "Explore6",
-	                 "Explore7",
-	                 "Explore8",
-	                 "Explore9"]
-    let itemText = ["Test test test test test test 0",
-                    "Test test test test test test 1",
-                    "Test test test test test test 2",
-                    "Test test test test test test 3",
-                    "Test test test test test test 4",
-                    "Test test test test test test 5",
-                    "Test test test test test test 6",
-                    "Test test test test test test 7",
-                    "Test test test test test test 8",
-                    "Test test test test test test 9",]
+	let itemTitle = ["Procession of the Electric Giants",
+	                 "Grassy Tendrils",
+	                 "Opposite the Rhododendron",
+	                 "Entrance to the Underground",
+	                 "The Eleven-Headed Hydra",
+	                 "The Tree-King's Throne",
+	                 "Off the Beaten Path",
+	                 "Overlooking Obstacles",
+	                 "The Odd Green Tree",
+	                 "The Moss Spider's Den"]
+    let itemText = ["Standing astride these metal Titans, Near their feet lies your password to write in",
+                    "Tentacles tinged green, covering your prize",
+                    "The ancient sentinel stands tall to time, overlooking what you seek to find",
+                    "Hidden by the door to a subterrean kingdom is the magic word of which you seek",
+                    "It's eleven heads strain gravity's bond, but clutched in its talons is where its treasure's spawned",
+                    "The Tree king holds court over these treacherous steppes, stashed in its throne a gift has been prepped",
+                    "You've come a distance to get here, and you're just steps to your goal",
+                    "Holding sentry over trails of wood and nail lies your goal",
+                    "This tree looks all wrong. Maybe it's hiding something",
+                    "Careful searching in the moss spider's den, it sleeps for now but stirs now and then",]
     var selectedRow:Int = -1
     @IBOutlet weak var exploreTable: UITableView!
 //Functions
