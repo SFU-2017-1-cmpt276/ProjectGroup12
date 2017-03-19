@@ -20,6 +20,7 @@ class GlobalVariables {
     var elapsedTimeThisRun: TimeInterval?
     var distanceThisRun: Double = 0
     var hasRunData: Bool = false
+    var plannedWaypoints: [Waypoint] = []
 
     
     class var sharedManager: GlobalVariables {

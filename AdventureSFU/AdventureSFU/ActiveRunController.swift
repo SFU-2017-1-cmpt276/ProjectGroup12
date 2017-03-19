@@ -6,7 +6,7 @@
 //  Copyright © 2017 Karan Aujla. All rights reserved.
 //
 //todo: draw polyline from planned route
-//draw self-updating polyline, separately, from actual route
+//draw self-updating polyline, separately from actual route
 //log waypoints to firebase
 //figure out route storage with multiple points
 import UIKit
@@ -57,7 +57,7 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
             self.locationManager.distanceFilter = kCLLocationAccuracyBest // meters
             self.locationManager.startUpdatingLocation()
             
-            
+ 
         
         }
 

@@ -89,7 +89,7 @@ class MapUI: UIViewController {
 			MapUI.removeAnnotations(MapUI.annotations!)
             // remove drawn route so new route can be drawn
 		}
-		
+		GlobalVariables.sharedManager.plannedWaypoints.append(wpt)
 		// if at least 2 points are specified, calculate and draw route. update local and delegate stats.
 	
             handleRoute()

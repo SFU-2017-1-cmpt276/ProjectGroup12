@@ -5,7 +5,7 @@
 //  Created by ela50 on 3/14/17.
 //  Copyright © 2017 Karan Aujla. All rights reserved.
 //
-// implement appendto drawn route
+//
 import UIKit
 import Mapbox
 import MapboxDirections
@@ -24,6 +24,7 @@ class ActiveMapUI: MapUI, ActiveRunControllerDelegate {
 MapUI.userTrackingMode = .follow
         print("searchable active waypoints \(waypoints)")
         print("searchable active waypoints in mapui: \(waypoints.count)")
+        self.handleRoute()
      }
 
     
