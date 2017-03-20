@@ -77,6 +77,24 @@ class ExploreViewOneController: UIViewController {
         self.present(passwordAlert, animated: true, completion: nil)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "embeddedExploreMap" {
+       print("searchable explore test: exploreTitle = \(exploreTitle)")
+            let childViewController = segue.destination as? ExploreMapUI
+            childViewController?.mapLat = self.mapLat
+            childViewController?.mapLong = self.mapLong
+            childViewController?.exploreTitle = self.exploreTitle
+
+            
+            //Define self as delegate for embedded ActiveMapUI.
+            //Define embedded ActiveMapUI as delegate for self.
+            
+        }
+        
+    }
+    
+    
+    
     /*
     // MARK: - Navigation
 
