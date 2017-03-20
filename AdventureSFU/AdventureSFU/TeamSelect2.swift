@@ -68,8 +68,7 @@ class TeamSelect2: UIViewController {
         })
 
      
-     performSegue(withIdentifier: "BacktoMain", sender: self)
-     
+     dismiss(animated: true, completion: nil)
      
      }
      
@@ -77,14 +76,13 @@ class TeamSelect2: UIViewController {
         
         //Selects team ealges
      
-        let userID = FIRAuth.auth()?.currentUser?.uid
+     let userID = FIRAuth.auth()?.currentUser?.uid
      
      self.ref?.child("Users").child(userID!).child("Team").setValue("Eagles")
      self.ref?.child("Users").child(userID!).child("firstLogin").setValue(false)
      
 
-     performSegue(withIdentifier: "BacktoMain", sender: self)
-     
+     dismiss(animated: true, completion: nil)
      
      }
      
@@ -100,8 +98,7 @@ class TeamSelect2: UIViewController {
         
 
      
-     performSegue(withIdentifier: "BacktoMain", sender: self)
-     
+      dismiss(animated: true, completion: nil)
      
      }
      
@@ -117,8 +114,7 @@ class TeamSelect2: UIViewController {
         
         
      
-     performSegue(withIdentifier: "BacktoMain", sender: self)
-     
+      dismiss(animated: true, completion: nil)
      
      }
     
