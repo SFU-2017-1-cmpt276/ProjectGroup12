@@ -12,10 +12,14 @@ class ExploreViewOneController: UIViewController {
 
 //Variables
     @IBOutlet weak var exploreItemLabel: UILabel!
-    @IBOutlet weak var exploreTextLabel: UILabel!
+    @IBOutlet weak var exploreHint: UITextView!
 
+    
     var exploreTitle:String = ""
     var exploreText:String = ""
+    var mapLat:Double = 0.0
+    var mapLong:Double = 0.0
+    var password:String = ""
     
 //Functions
     
@@ -24,7 +28,7 @@ class ExploreViewOneController: UIViewController {
         super.viewDidLoad()
         
         exploreItemLabel.text = exploreTitle
-        exploreTextLabel.text = exploreText
+        exploreHint.text = exploreText
 
         // Do any additional setup after loading the view.
     }
@@ -39,6 +43,40 @@ class ExploreViewOneController: UIViewController {
     @IBAction func BackButton(){
         dismiss(animated: true, completion: nil)
     }
+    
+    @IBAction func FoundButton() {
+        let passwordAlert = UIAlertController(title: "But Did You Really?", message: "If you did find the explore item, it should have a password within it. Please enter that password", preferredStyle: .alert)
+        
+        let congratsAlert = UIAlertController(title: "Congratulations!", message: "You really did find it!", preferredStyle: .alert)
+        
+        let tryAgainAlert = UIAlertController(title: "Incorrect Password", message: "Are you just guessing?", preferredStyle: .alert)
+        
+        let okayAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+        congratsAlert.addAction(okayAction)
+        tryAgainAlert.addAction(okayAction)
+        
+        let submitAction = UIAlertAction(title: "Submit", style: .default, handler: { (action) in
+            let testField = passwordAlert.textFields![0]
+            
+            if testField.text == self.password {
+                self.present(congratsAlert, animated: true, completion: nil)
+                passwordAlert.dismiss(animated: true, completion: nil)
+            } else {
+                self.present(tryAgainAlert, animated: true, completion: nil)
+            }
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: { (cancel) in
+            passwordAlert.dismiss(animated: true, completion: nil)
+        })
+        passwordAlert.addTextField(configurationHandler: {(passwordTextField) in
+            passwordTextField.placeholder = "Enter Password Here"
+        })
+        passwordAlert.addAction(submitAction)
+        passwordAlert.addAction(cancelAction)
+            
+        self.present(passwordAlert, animated: true, completion: nil)
+    }
+    
     /*
     // MARK: - Navigation
 
