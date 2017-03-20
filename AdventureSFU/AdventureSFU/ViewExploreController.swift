@@ -47,8 +47,12 @@ class ViewExploreController: UIViewController, UITableViewDelegate, UITableViewD
     
     let itemLong = [-122.8967410, -122.9388289, -122.9371649, -122.9186634, -122.8993354, -122.8997471, -122.9269216, -122.8955464, -122.9463260, -122.9074156]
     
+    let itemPassword = ["Fraser", "Explorer", "Democracy", "Catcher", "Council", "Rainforest", "Horseshoe", "Softly", "Extra", "Compute"]
+    
     var selectedRow:Int = -1
+    
     @IBOutlet weak var exploreTable: UITableView!
+    
 //Functions
 
 	public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -82,6 +86,7 @@ class ViewExploreController: UIViewController, UITableViewDelegate, UITableViewD
             detailView.exploreText = itemText[selectedRow]
             detailView.mapLat = itemLat[selectedRow]
             detailView.mapLong = itemLong[selectedRow]
+            detailView.password = itemPassword[selectedRow]
         }
 
     }

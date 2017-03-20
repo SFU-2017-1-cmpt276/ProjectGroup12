@@ -844,8 +844,7 @@
                                     <color key="titleColor" red="0.44841498140000002" green="0.047192201019999998" blue="0.06779315323" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="FoundButton:" destination="MC1-ay-GzT" eventType="touchUpInside" id="pgE-86-mqH"/>
-                                    <action selector="foundButton:" destination="MC1-ay-GzT" eventType="touchUpInside" id="ynU-jT-JBR"/>
+                                    <action selector="FoundButton" destination="MC1-ay-GzT" eventType="touchUpInside" id="G0R-fw-Pho"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YAc-Wd-0By">
