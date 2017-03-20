@@ -7,13 +7,31 @@
 //
 
 import UIKit
+import MapboxDirections
+import Mapbox
+
 
 class ExploreMapUI: MapUI {
-
+    var mapLat: Double?
+    var mapLong: Double?
+    var exploreTitle: String?
+    var target = MGLPointAnnotation()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+      
+        target.coordinate = CLLocationCoordinate2D(latitude: mapLat!, longitude: mapLong!)
+        target.title = exploreTitle
+        
+        // Add marker `start` to the map.
+        MapUI.addAnnotation(target)
+        MapUI.userTrackingMode = .follow
 
         // Do any additional setup after loading the view.
+    }
+    override func handleSingleTap(tap: UITapGestureRecognizer) {
+    //do nooooothing
+    
     }
 
     override func didReceiveMemoryWarning() {

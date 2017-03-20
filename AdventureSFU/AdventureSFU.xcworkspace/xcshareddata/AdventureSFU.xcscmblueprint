@@ -1,30 +1,44 @@
 {
-  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "92F457A6E9F24C4AAD8086B00A214BFDFD5F6D53",
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "090E1F8904A0414B36B1F46DC5AF2B06BDF0D06A+++6C7E73F",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
-    "12F618B5D052C4C3DC599EE3F949532086331144" : 9223372036854775807,
-    "92F457A6E9F24C4AAD8086B00A214BFDFD5F6D53" : 9223372036854775807
+    "090E1F8904A0414B36B1F46DC5AF2B06BDF0D06A+++19D030F" : 9223372036854775807,
+    "090E1F8904A0414B36B1F46DC5AF2B06BDF0D06A+++6C7E73F" : 9223372036854775807,
+    "12F618B5D052C4C3DC599EE3F949532086331144+++6BE73F6" : 9223372036854775807,
+    "92F457A6E9F24C4AAD8086B00A214BFDFD5F6D53+++EA4F37B" : 9223372036854775807
   },
-  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "7E5F64ED-C83D-4286-B27B-96B3A15372FD",
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "081DA31A-2978-4E23-95C0-008FFE5FFB48",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+
     "12F618B5D052C4C3DC599EE3F949532086331144" : "",
     "92F457A6E9F24C4AAD8086B00A214BFDFD5F6D53" : "ProjectGroup12\/"
+
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "AdventureSFU",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
   "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "AdventureSFU\/AdventureSFU.xcworkspace",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
     {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/github.com\/elewis2\/group12work.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/SFU-2017-1-cmpt276\/ProjectGroup12.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "12F618B5D052C4C3DC599EE3F949532086331144"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "090E1F8904A0414B36B1F46DC5AF2B06BDF0D06A+++19D030F"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/SFU-2017-1-cmpt276\/ProjectGroup12.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "92F457A6E9F24C4AAD8086B00A214BFDFD5F6D53"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "090E1F8904A0414B36B1F46DC5AF2B06BDF0D06A+++6C7E73F"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/elewis2\/test.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "12F618B5D052C4C3DC599EE3F949532086331144+++6BE73F6"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/SFU-2017-1-cmpt276\/ProjectGroup12.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "92F457A6E9F24C4AAD8086B00A214BFDFD5F6D53+++EA4F37B"
     }
   ]
 }
