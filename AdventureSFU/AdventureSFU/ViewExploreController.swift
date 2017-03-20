@@ -20,28 +20,39 @@ import UIKit
 class ViewExploreController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
 //Variables
-	let itemTitle = ["Explore0",
-	                 "Explore1",
-	                 "Explore2",
-	                 "Explore3",
-	                 "Explore4",
-	                 "Explore5",
-	                 "Explore6",
-	                 "Explore7",
-	                 "Explore8",
-	                 "Explore9"]
-    let itemText = ["Test test test test test test 0",
-                    "Test test test test test test 1",
-                    "Test test test test test test 2",
-                    "Test test test test test test 3",
-                    "Test test test test test test 4",
-                    "Test test test test test test 5",
-                    "Test test test test test test 6",
-                    "Test test test test test test 7",
-                    "Test test test test test test 8",
-                    "Test test test test test test 9",]
+    
+	let itemTitle = ["Procession of the Electric Giants",
+	                 "Grassy Tendrils",
+	                 "Opposite the Rhododendron",
+	                 "Entrance to the Underground",
+	                 "The Eleven-Headed Hydra",
+	                 "The Tree-King's Throne",
+	                 "Off the Beaten Path",
+	                 "Overlooking Obstacles",
+	                 "The Odd Green Tree",
+	                 "The Moss Spider's Den"]
+    
+    let itemText = ["Standing astride these metal Titans, Near their feet lies your password to write in.",
+                    "Tentacles tinged green, covering your prize.",
+                    "The ancient sentinel stands tall to time, overlooking what you seek to find.",
+                    "Hidden by the door to a subterrean kingdom is the magic word of which you seek.",
+                    "It's eleven heads strain gravity's bond, but clutched in its talons is where its treasure's spawned.",
+                    "The Tree king holds court over these treacherous steppes, stashed in its throne a gift has been prepped.",
+                    "You've come a distance to get here, and you're just steps to your goal.",
+                    "Holding sentry over trails of wood and nail lies your goal.",
+                    "This tree looks all wrong. Maybe it's hiding something.",
+                    "Careful searching in the moss spider's den, it sleeps for now but stirs now and then.",]
+    
+    let itemLat = [49.2686422, 49.2879845, 49.2795888, 49.2865413, 49.2862572, 49.2802203, 49.2879318, 49.2760305, 49.2825603, 49.2709056]
+    
+    let itemLong = [-122.8967410, -122.9388289, -122.9371649, -122.9186634, -122.8993354, -122.8997471, -122.9269216, -122.8955464, -122.9463260, -122.9074156]
+    
+    let itemPassword = ["Fraser", "Explorer", "Democracy", "Catcher", "Council", "Rainforest", "Horseshoe", "Softly", "Extra", "Compute"]
+    
     var selectedRow:Int = -1
+    
     @IBOutlet weak var exploreTable: UITableView!
+    
 //Functions
 
 	public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -73,6 +84,9 @@ class ViewExploreController: UIViewController, UITableViewDelegate, UITableViewD
             let detailView:ExploreViewOneController = segue.destination as! ExploreViewOneController
             detailView.exploreTitle = itemTitle[selectedRow]
             detailView.exploreText = itemText[selectedRow]
+            detailView.mapLat = itemLat[selectedRow]
+            detailView.mapLong = itemLong[selectedRow]
+            detailView.password = itemPassword[selectedRow]
         }
 
     }
