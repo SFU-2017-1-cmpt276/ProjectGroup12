@@ -12,14 +12,18 @@
 //	Programmers: Karan Aujla, Carlos Abaffy, Eleanor Lewis, Chris Norris-Jones
 //
 //	Known Bugs:	-Stop warning flags from unused variables from displaying, when variables are in fact being used
-//	Todo:	
-//
-
+//	Todo:	implement double-tap removes points from planned route
+//implement scrap it and start over
+//implement Active map changes to gesture recognition - fixed route
+//implement remove last waypoint
+//remove unneeded variables, format, comment, clean up
+//use more attractive map
+//implement 25 points max
 import UIKit
 import Mapbox
 import MapboxDirections
 
-class MapUI: UIViewController {
+class MapUI: UIViewController, RunViewControllerDelegate {
 	
 //View Outlets
 	@IBOutlet var MapUI: MGLMapView!
@@ -29,19 +33,35 @@ class MapUI: UIViewController {
 	var coordinates: [CLLocationCoordinate2D] = []
 	var waypoints: [Waypoint] = []
     var directions = Directions.shared;
-	
+    var preselectedRoute: Route?
+    var names: Int = 0
+    var start = MGLPointAnnotation()
+    var preselectedWaypoints: [Waypoint] = []
+    
+    
 //Load Actions
 	override func viewDidLoad() {
 		super.viewDidLoad()
+ 
+
 		MapUI = MGLMapView(frame: view.bounds)
 		MapUI.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 		view.addSubview(MapUI)
 		MapUI.setCenter(CLLocationCoordinate2D(latitude: 49.273382, longitude: -122.908837),
-		                zoomLevel: 15, animated: false)
-
+		                zoomLevel: 13, animated: false)
+        if (GlobalVariables.sharedManager.plannedWaypoints.count > 0) {
+            handleRoute()
+        }
+        //define tripleTap so doubleTap can be distinguished from it
+    //    let tripleTap = UITapGestureRecognizer(target: self, action: nil)
+      //  tripleTap.numberOfTapsRequired = 3
+       // MapUI.addGestureRecognizer(tripleTap)
+        
         // define doubleTap so singleTap can be distinguished from it
-        let doubleTap = UITapGestureRecognizer(target: self, action: nil)
-		doubleTap.numberOfTapsRequired = 2
+        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
+        doubleTap.numberOfTapsRequired = 2
+       // doubleTap.require(toFail: tripleTap)
+        
 		MapUI.addGestureRecognizer(doubleTap)
 		
 		// define singleTap relative to doubleTap
@@ -49,29 +69,88 @@ class MapUI: UIViewController {
 		singleTap.require(toFail: doubleTap)
 		MapUI.addGestureRecognizer(singleTap)
 		//Load map centred at specified coordinates. Add gesture recognizers doubleTap and singleTap.
+ 
+        
     }
 	
 //Functions
-	func handleSingleTap(tap: UITapGestureRecognizer) {
-		var location: CLLocationCoordinate2D = MapUI.convert(tap.location(in: MapUI), toCoordinateFrom: MapUI)
-		let names = "0"
-		
-		let wpt: Waypoint = Waypoint(coordinate: location, name: names)
-		waypoints.append(wpt)
-		//update current list of coordinates
     
-        self.delegate?.getWaypoint(waypoint: wpt)
-        //sends waypoint to delegate array
-		
-		if (MapUI.annotations?.count != nil) {
-			MapUI.removeAnnotations(MapUI.annotations!)
-            // remove drawn route so new route can be drawn
-		}
-		
-		// if at least 2 points are specified, calculate and draw route. update local and delegate stats.
-		if waypoints.count > 1 {
+    func deleteAllPoints() {
+        print("searchable mapui made it to deleteAllPoints")
+        if (GlobalVariables.sharedManager.plannedWaypoints.count > 0) {
+        GlobalVariables.sharedManager.plannedWaypoints.removeAll()
+           
             
-			let options = RouteOptions(waypoints: waypoints, profileIdentifier: MBDirectionsProfileIdentifierWalking)
+        }
+        if (MapUI.annotations?.count != nil) {
+            MapUI.removeAnnotations(MapUI.annotations!)
+            // remove drawn route so new route can be drawn
+        }
+    }
+    
+    func deleteLastPoint() {
+print("searchable mapui made it to deleteLastPoint")
+        let waypointsCount = GlobalVariables.sharedManager.plannedWaypoints.count
+        if waypointsCount > 0 {
+        GlobalVariables.sharedManager.plannedWaypoints.remove(at: waypointsCount - 1)
+        }
+        if (self.MapUI.annotations != nil) {
+            let annotationsCount = self.MapUI.annotations?.count
+                if (annotationsCount! > 0) {
+                    self.MapUI.removeAnnotation((MapUI.annotations?[(MapUI.annotations?.count)! - 1])!)
+                }
+        }
+    }
+    
+	func handleSingleTap(tap: UITapGestureRecognizer) {
+		let location: CLLocationCoordinate2D = MapUI.convert(tap.location(in: MapUI), toCoordinateFrom: MapUI)
+        print("searchable lat and long: \(location.latitude), \(location.longitude)")
+		let wpt: Waypoint = Waypoint(coordinate: location, name: "\(names)")
+		GlobalVariables.sharedManager.plannedWaypoints.append(wpt)
+		//update current list of coordinates
+        self.names = self.names + 1
+
+			// if at least 2 points are specified, calculate and draw route. update local and delegate stats.
+	
+            handleRoute()
+       
+      
+    }
+    
+    
+    func handleDoubleTap(tap: UITapGestureRecognizer) {
+//        print("searchable doubletap")
+//        if (self.names > 0) {
+//            waypoints.remove(at: (self.names-1))
+//            self.names = self.names-1
+//        
+//        self.delegate?.deleteWaypoint()
+//        }
+//        // remove existing polyline from the map, (re)add polyline with coordinates
+//       
+//            MapUI.removeAnnotations(MapUI.annotations!)
+//        handleRoute()
+    }
+    
+    
+    func handleRoute() {
+
+        print("searchable waypoints count: \(GlobalVariables.sharedManager.plannedWaypoints.count)")
+       
+        if GlobalVariables.sharedManager.plannedWaypoints.count > 0 { // Declare the marker 'start' and set its coordinates, title, and subtitle.
+          
+            
+            start.coordinate = GlobalVariables.sharedManager.plannedWaypoints[0].coordinate
+            start.title="Start"
+           
+            // Add marker `start` to the map.
+            MapUI.addAnnotation(start)
+        
+        
+        if GlobalVariables.sharedManager.plannedWaypoints.count > 1 {
+            
+        
+       	let options = RouteOptions(waypoints: GlobalVariables.sharedManager.plannedWaypoints, profileIdentifier: MBDirectionsProfileIdentifierWalking)
 			//define directions info - coordinates and travel speed
 			
 			_ = directions.calculate(options) { (waypoints, routes, error) in
@@ -79,24 +158,36 @@ class MapUI: UIViewController {
 					print("Error calculating directions") //for debugging purposes
 					return
 				}
-        
+    
 				if let route = routes?.first {
+                    print("made it into drawRoute")
+                    self.drawRoute(route: route)
+                }
+        
+            }
+        }
+    }
+    }
+    func drawRoute(route: Route) {
+        print("made it to drawRoute")
 					self.delegate?.getRoute(chosenRoute: route)
 					self.delegate?.getTime(time: route.expectedTravelTime)
 					self.delegate?.getDistance(distance: route.distance)
                     //submit route, distance and time info to delegate
-					
 
+//        start.coordinate = GlobalVariables.sharedManager.plannedWaypoints[0].coordinate
+//        start.title="Start"
+//        // Add marker `start` to the map.
+//        MapUI.addAnnotation(start)
                     var routeCoordinates = route.coordinates!
                     let routeLine = MGLPolyline(coordinates: &routeCoordinates, count: route.coordinateCount)
                     self.MapUI.addAnnotation(routeLine)
                     self.MapUI.setVisibleCoordinates(&routeCoordinates, count: route.coordinateCount, edgePadding: .zero, animated: true)
                     //redraw route
 				}
-			}
-		}
+	
        //Updates route with coordinates selected by singleTap.
-    }
+
 	
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()

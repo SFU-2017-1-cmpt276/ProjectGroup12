@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AdventureSFU/ActiveMapUI.swift"
+            timestampString = "511652139.337459"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "didReceiveMemoryWarning()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AdventureSFU/ActiveRunController.swift"
+            timestampString = "511652139.337459"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AdventureSFU/ViewRunController.swift"
+            timestampString = "511662023.169262"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
+            landmarkName = "submitRunStats(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AdventureSFU/ActiveRunController.swift"
+            timestampString = "511576799.28528"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "18"
+            endingLineNumber = "18"
+            landmarkName = "ActiveRunController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AdventureSFU.ActiveRunController.__deallocating_deinit"
+                  moduleName = "AdventureSFU"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ela50/CMPT276/test/AdventureSFU/AdventureSFU/ActiveRunController.swift"
+                  timestampString = "511574694.971739"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AdventureSFU.ActiveRunController.__ivar_destroyer"
+                  moduleName = "AdventureSFU"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ela50/CMPT276/test/AdventureSFU/AdventureSFU/ActiveRunController.swift"
+                  timestampString = "511574694.974662"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AdventureSFU.ActiveRunController.init (nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; AdventureSFU.ActiveRunController"
+                  moduleName = "AdventureSFU"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ela50/CMPT276/test/AdventureSFU/AdventureSFU/ActiveRunController.swift"
+                  timestampString = "511574694.97601"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16"
+                  offsetFromSymbolStart = "69">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AdventureSFU.ActiveRunController.__allocating_init (nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; AdventureSFU.ActiveRunController"
+                  moduleName = "AdventureSFU"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ela50/CMPT276/test/AdventureSFU/AdventureSFU/ActiveRunController.swift"
+                  timestampString = "511574694.977284"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "23">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AdventureSFU.ActiveRunController.__allocating_init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;AdventureSFU.ActiveRunController&gt;"
+                  moduleName = "AdventureSFU"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ela50/CMPT276/test/AdventureSFU/AdventureSFU/ActiveRunController.swift"
+                  timestampString = "511574694.978742"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AdventureSFU.ActiveRunController.init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;AdventureSFU.ActiveRunController&gt;"
+                  moduleName = "AdventureSFU"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ela50/CMPT276/test/AdventureSFU/AdventureSFU/ActiveRunController.swift"
+                  timestampString = "511574694.980481"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16"
+                  offsetFromSymbolStart = "28">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AdventureSFU/GlobalVariables.swift"
+            timestampString = "511579205.58703"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
+            landmarkName = "GlobalVariables"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AdventureSFU.GlobalVariables.plannedWaypoints.setter : Swift.Array&lt;MapboxDirections.Waypoint&gt;"
+                  moduleName = "AdventureSFU"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ela50/CMPT276/test/AdventureSFU/AdventureSFU/GlobalVariables.swift"
+                  timestampString = "511579357.811214"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "23"
+                  endingLineNumber = "23"
+                  offsetFromSymbolStart = "54">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AdventureSFU.GlobalVariables.init () -&gt; AdventureSFU.GlobalVariables"
+                  moduleName = "AdventureSFU"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ela50/CMPT276/test/AdventureSFU/AdventureSFU/GlobalVariables.swift"
+                  timestampString = "511579357.813092"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "23"
+                  endingLineNumber = "23"
+                  offsetFromSymbolStart = "206">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

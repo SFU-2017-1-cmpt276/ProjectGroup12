@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0800"
+   LastUpgradeVersion = "0820"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -84,7 +84,7 @@
       <AdditionalOptions>
       </AdditionalOptions>
       <LocationScenarioReference
-         identifier = "../mapstogpx20170316_135948.gpx"
+         identifier = "../mapstogpx20170316_063134.gpx"
          referenceType = "0">
       </LocationScenarioReference>
    </LaunchAction>
