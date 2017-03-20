@@ -30,6 +30,10 @@ class ActiveMapUI: MapUI, ActiveRunControllerDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    override func handleSingleTap(tap: UITapGestureRecognizer) {
+    //do nooooothing
+    }
   
     func appendToDrawnRoute() {
         print("searchable test of appendToDrawnRoute delegation")

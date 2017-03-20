@@ -36,7 +36,7 @@ class ViewExploreController: UIViewController, UITableViewDelegate, UITableViewD
                     "Tentacles tinged green, covering your prize.",
                     "The ancient sentinel stands tall to time, overlooking what you seek to find.",
                     "Hidden by the door to a subterrean kingdom is the magic word of which you seek.",
-                    "It's eleven heads strain gravity's bond, but clutched in its talons is where its treasure's spawned.",
+                    "Its eleven heads strain gravity's bond, but clutched in its talons is where its treasure's spawned.",
                     "The Tree king holds court over these treacherous steppes, stashed in its throne a gift has been prepped.",
                     "You've come a distance to get here, and you're just steps to your goal.",
                     "Holding sentry over trails of wood and nail lies your goal.",
