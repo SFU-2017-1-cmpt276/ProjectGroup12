@@ -48,7 +48,27 @@ class MainViewController: UIViewController {
 			self.welcomeUserLabel.text = "Welcome, \(username)!"
 
 		})
-		
+        
+       
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        let userID = FIRAuth.auth()?.currentUser?.uid
+        ref = FIRDatabase.database().reference()
+        
+        ref?.child("Users").child(userID!).child("firstLogin").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            let value = snapshot.value as? Bool
+            let condition = value!
+            print("\(condition)")
+            if(condition == true) {
+                self.performSegue(withIdentifier: "TeamSelect", sender: self)
+            }
+            
+        })
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -65,19 +85,16 @@ class MainViewController: UIViewController {
         
     }
 	
-    @IBAction func ExploreModuleButton(){
-        let alert = UIAlertController(title: "We're Sorry!", message: defaultWIPMessage, preferredStyle: .alert)
-        let alertConfirmation = UIAlertAction(title: "ok", style: .default, handler: nil)
-        alert.addAction(alertConfirmation)
-        present(alert, animated: true, completion: nil)
-    }
-	
 	@IBAction func toStatsPage() {
 		performSegue(withIdentifier: "mainToStats", sender: self)
 	}
 	
 	@IBAction func toRunControllerPage() {
 		performSegue(withIdentifier: "mainToRunController", sender: self)
+	}
+	
+	@IBAction func toExploreControllerPage() {
+		performSegue(withIdentifier: "mainToExplore", sender: self)
 	}
     /*
 	
