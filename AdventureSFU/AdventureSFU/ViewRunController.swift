@@ -16,7 +16,8 @@
 //			-Have run data pulled in to database from statistics
 //			-Further functionality with regards to run details, user's ability to create run
 //			-Further run details information upon creating run
-//
+//implement scrap it and start over
+//remove most recent point by shifting everything to point to globalvariables class, then modifying that waypoints object
 
 import UIKit
 import Mapbox
@@ -25,6 +26,7 @@ import Firebase
 
 class ViewRunController: UIViewController, MapViewDelegate {
 	
+
 //View Outlets
 	@IBOutlet weak var distanceField: UILabel!
 	@IBOutlet weak var timeField: UILabel!
@@ -34,8 +36,10 @@ class ViewRunController: UIViewController, MapViewDelegate {
 	var distance: Double = 0
 	var waypoints: [Waypoint] = []
 	var route: Route?
+    var presetRoute: Route?
     var ref: FIRDatabaseReference?
 	let userID = FIRAuth.auth()?.currentUser?.uid
+    var RunViewDelegate: RunViewControllerDelegate?
     
 //Functions
     //Functions implementing MapViewDelegate headers
@@ -56,6 +60,10 @@ class ViewRunController: UIViewController, MapViewDelegate {
 		self.waypoints.append(waypoint)
 	}
 	
+    func deleteWaypoint() {
+        self.waypoints.remove(at: waypoints.count-1)
+    }
+    
 	func getRoute(chosenRoute: Route) -> Route? {
 		self.route = chosenRoute
 		return chosenRoute
@@ -64,6 +72,7 @@ class ViewRunController: UIViewController, MapViewDelegate {
 //Load Actions
 	override func viewDidLoad() {
 		super.viewDidLoad()
+        if (presetRoute != nil) { route = presetRoute }
         ref = FIRDatabase.database().reference()
 		// Do any additional setup after loading the view.
 	}
@@ -78,20 +87,29 @@ class ViewRunController: UIViewController, MapViewDelegate {
 		performSegue(withIdentifier: "runControllerToMain", sender: self)
 	}
 	
+   
+    
+    @IBAction func DeleteLastPoint(_ sender: UIButton) {
+        self.RunViewDelegate?.deleteLastPoint()
+    }
+    @IBAction func DeleteAllPoints(_ sender: UIButton) {
+        self.RunViewDelegate?.deleteAllPoints()
+    }
+    
     @IBAction func submitRunStats(_ sender: AnyObject) {
-        var tempTotalKm: Double?
-        ref?.child("Users").child(userID!).child("KMRun").observeSingleEvent(of: .value, with: { (snapshot) in
-            tempTotalKm = snapshot.value as? Double
-            if var totalKm = tempTotalKm {
-                totalKm = self.distance + tempTotalKm!
-                self.ref?.child("Users").child(self.userID!).child("KMRun").setValue(totalKm)
-            }
-        })
-		let alertController = UIAlertController(title: "Congratulations!", message: "I hope you had a great run!", preferredStyle: .alert)
+        self.ref?.child("Users").child(self.userID!).child("presetRoute").setValue("")
+        for wpt in GlobalVariables.sharedManager.plannedWaypoints {
+            let key = self.ref?.child("Users").child(self.userID!).child("presetRoute").childByAutoId().key
+            let waypt: NSDictionary = ["lat" : wpt.coordinate.latitude,
+                                       "long" : wpt.coordinate.longitude]
+            self.ref?.child("Users").child(self.userID!).child("presetRoute").updateChildValues(["/\(key)" : waypt])
+        
+        }
+        let alertController = UIAlertController(title: "Run is stored", message:nil, preferredStyle: .alert)
 		let defaultAction = UIAlertAction(title: "Thanks", style: .cancel, handler: nil)
 		alertController.addAction(defaultAction)
 		self.present(alertController, animated: true, completion: nil)
-        //Submit current route kms to user stats in database.
+        //submits run plan to Firebase
     }
 	
 // Navigation
@@ -99,7 +117,14 @@ class ViewRunController: UIViewController, MapViewDelegate {
 		if segue.identifier == "runpageembed" {
 			let childViewController = segue.destination as? MapUI
 			childViewController?.delegate = self
-		}
+            childViewController?.preselectedRoute = self.route
+            childViewController?.waypoints = self.waypoints
+            self.RunViewDelegate = segue.destination as? MapUI		}
+        if segue.identifier == "startRun" {
+            let childViewController = segue.destination as? ActiveRunController
+            childViewController?.presetRoute = self.route
+            childViewController?.waypoints = self.waypoints
+        }
 		//Define self as MapViewDelegate for embedded MapUI.
 	}
  
