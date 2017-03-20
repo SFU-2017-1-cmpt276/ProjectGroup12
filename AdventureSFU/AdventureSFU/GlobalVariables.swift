@@ -13,6 +13,7 @@ import MapboxDirections
 
 class GlobalVariables {
     
+ 
     var actualWaypoints: [Waypoint] = []
     var waypoints: [Waypoint] = []
     var startTime: Date?

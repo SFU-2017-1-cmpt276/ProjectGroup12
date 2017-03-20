@@ -5,8 +5,8 @@
 //  Created by ela50 on 3/14/17.
 //  Copyright © 2017 Karan Aujla. All rights reserved.
 //
-//todo: draw polyline from planned route
-//draw self-updating polyline, separately from actual route
+//todo:
+//zoom out map to include starting point and current location
 //log waypoints to firebase
 //figure out route storage with multiple points
 import UIKit
@@ -30,6 +30,13 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
     
     @IBOutlet weak var pauseButton: UIButton!
     
+    override func getTime(time: Double) -> Double? {
+        return 0
+    }
+    
+    override func getDistance(distance: Double) -> Double? {
+        return 0
+    }
 //    @IBAction func StopStartRun(_ sender: UIButton) {
 //        if (running) {
 //            self.locationManager.stopUpdatingLocation()
@@ -57,7 +64,7 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
         self.locationManager.requestAlwaysAuthorization()
         if (CLLocationManager.locationServicesEnabled()) {
             self.locationManager.delegate = self
-            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest //is this necessary?
             self.locationManager.distanceFilter = kCLLocationAccuracyBest
             self.locationManager.startUpdatingLocation()
         }
@@ -79,13 +86,13 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
         if actualWaypointNumber > 1 {
             let prevLocation = CLLocation(latitude: actualWaypoints[actualWaypoints.count-2].coordinate.latitude, longitude: actualWaypoints[actualWaypoints.count-2].coordinate.longitude)
             print("searchable prev and current location: \(prevLocation.coordinate), \(location.coordinate)")
-            var tempTotalDistance: Double = location.distance(from: prevLocation)
+            let tempTotalDistance: Double = location.distance(from: prevLocation)
             self.actualTotalDistance = self.actualTotalDistance + tempTotalDistance
             print("searchable temp/total metres: \(tempTotalDistance), \(self.actualTotalDistance)")
         }
         
    //     print("searchable long and lat\(location.coordinate.longitude),\(location.coordinate.latitude)")
-        // Tracks user's position.
+        // Tracks user's position. Sends data to GlobalVariables.
     }
     
     override func didReceiveMemoryWarning() {
@@ -125,7 +132,7 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
             GlobalVariables.sharedManager.elapsedTimeThisRun = GlobalVariables.sharedManager.endTime!.timeIntervalSince(GlobalVariables.sharedManager.startTime!)
             GlobalVariables.sharedManager.distanceThisRun = GlobalVariables.sharedManager.distanceThisRun + 10
             super.ref?.child("Users").child(super.userID!).child("totalTime").observeSingleEvent(of: .value, with: { (snapshot) in
-                var tempTotalTime = snapshot.value as? TimeInterval
+                let tempTotalTime = snapshot.value as? TimeInterval
                 if var totalTime = tempTotalTime {
                     totalTime = tempTotalTime! + GlobalVariables.sharedManager.elapsedTimeThisRun!/60
                     super.ref?.child("Users").child(super.userID!).child("totalTime").setValue(totalTime as Double!)

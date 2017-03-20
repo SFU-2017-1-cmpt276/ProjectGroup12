@@ -17,26 +17,18 @@ class ActiveMapUI: MapUI, ActiveRunControllerDelegate {
 
     
     override func viewDidLoad() {
+        print("made it here")
         super.viewDidLoad()
+        if (GlobalVariables.sharedManager.plannedWaypoints.count > 0) {
+        MapUI.setCenter(CLLocationCoordinate2D(latitude: GlobalVariables.sharedManager.plannedWaypoints[0].coordinate.latitude, longitude: GlobalVariables.sharedManager.plannedWaypoints[0].coordinate.longitude),
+                        zoomLevel: 13, animated: false) }
         MapUI.userTrackingMode = .follow
-        print("searchable active waypoints \(waypoints)")
-        print("searchable active waypoints in mapui: \(waypoints.count)")
         self.handleRoute()
      }
    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-
-    override func handleRoute() {
-        super.handleRoute()
-        print("handleRoute in active")
-    }
-    
-    override func drawRoute(route: Route) {
-        super.drawRoute(route: route)
-        print("drawRoute in active")
     }
   
     func appendToDrawnRoute() {

@@ -26,6 +26,7 @@ import Firebase
 
 class ViewRunController: UIViewController, MapViewDelegate {
 	
+
 //View Outlets
 	@IBOutlet weak var distanceField: UILabel!
 	@IBOutlet weak var timeField: UILabel!
@@ -38,6 +39,7 @@ class ViewRunController: UIViewController, MapViewDelegate {
     var presetRoute: Route?
     var ref: FIRDatabaseReference?
 	let userID = FIRAuth.auth()?.currentUser?.uid
+    var RunViewDelegate: RunViewControllerDelegate?
     
 //Functions
     //Functions implementing MapViewDelegate headers
@@ -85,38 +87,29 @@ class ViewRunController: UIViewController, MapViewDelegate {
 		performSegue(withIdentifier: "runControllerToMain", sender: self)
 	}
 	
+   
+    
+    @IBAction func DeleteLastPoint(_ sender: UIButton) {
+        self.RunViewDelegate?.deleteLastPoint()
+    }
+    @IBAction func DeleteAllPoints(_ sender: UIButton) {
+        self.RunViewDelegate?.deleteAllPoints()
+    }
+    
     @IBAction func submitRunStats(_ sender: AnyObject) {
-//        var tempTotalKm: Double?
-//        ref?.child("Users").child(userID!).child("KMRun").observeSingleEvent(of: .value, with: { (snapshot) in
-//            tempTotalKm = snapshot.value as? Double
-//            if var totalKm = tempTotalKm {
-//                totalKm = self.distance + tempTotalKm!
-//                self.ref?.child("Users").child(self.userID!).child("KMRun").setValue(totalKm)
-//            }
-//        })
+        self.ref?.child("Users").child(self.userID!).child("presetRoute").setValue("")
+        for wpt in GlobalVariables.sharedManager.plannedWaypoints {
+            let key = self.ref?.child("Users").child(self.userID!).child("presetRoute").childByAutoId().key
+            let waypt: NSDictionary = ["lat" : wpt.coordinate.latitude,
+                                       "long" : wpt.coordinate.longitude]
+            self.ref?.child("Users").child(self.userID!).child("presetRoute").updateChildValues(["/\(key)" : waypt])
         
-        
-        self.ref?.child("Users").child(self.userID!).child("presetRoute").setValue("lats")
-        
-        self.ref?.child("Users").child(self.userID!).child("presetRoute").setValue("longs")
-        
-        
-        self.ref?.child("Users").child(self.userID!).child("presetRoute").child("lats").setValue([49.2743059909817, 49.2716693043483, 49.2700657079155])
-        self.ref?.child("Users").child(self.userID!).child("presetRoute").child("longs").setValue([-122.911805295561, -122.908844152737, -122.903269374788])
-        
-  //      self.ref?.child("Users").child(self.userID!).child("presetRoute").setValue(GlobalVariables.sharedManager.plannedWaypoints)
-    //    print("searchable Global variables presets: \(GlobalVariables.sharedManager.plannedWaypoints)")
+        }
         let alertController = UIAlertController(title: "Run is stored", message:nil, preferredStyle: .alert)
 		let defaultAction = UIAlertAction(title: "Thanks", style: .cancel, handler: nil)
 		alertController.addAction(defaultAction)
 		self.present(alertController, animated: true, completion: nil)
-        //Submit current route kms to user stats in database.
-        var testWaypoints: [Waypoint] = []
-     //   ref?.child("Users").child(userID!).child("presetRoute").observeSingleEvent(of: .value, with: { (snapshot) in testWaypoints = (snapshot.value as! NSArray) as! [Waypoint]
-       //     GlobalVariables.sharedManager.waypointsTest = testWaypoints
-         //   print("searchable firebase test: \(GlobalVariables.sharedManager.waypointsTest)")
-       // })
-        
+        //submits run plan to Firebase
     }
 	
 // Navigation
@@ -126,7 +119,7 @@ class ViewRunController: UIViewController, MapViewDelegate {
 			childViewController?.delegate = self
             childViewController?.preselectedRoute = self.route
             childViewController?.waypoints = self.waypoints
-		}
+            self.RunViewDelegate = segue.destination as? MapUI		}
         if segue.identifier == "startRun" {
             let childViewController = segue.destination as? ActiveRunController
             childViewController?.presetRoute = self.route
