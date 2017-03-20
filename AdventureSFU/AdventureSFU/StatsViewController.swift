@@ -13,7 +13,7 @@
 //
 //	Known Bugs: 
 //	Todo:	-Further flesh out user's stats
-//			-Set up Team stats page, and setup link from StatsViewController to TeamStatsViewController
+//          -Separate editable and non-editable info into seperate tables
 //
 
 import UIKit
@@ -33,12 +33,11 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
     var height: Double = 0.0
     var weight: Double = 0.0
     var personalMessage: String = ""
-    var team: String = "no Team"
+    var team: String = "No Team"
     
     var canEditUserInfo: Bool = false //used to track if the user can edit their info
     var rowCount = 8
-
-//Functions
+  //Functions
 	
 	//Create the Stats Table
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -92,7 +91,11 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
        //print("selected row \(indexPath.row)")
         //only allow the user info to be edited if the edit button has been tapped
-        if canEditUserInfo {
+        if canEditUserInfo == true {
+            //create a generic error alert to be modified and presented when the user enters an invalid value
+            let invalidAlert = UIAlertController(title: "error", message: "not valid", preferredStyle: .alert)
+            let confirmAlert = UIAlertAction(title: "ok", style: .default, handler: nil)
+            invalidAlert.addAction(confirmAlert)
             
             //if the username is selected
             if indexPath.row == 0 {
@@ -103,44 +106,118 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
                 changeUsernameAlert.addTextField(configurationHandler: nil)
                 
                 //
-                let confirmChange = UIAlertAction(title: "confirm", style: .default, handler: {confirmChange in
+                let confirmUsernameChange = UIAlertAction(title: "confirm", style: .default, handler: {(confirmUsernameChange) in
                     self.username = (changeUsernameAlert.textFields!.last?.text)!
                     //also change the username on firebase
                     self.ref?.child("Users").child((FIRAuth.auth()?.currentUser?.uid)!).child("username").setValue(self.username)
-                    print("username is now: \(self.username)")
                     self.userInfo.reloadData()
                     })
-                changeUsernameAlert.addAction(confirmChange)
+                changeUsernameAlert.addAction(confirmUsernameChange)
                 
-                let cancelChange = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
-                changeUsernameAlert.addAction(cancelChange)
+                let cancelUsernameChange = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+                changeUsernameAlert.addAction(cancelUsernameChange)
                 
                 present(changeUsernameAlert, animated: true)
             
             //if height is selected
             } else if indexPath.row == 3 {
-                //due to there being 2 values for height (feet and inches), we need to ask what value they want to change
-                var feetChosen = false //a boolean indicating which value the user chose. False implies that they chose inches
+               //force the user to enter in inches
+                let changeHeight = UIAlertController(title: "new Height", message: "please enter your new height in inches", preferredStyle: .alert)
                 
+                //add a cancel button
+                let cancelHeightChange = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+                changeHeight.addAction(cancelHeightChange)
                 
-                let chooseHeightValue = UIAlertController(title: "changing height",
-                                                          message: "please choose which value you would like to change: Feet or Inches",
-                                                          preferredStyle: .alert)
+                changeHeight.addTextField(configurationHandler: nil)
                 
-                let choseInches = UIAlertAction(title: "Inches", style: .destructive, handler: {choseInches in feetChosen = false})
-                chooseHeightValue.addAction(choseInches)
+                let confirmHeightChange = UIAlertAction(title: "confirm", style: .default, handler: {(confirmChange) in
+                    //only allow numbers
+                    if let newHeight = Double((changeHeight.textFields?.last?.text!)!) {
+                        //only allow postive heights
+                        if newHeight > 0{
+                            self.height = newHeight/12
+                            //also change it on firebase
+                            self.ref?.child("Users").child((FIRAuth.auth()?.currentUser?.uid)!).child("height").setValue(self.height)
+                            self.userInfo.reloadData()
+                        } else {
+                            invalidAlert.title = "Invalid Height"
+                            invalidAlert.message = "please enter a value greater than 0"
+                            self.present(invalidAlert, animated: true, completion: nil)
+                        }
+                    }
+                    
+                   
+                })
+                changeHeight.addAction(confirmHeightChange)
                 
-                let choseCancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
-                chooseHeightValue.addAction(choseCancel)
+                //present the alert so the user can change their height
+                present(changeHeight, animated: true, completion: nil)
+            
                 
-                let choseFeet = UIAlertAction(title: "feet", style: .destructive, handler: {choseFeet in feetChosen = true})
-                chooseHeightValue.addAction(choseFeet)
-                present(chooseHeightValue, animated: true)
+            //if weight is chosen
+            } else if indexPath.row == 4 {
+                let changeWeight = UIAlertController(title: "change Weight", message: "please enter your new weight in pounds", preferredStyle: .alert)
+                //add a textfield so the user can enter a value
+                changeWeight.addTextField(configurationHandler: nil)
                 
-                let infoAlert = UIAlertController(title: "askdj", message: "feetchosen is now \(feetChosen)", preferredStyle: .alert)
-                let infoAction = UIAlertAction(title: "ok:", style: .default, handler: nil)
-                infoAlert.addAction(infoAction)
-                present(infoAlert, animated: true, completion: nil)
+                //add a cancel button
+                let cancelWeightChange = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+                changeWeight.addAction(cancelWeightChange)
+                
+                //add a confirm button
+                let confirmWeightChange = UIAlertAction(title: "confirm", style: .default, handler: {(confirmWeightChange) in
+                    // make sure the weight is a valid number
+                    if let newWeight =  Double((changeWeight.textFields?.last?.text)!){
+                        //only allow positive weights
+                        if newWeight > 0{
+                            self.weight = newWeight
+                            self.ref?.child("Users").child((FIRAuth.auth()?.currentUser?.uid)!).child("weight").setValue(self.weight)
+                            self.userInfo.reloadData()
+                        } else {
+                            invalidAlert.title = "invalid weight"
+                            invalidAlert.title = "please enter a weight greater than 0"
+                            self.present(invalidAlert, animated: true, completion: nil)
+                        }
+                    }
+                    
+                   
+
+                })
+                changeWeight.addAction(confirmWeightChange)
+                
+                //present the alert
+                present(changeWeight, animated: true, completion: nil)
+            
+            //if the personal message
+            } else if indexPath.row == 5 {
+                let changePersonalMessage = UIAlertController(title: "Change Message", message: "please enter your new personal Message", preferredStyle: .alert)
+               
+                changePersonalMessage.addTextField(configurationHandler: nil)
+                
+                let cancelMessageChange = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+                changePersonalMessage.addAction(cancelMessageChange)
+                
+                let confirmMessageChange = UIAlertAction(title: "confirm", style: .default, handler: {(confirmMessageChange) in
+                    self.personalMessage = (changePersonalMessage.textFields?.last?.text!)!
+                    
+                    //change it on the data base
+                    self.ref?.child("Users").child((FIRAuth.auth()?.currentUser?.uid)!).child("personalMessage").setValue(self.personalMessage)
+                    self.userInfo.reloadData()
+                })
+                changePersonalMessage.addAction(confirmMessageChange)
+                
+                present(changePersonalMessage, animated: true, completion: nil)
+                
+            //if teams were selected
+            } else if indexPath.row == 6{
+                print("teams selected, team is currently \(team)")
+                //if there is no team, then let the user select one. 
+                if team == "No Team" {
+                    print("no team found going to team selectß")
+                    // perform a segue to the teams page
+                    performSegue(withIdentifier: "teamSelect", sender: self)
+                }
+            
             }
             
         }
@@ -198,6 +275,11 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
 			
 		})
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        //make sure the user data is updated
+        self.userInfo.reloadData()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -225,6 +307,7 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         
     }
+    
     
     
     
