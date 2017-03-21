@@ -9,6 +9,6 @@
 import Foundation
 
 protocol RunViewControllerDelegate {
-    func deleteLastPoint()
+   // func deleteLastPoint()
     func deleteAllPoints()
 }

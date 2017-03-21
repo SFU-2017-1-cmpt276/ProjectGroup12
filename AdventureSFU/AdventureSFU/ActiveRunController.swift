@@ -22,11 +22,9 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
     var actualWaypoints: [Waypoint] = []
     let calendar = Calendar.current
     var actualTotalDistance: Double = 0
-//    var ref: FIRDatabaseReference?
-  //  let userID = FIRAuth.auth()?.currentUser?.uid
-
-//    var running: Bool = true //not currently in use
-
+    //var ref: FIRDatabaseReference?
+    // let userID = FIRAuth.auth()?.currentUser?.uid
+    //    var running: Bool = true //not currently in use
     
     @IBOutlet weak var pauseButton: UIButton!
     
@@ -37,29 +35,28 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
     override func getDistance(distance: Double) -> Double? {
         return 0
     }
-//    @IBAction func StopStartRun(_ sender: UIButton) {
-//        if (running) {
-//            self.locationManager.stopUpdatingLocation()
-//        pauseButton.setTitle("", for: [])
-//        pauseButton.setTitle("Resume run recording", for: [])
-//         running = false
-//            
-//        }
-//        else {
-//            running = true
-//            self.locationManager.startUpdatingLocation()
-//            pauseButton.setTitle("Pause run recording", for: [])
-//        }
-//      //pause/resume user-route tracking.
-//    }
-//   //not currently in use.
+    //    @IBAction func StopStartRun(_ sender: UIButton) {
+    //        if (running) {
+    //            self.locationManager.stopUpdatingLocation()
+    //        pauseButton.setTitle("", for: [])
+    //        pauseButton.setTitle("Resume run recording", for: [])
+    //         running = false
+    //
+    //        }
+    //        else {
+    //            running = true
+    //            self.locationManager.startUpdatingLocation()
+    //            pauseButton.setTitle("Pause run recording", for: [])
+    //        }
+    //      //pause/resume user-route tracking.
+    //    }
+    //   //not currently in use.
     
     override func viewDidLoad() {
         super.viewDidLoad()
         GlobalVariables.sharedManager.startTime = Date()
         
-//      pauseButton.setTitle("Pause run recording", for: []) //not currently in use.
-
+        //      pauseButton.setTitle("Pause run recording", for: []) //not currently in use.
         self.locationManager = CLLocationManager()
         self.locationManager.requestAlwaysAuthorization()
         if (CLLocationManager.locationServicesEnabled()) {
@@ -71,7 +68,7 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
         // Initiate user-route updating and set start time.
         // Do any additional setup after loading the view.
     }
-
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
         let location = locations.last! as CLLocation
@@ -85,13 +82,13 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
         
         if actualWaypointNumber > 1 {
             let prevLocation = CLLocation(latitude: actualWaypoints[actualWaypoints.count-2].coordinate.latitude, longitude: actualWaypoints[actualWaypoints.count-2].coordinate.longitude)
-            print("searchable prev and current location: \(prevLocation.coordinate), \(location.coordinate)")
+            //   print("searchable prev and current location: \(prevLocation.coordinate), \(location.coordinate)")
             let tempTotalDistance: Double = location.distance(from: prevLocation)
             self.actualTotalDistance = self.actualTotalDistance + tempTotalDistance
-            print("searchable temp/total metres: \(tempTotalDistance), \(self.actualTotalDistance)")
+            //     print("searchable temp/total metres: \(tempTotalDistance), \(self.actualTotalDistance)")
         }
         
-   //     print("searchable long and lat\(location.coordinate.longitude),\(location.coordinate.latitude)")
+        //     print("searchable long and lat\(location.coordinate.longitude),\(location.coordinate.latitude)")
         // Tracks user's position. Sends data to GlobalVariables.
     }
     
@@ -99,15 +96,15 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-//    override func getTime(time: Double) -> Double? {
-//        self.time = time
-//        return time
-//    }
-//    
-//    override func getDistance(distance: Double) -> Double? {
-//        self.distance = distance/1000
-//        return distance
-//    }
+    //    override func getTime(time: Double) -> Double? {
+    //        self.time = time
+    //        return time
+    //    }
+    //
+    //    override func getDistance(distance: Double) -> Double? {
+    //        self.distance = distance/1000
+    //        return distance
+    //    }
     
     @IBAction func stopRun() {
         self.locationManager.stopUpdatingLocation()
@@ -121,21 +118,23 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
             childViewController?.delegate = self
             childViewController?.preselectedRoute = self.presetRoute
             childViewController?.waypoints = self.waypoints
-   
+            
             //Define self as delegate for embedded ActiveMapUI.
             //Define embedded ActiveMapUI as delegate for self.
             
         }
         if segue.identifier == "stopRun" {
+            print("searchable made it to stopRUN prepare")
             GlobalVariables.sharedManager.hasRunData = true
             GlobalVariables.sharedManager.endTime = Date()
             GlobalVariables.sharedManager.elapsedTimeThisRun = GlobalVariables.sharedManager.endTime!.timeIntervalSince(GlobalVariables.sharedManager.startTime!)
-            GlobalVariables.sharedManager.distanceThisRun = GlobalVariables.sharedManager.distanceThisRun + 10
-            super.ref?.child("Users").child(super.userID!).child("totalTime").observeSingleEvent(of: .value, with: { (snapshot) in
+            GlobalVariables.sharedManager.distanceThisRun = self.actualTotalDistance
+            super.ref?.child("Users").child(super.userID!).child("totalMins").observeSingleEvent(of: .value, with: { (snapshot) in
                 let tempTotalTime = snapshot.value as? TimeInterval
                 if var totalTime = tempTotalTime {
-                    totalTime = tempTotalTime! + GlobalVariables.sharedManager.elapsedTimeThisRun!/60
-                    super.ref?.child("Users").child(super.userID!).child("totalTime").setValue(totalTime as Double!)
+                    totalTime = tempTotalTime! + (GlobalVariables.sharedManager.elapsedTimeThisRun! as Double)/60
+                    super.ref?.child("Users").child(super.userID!).child("totalMins").setValue(totalTime as Double!)
+                    print("searchable totalTime: \(totalTime)")
                 }
             })
             
@@ -151,11 +150,11 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
                     super.ref?.child("Users").child(super.userID!).child("KMRun").setValue(totalKm)
                 }
             })
-    
+            
             let childViewController = segue.destination as? ViewRunController
             childViewController?.route = self.route
             childViewController?.presetRoute=self.presetRoute
-         
+            
             //Store run data in GlobalVariables and Firebase.
         }
     }
