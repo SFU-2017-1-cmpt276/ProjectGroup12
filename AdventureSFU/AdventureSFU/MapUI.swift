@@ -52,11 +52,7 @@ class MapUI: UIViewController, RunViewControllerDelegate {
         if (GlobalVariables.sharedManager.plannedWaypoints.count > 0) {
             handleRoute()
         }
-        //define tripleTap so doubleTap can be distinguished from it
-    //    let tripleTap = UITapGestureRecognizer(target: self, action: nil)
-      //  tripleTap.numberOfTapsRequired = 3
-       // MapUI.addGestureRecognizer(tripleTap)
-        
+  
         // define doubleTap so singleTap can be distinguished from it
         let doubleTap = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
         doubleTap.numberOfTapsRequired = 2
@@ -76,7 +72,7 @@ class MapUI: UIViewController, RunViewControllerDelegate {
 //Functions
     
     func deleteAllPoints() {
-        print("searchable mapui made it to deleteAllPoints")
+       // print("searchable mapui made it to deleteAllPoints")
         if (GlobalVariables.sharedManager.plannedWaypoints.count > 0) {
         GlobalVariables.sharedManager.plannedWaypoints.removeAll()
            
@@ -88,19 +84,19 @@ class MapUI: UIViewController, RunViewControllerDelegate {
         }
     }
     
-    func deleteLastPoint() {
-print("searchable mapui made it to deleteLastPoint")
-        let waypointsCount = GlobalVariables.sharedManager.plannedWaypoints.count
-        if waypointsCount > 0 {
-        GlobalVariables.sharedManager.plannedWaypoints.remove(at: waypointsCount - 1)
-        }
-        if (self.MapUI.annotations != nil) {
-            let annotationsCount = self.MapUI.annotations?.count
-                if (annotationsCount! > 0) {
-                    self.MapUI.removeAnnotation((MapUI.annotations?[(MapUI.annotations?.count)! - 1])!)
-                }
-        }
-    }
+//    func deleteLastPoint() {
+//print("searchable mapui made it to deleteLastPoint")
+//        let waypointsCount = GlobalVariables.sharedManager.plannedWaypoints.count
+//        if waypointsCount > 0 {
+//        GlobalVariables.sharedManager.plannedWaypoints.remove(at: waypointsCount - 1)
+//        }
+//        if (self.MapUI.annotations != nil) {
+//            let annotationsCount = self.MapUI.annotations?.count
+//                if (annotationsCount! > 0) {
+//                    self.MapUI.removeAnnotation((MapUI.annotations?[(MapUI.annotations?.count)! - 1])!)
+//                }
+//        }
+//    }
     
 	func handleSingleTap(tap: UITapGestureRecognizer) {
 		let location: CLLocationCoordinate2D = MapUI.convert(tap.location(in: MapUI), toCoordinateFrom: MapUI)
@@ -182,7 +178,7 @@ print("searchable mapui made it to deleteLastPoint")
                     var routeCoordinates = route.coordinates!
                     let routeLine = MGLPolyline(coordinates: &routeCoordinates, count: route.coordinateCount)
                     self.MapUI.addAnnotation(routeLine)
-                    self.MapUI.setVisibleCoordinates(&routeCoordinates, count: route.coordinateCount, edgePadding: .zero, animated: true)
+           
                     //redraw route
 				}
 	

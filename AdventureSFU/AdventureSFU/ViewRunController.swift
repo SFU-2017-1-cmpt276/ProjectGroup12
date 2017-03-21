@@ -16,7 +16,7 @@
 //			-Have run data pulled in to database from statistics
 //			-Further functionality with regards to run details, user's ability to create run
 //			-Further run details information upon creating run
-//implement scrap it and start over
+
 //remove most recent point by shifting everything to point to globalvariables class, then modifying that waypoints object
 
 import UIKit
@@ -45,13 +45,13 @@ class ViewRunController: UIViewController, MapViewDelegate {
     //Functions implementing MapViewDelegate headers
 	func getTime(time: Double) -> Double? {
 		self.time = time
-		timeField.text = String("min: \(time/60)")
+        timeField.text = String(format: "h/m/s: %d/%d/%d", Int(time/360), Int((Int(time) % 360)/60), Int(Int(time) % 60))
 		return time
 	}
 	
 	func getDistance(distance: Double) -> Double? {
 		self.distance = distance/1000
-		distanceField.text = String("kms: \(distance/1000)")
+        distanceField.text = String(format: "kms: %.2f", distance/1000)
 		return distance
 		
 	}
@@ -89,9 +89,9 @@ class ViewRunController: UIViewController, MapViewDelegate {
 	
    
     
-    @IBAction func DeleteLastPoint(_ sender: UIButton) {
-        self.RunViewDelegate?.deleteLastPoint()
-    }
+//    @IBAction func DeleteLastPoint(_ sender: UIButton) {
+//        self.RunViewDelegate?.deleteLastPoint()
+//    }
     @IBAction func DeleteAllPoints(_ sender: UIButton) {
         self.RunViewDelegate?.deleteAllPoints()
     }

@@ -22,8 +22,8 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
     var actualWaypoints: [Waypoint] = []
     let calendar = Calendar.current
     var actualTotalDistance: Double = 0
-//    var ref: FIRDatabaseReference?
-  //  let userID = FIRAuth.auth()?.currentUser?.uid
+   //var ref: FIRDatabaseReference?
+   // let userID = FIRAuth.auth()?.currentUser?.uid
 
 //    var running: Bool = true //not currently in use
 
@@ -85,10 +85,10 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
         
         if actualWaypointNumber > 1 {
             let prevLocation = CLLocation(latitude: actualWaypoints[actualWaypoints.count-2].coordinate.latitude, longitude: actualWaypoints[actualWaypoints.count-2].coordinate.longitude)
-            print("searchable prev and current location: \(prevLocation.coordinate), \(location.coordinate)")
+         //   print("searchable prev and current location: \(prevLocation.coordinate), \(location.coordinate)")
             let tempTotalDistance: Double = location.distance(from: prevLocation)
             self.actualTotalDistance = self.actualTotalDistance + tempTotalDistance
-            print("searchable temp/total metres: \(tempTotalDistance), \(self.actualTotalDistance)")
+       //     print("searchable temp/total metres: \(tempTotalDistance), \(self.actualTotalDistance)")
         }
         
    //     print("searchable long and lat\(location.coordinate.longitude),\(location.coordinate.latitude)")
@@ -127,15 +127,17 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
             
         }
         if segue.identifier == "stopRun" {
+            print("searchable made it to stopRUN prepare")
             GlobalVariables.sharedManager.hasRunData = true
             GlobalVariables.sharedManager.endTime = Date()
             GlobalVariables.sharedManager.elapsedTimeThisRun = GlobalVariables.sharedManager.endTime!.timeIntervalSince(GlobalVariables.sharedManager.startTime!)
-            GlobalVariables.sharedManager.distanceThisRun = GlobalVariables.sharedManager.distanceThisRun + 10
-            super.ref?.child("Users").child(super.userID!).child("totalTime").observeSingleEvent(of: .value, with: { (snapshot) in
+            GlobalVariables.sharedManager.distanceThisRun = self.actualTotalDistance
+            super.ref?.child("Users").child(super.userID!).child("totalMins").observeSingleEvent(of: .value, with: { (snapshot) in
                 let tempTotalTime = snapshot.value as? TimeInterval
                 if var totalTime = tempTotalTime {
-                    totalTime = tempTotalTime! + GlobalVariables.sharedManager.elapsedTimeThisRun!/60
-                    super.ref?.child("Users").child(super.userID!).child("totalTime").setValue(totalTime as Double!)
+                    totalTime = tempTotalTime! + (GlobalVariables.sharedManager.elapsedTimeThisRun! as Double)/60
+                    super.ref?.child("Users").child(super.userID!).child("totalMins").setValue(totalTime as Double!)
+                    print("searchable totalTime: \(totalTime)")
                 }
             })
             
