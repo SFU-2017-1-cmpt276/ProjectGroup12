@@ -13,13 +13,12 @@ class TeamSelect2: UIViewController {
     
     //Variables
     var ref: FIRDatabaseReference?
-    
+    var newUser: userProfile?
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let userID = FIRAuth.auth()?.currentUser?.uid
         ref = FIRDatabase.database().reference()
 
         // Do any additional setup after loading the view.

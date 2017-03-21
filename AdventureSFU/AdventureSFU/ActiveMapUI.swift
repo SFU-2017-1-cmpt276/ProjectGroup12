@@ -28,11 +28,9 @@ class ActiveMapUI: MapUI, ActiveRunControllerDelegate {
    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func handleSingleTap(tap: UITapGestureRecognizer) {
-    //do nooooothing
     }
   
     func appendToDrawnRoute() {
@@ -42,15 +40,5 @@ class ActiveMapUI: MapUI, ActiveRunControllerDelegate {
         MapUI.addAnnotation(line)
         //Updates user-route polyline.
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
