@@ -28,7 +28,9 @@ class ActiveMapUI: MapUI, ActiveRunControllerDelegate {
    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    }
+    
+    override func handleSingleTap(tap: UITapGestureRecognizer) {
     }
   
     func appendToDrawnRoute() {
@@ -38,7 +40,5 @@ class ActiveMapUI: MapUI, ActiveRunControllerDelegate {
         MapUI.addAnnotation(line)
         //Updates user-route polyline.
     }
-
-    
 
 }
