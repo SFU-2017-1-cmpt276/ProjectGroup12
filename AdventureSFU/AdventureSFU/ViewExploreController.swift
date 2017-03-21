@@ -16,10 +16,15 @@
 //
 
 import UIKit
+import Firebase
 
 class ViewExploreController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
 //Variables
+    /*Currently the text and hint information is being held locally on this page, as it is taken into the Explore View One page when
+    selected. For V3 will look into pulling this out into a global variable */
+    
+    var ref: FIRDatabaseReference?
     
 	let itemTitle = ["Procession of the Electric Giants",
 	                 "Grassy Tendrils",
@@ -62,23 +67,29 @@ class ViewExploreController: UIViewController, UITableViewDelegate, UITableViewD
 	public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		
 		let exploreCell = tableView.dequeueReusableCell(withIdentifier: "exploreCell", for: indexPath) as! ExploreTableViewCell
-		exploreCell.colourLight.image = UIImage(named: "red")
 		exploreCell.cellTitle.text = itemTitle[indexPath.row]
-        exploreCell.layer.backgroundColor = UIColor.clear.cgColor
-        exploreCell.contentView.backgroundColor = UIColor.clear
+        //Checking database if explore item has been found by user. If it hasn't, show red image, if it has, show green
+        let userID = FIRAuth.auth()?.currentUser?.uid
+        ref?.child("Users").child(userID!).child("ExploreItems").child(String(indexPath.row)).observeSingleEvent(of: .value, with: { (snapshot) in
+            let value = snapshot.value as? Int
+            if (value == 1) {
+                exploreCell.colourLight.image = UIImage(named: "green")
+            } else {
+                exploreCell.colourLight.image = UIImage(named: "red")
+            }
+        })
 
 		return(exploreCell)
 	}
 	
-	//Perform an action when a cell on the table is selected
-	//Will be set up to go to the Explore Map View page, currently just prints row #
+	//Move to the Explore One page for the selected item when the cell on the table is selected
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
         selectedRow = indexPath.row
 		self.performSegue(withIdentifier: "exploreDetail", sender: nil)
 		
 	}
-    
+    //When segueing into the Explore View One page, setting up required variables for the view-one page
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "exploreDetail" {
             let detailView:ExploreViewOneController = segue.destination as! ExploreViewOneController
@@ -87,6 +98,7 @@ class ViewExploreController: UIViewController, UITableViewDelegate, UITableViewD
             detailView.mapLat = itemLat[selectedRow]
             detailView.mapLong = itemLong[selectedRow]
             detailView.password = itemPassword[selectedRow]
+            detailView.row = selectedRow
         }
 
     }
@@ -96,28 +108,23 @@ class ViewExploreController: UIViewController, UITableViewDelegate, UITableViewD
 //Load Actions
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        ref = FIRDatabase.database().reference()
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 	
 //Actions
 	@IBAction func toMainControllerPage() {
 		performSegue(withIdentifier: "exploreToMain", sender: self)
 	}
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    //Gives high level details for the page
+    @IBAction func InfoButton(){
+        let infoAlert = UIAlertController(title: "Explore Listing Details", message: "Welcome to the Explore Module! There are numerous treasures and artifacts hidden throughout the forests and trails of the Burnaby Mountains, and on this page you can begin your journey to find them!\n\n Select one of the possible items above to begin the exploration, though if the light next to it is green that means you've already found it!", preferredStyle: .alert)
+        let agreeAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+        infoAlert.addAction(agreeAction)
+        self.present(infoAlert, animated: true, completion: nil)
     }
-    */
-
 }
