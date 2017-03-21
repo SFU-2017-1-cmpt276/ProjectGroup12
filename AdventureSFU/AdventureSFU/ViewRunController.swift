@@ -44,16 +44,16 @@ class ViewRunController: UIViewController, MapViewDelegate {
     func getTime(time: Double) -> Double? {
         self.time = time
         print("searchable time: \(time)")
-       var seconds = Int(time) % 60;
-       var minutes = Int(time / 60) % 60;
-        var hours = Int(time / 3600);
-        timeField.text = String("h:m:s: \(hours):\(minutes):\(seconds)")
+       let seconds = Int(time) % 60;
+       let minutes = Int(time / 60) % 60;
+        let hours = Int(time / 3600);
+        timeField.text = String("H:M:S: \(hours):\(minutes):\(seconds)")
         return time
     }
     
     func getDistance(distance: Double) -> Double? {
         self.distance = distance/1000
-        distanceField.text = String(format: "kms: %.2f", distance/1000)
+        distanceField.text = String(format: "Kms: %.2f", distance/1000)
         return distance
         
     }
@@ -97,8 +97,8 @@ class ViewRunController: UIViewController, MapViewDelegate {
     //    }
     @IBAction func DeleteAllPoints(_ sender: UIButton) {
         self.RunViewDelegate?.deleteAllPoints()
-         distanceField.text = String(format: "kms: %.2f", 0)
-        timeField.text = String("h:m:s: 0:0:0")
+         distanceField.text = String(format: "Kms: %.2f", 0)
+        timeField.text = String("H:M:S: 0:0:0")
     }
     
     @IBAction func submitRunStats(_ sender: AnyObject) {
@@ -111,7 +111,7 @@ class ViewRunController: UIViewController, MapViewDelegate {
             
         }
         let alertController = UIAlertController(title: "Run is stored", message:nil, preferredStyle: .alert)
-        let defaultAction = UIAlertAction(title: "Thanks", style: .cancel, handler: nil)
+        let defaultAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
         alertController.addAction(defaultAction)
         self.present(alertController, animated: true, completion: nil)
         //submits run plan to Firebase
