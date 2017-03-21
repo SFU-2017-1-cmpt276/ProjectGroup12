@@ -44,6 +44,30 @@ class signUpViewController: UIViewController, UITextFieldDelegate {
 		textField.resignFirstResponder()
 		return false
 	}
+    
+    func strongPassword (_ pass: String) -> Bool {
+        var capitalCheck: Bool = false
+        var numberCheck: Bool = false
+        let upperCase = CharacterSet.uppercaseLetters
+        let numbers = CharacterSet.decimalDigits
+        
+        for character in pass.unicodeScalars {
+            if upperCase.contains(character){
+                capitalCheck = true
+            }
+            if numbers.contains(character){
+                numberCheck = true
+            }
+        }
+        
+        if (numberCheck && capitalCheck){
+            return true
+        }
+        else{
+            return false
+        }
+        
+    }
 	
 //Load Actions
     override func viewDidLoad() {
@@ -179,7 +203,22 @@ class signUpViewController: UIViewController, UITextFieldDelegate {
 			alertController.addAction(defaultAction)
 			self.present(alertController, animated: true, completion: nil)
 			
-		} else {
+		}
+        
+        let password : String = self.passwordField.text!
+        
+        
+        //Checks for a strong password
+        if strongPassword(password) == false {
+            let alertController = UIAlertController(title: "Weak Password!", message: "Please make sure your password includes an upper case letter and a number", preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+            alertController.addAction(defaultAction)
+            self.present(alertController, animated: true, completion: nil)
+
+        }
+        
+        
+        else {
 			print("the user entered this information:")
             print("height = \(userHeight), \(validHeightFeet) ft. \(validHeightInches) ")
             print("weight = \(validWeight) ")
@@ -214,7 +253,6 @@ class signUpViewController: UIViewController, UITextFieldDelegate {
 													}
 			})
     }
-    
 
 	}
 }
