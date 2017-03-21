@@ -26,7 +26,7 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
     // let userID = FIRAuth.auth()?.currentUser?.uid
     //    var running: Bool = true //not currently in use
     
-    @IBOutlet weak var pauseButton: UIButton!
+    //@IBOutlet weak var pauseButton: UIButton!
     
     override func getTime(time: Double) -> Double? {
         return 0
