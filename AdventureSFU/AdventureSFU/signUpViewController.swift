@@ -229,9 +229,6 @@ class signUpViewController: UIViewController, UITextFieldDelegate {
         else {
 			
 			//Create a user account. If an error is thrown from firebase it will be displayed, otherwise the account should be created and on firebase
-            
-            //TEMPORARILY DISABLED FOR TEST CHANGE SOON
-            
 			FIRAuth.auth()?.createUser(withEmail: self.emailField.text!,
 			                                    password: self.passwordField.text!,
 			                                    completion: { (user, error) in

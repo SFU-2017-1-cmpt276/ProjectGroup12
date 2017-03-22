@@ -2,15 +2,21 @@
 //  AdventureSFUTests.swift
 //  AdventureSFUTests
 //
-//  Created by Karan Aujla on 3/2/17.
-//  Copyright © 2017 Karan Aujla. All rights reserved.
+//	Created for SFU CMPT 276, Instructor Herbert H. Tsang, P.Eng., Ph.D.
+//	AdventureSFU was a project created by Group 12 of CMPT 276
 //
+//  AdventureSFUTests.swift - contains the unit test for the application
+//  Programmers: Karan Aujla, Carlos Abaffy, Eleanor Lewis, Chris Norris-Jones
+//
+//  Created by Group12 on 3/19/17.
+//  Copyright © 2017. All rights reserved.
+
 
 import XCTest
 @testable import AdventureSFU
 
 class AdventureSFUTests: XCTestCase {
-    
+    var loginShell = ViewController()
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -21,16 +27,7 @@ class AdventureSFUTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
+    
     
 }

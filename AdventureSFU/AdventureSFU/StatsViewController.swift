@@ -293,6 +293,15 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
         dismiss(animated: true, completion: nil)
     }
     
+    //presents a button with a explanation on how to use stats page
+    @IBAction func infoButton() {
+        let infoAlert = UIAlertController(title: "Information", message: "this page displays all tracked stats. You can edit your info such as height, weight, username, and personal message by tapping the edit button and then the info you would like to edit. tap done to finish editing. You can also choose a team if you did not early. Simple tap edit and then tap the team row. this will take you the team sign up page", preferredStyle: .alert)
+        let infoConfirm = UIAlertAction(title: "ok", style: .default, handler: nil)
+        infoAlert.addAction(infoConfirm)
+        present(infoAlert, animated: true, completion: nil)
+        
+    }
+    
     //beginning the editing process
     @IBAction func beginEditing(_ sender: UIButton) {
     
