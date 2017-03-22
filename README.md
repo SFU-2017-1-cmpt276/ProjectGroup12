@@ -28,3 +28,5 @@ After github has finished downloading the file, open the ProjectGroup12 file, th
 Eleanor Lewis, Gurkaran Aujla, Carlos Abaffy, Chris Norris-Jones
 
 ***Click [HERE](https://sites.google.com/view/cmpt276-group12/home) to see our Group Website***
+
+Further Installation Details, including how to use the files to simulate an automatic run user, the passwords for the Explore Module objects, how to access and view our Firebase database, as well as what functionality is currently implemented and what is yet to be implemented can be found in the *Module, Installation and Database View Instructions* document provided in our document file hand-in.
