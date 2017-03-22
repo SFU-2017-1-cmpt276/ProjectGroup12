@@ -77,13 +77,12 @@ class ViewRunController: UIViewController, MapViewDelegate {
        
         if (presetRoute != nil) { route = presetRoute }
         ref = FIRDatabase.database().reference()
-        // Do any additional setup after loading the view.
+        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+            }
     
     //Actions
     @IBAction func runToMain() {
@@ -102,9 +101,7 @@ class ViewRunController: UIViewController, MapViewDelegate {
     }
     
     
-    //    @IBAction func DeleteLastPoint(_ sender: UIButton) {
-    //        self.RunViewDelegate?.deleteLastPoint()
-    //    }
+   
     @IBAction func DeleteAllPoints(_ sender: UIButton) {
         self.RunViewDelegate?.deleteAllPoints()
          distanceField.text = String(format: "Kms: %.2f", 0)

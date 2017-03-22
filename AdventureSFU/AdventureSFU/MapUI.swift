@@ -53,7 +53,7 @@ class MapUI: UIViewController, RunViewControllerDelegate {
             handleRoute()
         }
         
-        // define doubleTap so singleTap can be distinguished from it
+        
         let doubleTap = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
         doubleTap.numberOfTapsRequired = 2
         // doubleTap.require(toFail: tripleTap)
@@ -72,7 +72,7 @@ class MapUI: UIViewController, RunViewControllerDelegate {
     //Functions
     
     func deleteAllPoints() {
-        // print("searchable mapui made it to deleteAllPoints")
+       
         if (GlobalVariables.sharedManager.plannedWaypoints.count > 0) {
             GlobalVariables.sharedManager.plannedWaypoints.removeAll()
             
@@ -100,7 +100,7 @@ class MapUI: UIViewController, RunViewControllerDelegate {
     
     func handleSingleTap(tap: UITapGestureRecognizer) {
         let location: CLLocationCoordinate2D = MapUI.convert(tap.location(in: MapUI), toCoordinateFrom: MapUI)
-        print("searchable lat and long: \(location.latitude), \(location.longitude)")
+       
         let wpt: Waypoint = Waypoint(coordinate: location, name: "\(names)")
         GlobalVariables.sharedManager.plannedWaypoints.append(wpt)
         //update current list of coordinates
@@ -131,7 +131,7 @@ class MapUI: UIViewController, RunViewControllerDelegate {
     
     func handleRoute() {
         
-        print("searchable waypoints count: \(GlobalVariables.sharedManager.plannedWaypoints.count)")
+        
         
         if GlobalVariables.sharedManager.plannedWaypoints.count > 0 { // Declare the marker 'start' and set its coordinates, title, and subtitle.
             
@@ -151,12 +151,11 @@ class MapUI: UIViewController, RunViewControllerDelegate {
                 
                 _ = directions.calculate(options) { (waypoints, routes, error) in
                     guard error == nil else {
-                        print("Error calculating directions") //for debugging purposes
+                        
                         return
                     }
                     
                     if let route = routes?.first {
-                        print("made it into drawRoute")
                         self.drawRoute(route: route)
                     }
                     
@@ -165,7 +164,10 @@ class MapUI: UIViewController, RunViewControllerDelegate {
         }
     }
     func drawRoute(route: Route) {
-        print("made it to drawRoute")
+       
+        //gets the time and distance for the drawn route. 
+        //don't listen to xcode these are necessary and used
+        
         self.delegate?.getRoute(chosenRoute: route)
         self.delegate?.getTime(time: route.expectedTravelTime)
         self.delegate?.getDistance(distance: route.distance)
