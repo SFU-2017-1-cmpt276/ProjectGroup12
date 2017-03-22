@@ -12,54 +12,40 @@
 //	Programmers: Karan Aujla, Carlos Abaffy, Eleanor Lewis, Chris Norris-Jones
 //
 //	Known Bugs:
-//	Todo:	-Set up Explore Module
-//			-Improve UI, better display map
+//	Todo:
+//		
 //
-
 import UIKit
 import Firebase
 
 class MainViewController: UIViewController {
-	
-//Variables
-	
-	var ref: FIRDatabaseReference?
-	//var databaseHandle: FIRDatabaseHandle?
-	
-	@IBOutlet weak var welcomeUserLabel: UILabel!
-    let defaultWIPMessage = "This module is still in development!"
-
-	
-//Functions
-
-//Load Actions
-	
-	override func viewDidLoad() {
-        super.viewDidLoad()
     
-		let userID = FIRAuth.auth()?.currentUser?.uid
-		ref = FIRDatabase.database().reference()
-		
-		ref?.child("Users").child(userID!).child("username").observeSingleEvent(of: .value, with: { (snapshot) in
-			
-			let value = snapshot.value as? String
-			let username = value!
-			
-			self.welcomeUserLabel.text = "Welcome, \(username)!"
-
-		})
+    //Variables
+    
+    var ref: FIRDatabaseReference?
+    //var databaseHandle: FIRDatabaseHandle?
+    
+    @IBOutlet weak var welcomeUserLabel: UILabel!
+    let defaultWIPMessage = "This module is still in development!"
+    
+    
+    //Functions
+    //Load Actions
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
-       
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        // get the uid for the logged in user
         let userID = FIRAuth.auth()?.currentUser?.uid
+        //and get a reference to the database
         ref = FIRDatabase.database().reference()
         
         ref?.child("Users").child(userID!).child("firstLogin").observeSingleEvent(of: .value, with: { (snapshot) in
-            
+            //if it is the first time the user logged in, present the team select page
             let value = snapshot.value as? Bool
             let condition = value!
             print("\(condition)")
@@ -68,34 +54,42 @@ class MainViewController: UIViewController {
             }
             
         })
-
+        
+        ref?.child("Users").child(userID!).child("username").observeSingleEvent(of: .value, with: { (snapshot) in
+            //pull the user's name and display a welcome message
+            let value = snapshot.value as? String
+            let username = value!
+            
+            self.welcomeUserLabel.text = "Welcome, \(username)!"
+            
+        })
+        
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-	
-//Actions
-	
+    
+    //Actions
+    
     @IBAction func logoutAction(){
         //Call to firebase to logout, then move back to ViewController
-		try! FIRAuth.auth()?.signOut()
+        try! FIRAuth.auth()?.signOut()
         performSegue(withIdentifier: "logOut", sender: self)
         
     }
-	
-	@IBAction func toStatsPage() {
-		performSegue(withIdentifier: "mainToStats", sender: self)
-	}
-	
-	@IBAction func toRunControllerPage() {
-		performSegue(withIdentifier: "mainToRunController", sender: self)
-	}
-	
-	@IBAction func toExploreControllerPage() {
-		performSegue(withIdentifier: "mainToExplore", sender: self)
-	}
-
-
+    
+    @IBAction func toStatsPage() {
+        performSegue(withIdentifier: "mainToStats", sender: self)
+    }
+    
+    @IBAction func toRunControllerPage() {
+        performSegue(withIdentifier: "mainToRunController", sender: self)
+    }
+    
+    @IBAction func toExploreControllerPage() {
+        performSegue(withIdentifier: "mainToExplore", sender: self)
+    }
+    
+    
 }

@@ -35,12 +35,11 @@ class ExploreViewOneController: UIViewController {
         exploreHint.text = exploreText
         ref = FIRDatabase.database().reference()
 
-        // Do any additional setup after loading the view.
+       
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
 //Actions
@@ -48,6 +47,7 @@ class ExploreViewOneController: UIViewController {
     @IBAction func BackButton(){
         performSegue(withIdentifier: "exploreOnetoAll", sender: self)
     }
+    
     //Info alert displayed when info button hit
     @IBAction func InfoButton(){
         let infoAlert = UIAlertController(title: "Explore Page Details", message: "On this page you can see the general vicinity of the hidden item! If the map alone isn't enough, then maybe the helpful hint can also guide your way!", preferredStyle: .alert)
