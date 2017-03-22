@@ -10,6 +10,11 @@
 //
 //  Created by Group12 on 3/19/17.
 //  Copyright © 2017. All rights reserved.
+//Test Case Note:	Currently our test cases, as provided in the Revised Quality Assurance Document, were not performed via XCode's UI Test Software tools, but rather via running through
+//					unit tests created specifically by the programmer at the time of development. The use of XCode's testing software is something our team is in the process of
+//					learning, but we were not yet at a stage with the tools to satisfactorily provide full test code coverage in a way that running through our own UI tests
+//					individually could not better handle. We look into having simplified UI test cases available via XCode's testing tools for the final version of our software
+//
 
 import XCTest
 
@@ -17,28 +22,15 @@ class AdventureSFUUITests: XCTestCase {
     var ASFU: XCUIApplication!
     override func setUp() {
         super.setUp()
-        
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-        
-        // In UI tests it is usually best to stop immediately when a failure occurs.
+		
         continueAfterFailure = false
-        // UI tests must launch the application that they test. Doing this in setup will make sure it happens for each test method.
         ASFU = XCUIApplication()
         ASFU.launch()
 
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
-    //tests whether the user can log in with a pre-existing account
-    func testLogIn() {
-        
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
+
 }

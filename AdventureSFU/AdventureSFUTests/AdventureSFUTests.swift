@@ -10,6 +10,11 @@
 //
 //  Created by Group12 on 3/19/17.
 //  Copyright © 2017. All rights reserved.
+//Test Case Note:	Currently our test cases, as provided in the Revised Quality Assurance Document, were not performed via XCode's Unit Test Software, but rather via running through
+//					unit tests created specifically by the programmer at the time of development. The use of XCode's testing software is something our team is in the process of 
+//					learning, but we were not yet at a stage with the tools to satisfactorily provide full test code coverage in a way that running through our own unit tests
+//					individually could not better handle. We look into having simplified unit test cases available via XCode's testing tools for the final version of our software
+//
 
 
 import XCTest
@@ -19,11 +24,10 @@ class AdventureSFUTests: XCTestCase {
     var loginShell = ViewController()
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+
         super.tearDown()
     }
     
