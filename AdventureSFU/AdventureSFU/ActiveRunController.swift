@@ -110,6 +110,15 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
         self.locationManager.stopUpdatingLocation()
         performSegue(withIdentifier: "stopRun", sender: self)
     }
+    @IBAction func activeRunHelp(_ sender: Any) {
+  
+            let infoAlert = UIAlertController(title: "Run Tracking Help", message: "On this page you can see a record of your route on this trip. Select End Run! to stop recording and go back to the Route Planning page. Your total distance and time will be updated to include the distance and time from this trip.", preferredStyle: .alert)
+            let agreeAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+            infoAlert.addAction(agreeAction)
+            self.present(infoAlert, animated: true, completion: nil)
+        
+        
+    }
     // Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "activerunembed" {

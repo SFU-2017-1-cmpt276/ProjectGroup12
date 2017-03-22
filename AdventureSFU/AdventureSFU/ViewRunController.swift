@@ -90,6 +90,16 @@ class ViewRunController: UIViewController, MapViewDelegate {
         performSegue(withIdentifier: "runControllerToMain", sender: self)
     }
     
+    @IBAction func helpPopup(_ sender: Any) {
+  
+        
+            let infoAlert = UIAlertController(title: "Route Plan Help", message: "On this page you can plan your route. Select a starting point and subsequent points by single tap to generate a route and get its distance and estimated travel time. Select CLEAR to start over. Select SAVE to keep this route available for when you next log in. Select Run! to start tracking your route!", preferredStyle: .alert)
+            let agreeAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+            infoAlert.addAction(agreeAction)
+            self.present(infoAlert, animated: true, completion: nil)
+        
+        
+    }
     
     
     //    @IBAction func DeleteLastPoint(_ sender: UIButton) {
