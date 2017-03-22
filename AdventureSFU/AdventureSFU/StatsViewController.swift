@@ -37,6 +37,7 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     var canEditUserInfo: Bool = false //used to track if the user can edit their info
     var rowCount = 8
+    
   //Functions
 	
 	//Create the Stats Table
@@ -51,7 +52,7 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
         if indexPath.row == 0 {
             celltoBeReturned.textLabel?.text = "Username"
             celltoBeReturned.detailTextLabel?.text = username
-            //celltoBeReturned.
+          
         } else if indexPath.row == 1{
 			celltoBeReturned.textLabel?.text = "Email"
             celltoBeReturned.detailTextLabel?.text = email
@@ -88,8 +89,9 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         return celltoBeReturned
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       //print("selected row \(indexPath.row)")
+        
         //only allow the user info to be edited if the edit button has been tapped
         if canEditUserInfo == true {
             //create a generic error alert to be modified and presented when the user enters an invalid value
@@ -105,7 +107,7 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
                 //the new username is inputed here
                 changeUsernameAlert.addTextField(configurationHandler: nil)
                 
-                //
+                
                 let confirmUsernameChange = UIAlertAction(title: "confirm", style: .default, handler: {(confirmUsernameChange) in
                     self.username = (changeUsernameAlert.textFields!.last?.text)!
                     //also change the username on firebase
@@ -283,8 +285,7 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+          }
     
 //Actions
     //return to the previous screen
@@ -307,18 +308,5 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         
     }
-    
-    
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

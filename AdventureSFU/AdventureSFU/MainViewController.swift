@@ -35,29 +35,17 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let userID = FIRAuth.auth()?.currentUser?.uid
-        ref = FIRDatabase.database().reference()
-        
-        ref?.child("Users").child(userID!).child("username").observeSingleEvent(of: .value, with: { (snapshot) in
-            
-            let value = snapshot.value as? String
-            let username = value!
-            
-            self.welcomeUserLabel.text = "Welcome, \(username)!"
-            
-        })
-        
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        // get the uid for the logged in user
         let userID = FIRAuth.auth()?.currentUser?.uid
+        //and get a reference to the database
         ref = FIRDatabase.database().reference()
         
         ref?.child("Users").child(userID!).child("firstLogin").observeSingleEvent(of: .value, with: { (snapshot) in
-            
+            //if it is the first time the user logged in, present the team select page
             let value = snapshot.value as? Bool
             let condition = value!
             print("\(condition)")
@@ -67,11 +55,19 @@ class MainViewController: UIViewController {
             
         })
         
+        ref?.child("Users").child(userID!).child("username").observeSingleEvent(of: .value, with: { (snapshot) in
+            //pull the user's name and display a welcome message
+            let value = snapshot.value as? String
+            let username = value!
+            
+            self.welcomeUserLabel.text = "Welcome, \(username)!"
+            
+        })
+        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     //Actions

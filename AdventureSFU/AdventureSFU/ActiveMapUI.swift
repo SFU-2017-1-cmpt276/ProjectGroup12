@@ -17,7 +17,7 @@ class ActiveMapUI: MapUI, ActiveRunControllerDelegate {
 
     
     override func viewDidLoad() {
-        print("made it here")
+      
         super.viewDidLoad()
         if (GlobalVariables.sharedManager.plannedWaypoints.count > 0) {
         MapUI.setCenter(CLLocationCoordinate2D(latitude: GlobalVariables.sharedManager.plannedWaypoints[0].coordinate.latitude, longitude: GlobalVariables.sharedManager.plannedWaypoints[0].coordinate.longitude),
@@ -34,7 +34,6 @@ class ActiveMapUI: MapUI, ActiveRunControllerDelegate {
     }
   
     func appendToDrawnRoute() {
-        print("searchable test of appendToDrawnRoute delegation")
         let coords = [GlobalVariables.sharedManager.actualWaypoints[GlobalVariables.sharedManager.actualWaypoints.count-2].coordinate, GlobalVariables.sharedManager.actualWaypoints[GlobalVariables.sharedManager.actualWaypoints.count-1].coordinate]
         let line = MGLPolyline(coordinates: coords, count: 2)
         MapUI.addAnnotation(line)

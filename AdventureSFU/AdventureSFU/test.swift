@@ -50,6 +50,6 @@ class userProfile {
 }
 
 
-var testMessage = "this was defined in a different file"
+
 
 
