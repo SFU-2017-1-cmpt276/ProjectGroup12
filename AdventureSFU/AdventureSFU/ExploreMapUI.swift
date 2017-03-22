@@ -1,9 +1,12 @@
+//	ExploreMapUI.swift
+//	Created for SFU CMPT 276, Instructor Herbert H. Tsang, P.Eng., Ph.D.
+//	AdventureSFU was a project created by Group 12 of CMPT 276
 //
-//  ExploreMapUI.swift
-//  AdventureSFU
+//	ExploreMapUI - shows the geocache coordinates and current user location.
+//	Programmers: Karan Aujla, Carlos Abaffy, Eleanor Lewis, Chris Norris-Jones
 //
-//  Created by ela50 on 3/19/17.
-//  Copyright © 2017 Karan Aujla. All rights reserved.
+//  Created by Group12 on 3/19/17.
+//  Copyright © 2017. All rights reserved.
 //
 
 import UIKit
@@ -19,19 +22,15 @@ class ExploreMapUI: MapUI {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
         target.coordinate = CLLocationCoordinate2D(latitude: mapLat!, longitude: mapLong!)
         target.title = exploreTitle
-        
-        // Add marker `start` to the map.
         MapUI.addAnnotation(target)
         MapUI.userTrackingMode = .follow
-
-        // Do any additional setup after loading the view.
+        //Add target coordinate and user location to map.
     }
-    override func handleSingleTap(tap: UITapGestureRecognizer) {
-    //do nooooothing
     
+    override func handleSingleTap(tap: UITapGestureRecognizer) {
+        //do nothing; overwrites route selection function of MapUI class
     }
 
     override func didReceiveMemoryWarning() {

@@ -45,12 +45,17 @@ class signUpViewController: UIViewController, UITextFieldDelegate {
 		return false
 	}
     
+    //checks if the password is of a suitable strength
     func strongPassword (_ pass: String) -> Bool {
         var capitalCheck: Bool = false
         var numberCheck: Bool = false
+        
+        //creates a container for the character set of numbers and uppercase letters 
+        //so it can be used to check the password
         let upperCase = CharacterSet.uppercaseLetters
         let numbers = CharacterSet.decimalDigits
         
+        //checks if the password contains at least one uppercase letter and number
         for character in pass.unicodeScalars {
             if upperCase.contains(character){
                 capitalCheck = true
@@ -60,9 +65,11 @@ class signUpViewController: UIViewController, UITextFieldDelegate {
             }
         }
         
+        //returns true if the password contains the required uppercase letter and number
         if (numberCheck && capitalCheck){
             return true
         }
+        //otherwise
         else{
             return false
         }
@@ -73,17 +80,18 @@ class signUpViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 		
+        //set ref with a reference to the database
 		ref = FIRDatabase.database().reference()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 	
 //Actions
 	
     @IBAction func BackButton(){
+        //return to the previous screen
         dismiss(animated: true, completion: nil)
     }
     
@@ -145,6 +153,7 @@ class signUpViewController: UIViewController, UITextFieldDelegate {
                 //then exit so the user can retry entering the values
                 return
             }
+            
         //since it is an optional value, need to check if they meant to enter something,
         // if the value didn't work
         } else if inchesHeightField.text?.isEmpty == false{
@@ -216,13 +225,9 @@ class signUpViewController: UIViewController, UITextFieldDelegate {
             self.present(alertController, animated: true, completion: nil)
 
         }
-        
-        
+        //otherwise create the account
         else {
-			print("the user entered this information:")
-            print("height = \(userHeight), \(validHeightFeet) ft. \(validHeightInches) ")
-            print("weight = \(validWeight) ")
-            print("personal message \(validPersonalMessage)")
+			
 			//Create a user account. If an error is thrown from firebase it will be displayed, otherwise the account should be created and on firebase
             
             //TEMPORARILY DISABLED FOR TEST CHANGE SOON
@@ -241,6 +246,7 @@ class signUpViewController: UIViewController, UITextFieldDelegate {
                                                         self.ref?.child("Users").child(user!.uid).child("personalMessage").setValue(validPersonalMessage)
                                                         self.ref?.child("Users").child(user!.uid).child("firstLogin").setValue(true)
                                                         self.ref?.child("Users").child(user!.uid).child("Team").setValue("No Team")
+                                                        self.ref?.child("Users").child(user!.uid).child("hasStoredRun").setValue("false")
                                                         var count:Int = 0
                                                         while (count < 10) {
                                                             self.ref?.child("Users").child(user!.uid).child("ExploreItems").child(String(count)).setValue(0)
@@ -257,7 +263,7 @@ class signUpViewController: UIViewController, UITextFieldDelegate {
 														self.present(alertController, animated: true, completion: nil)
 													}
 			})
-    }
+        }
 
 	}
 }
