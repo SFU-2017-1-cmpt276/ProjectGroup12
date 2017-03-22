@@ -12,6 +12,7 @@
 //
 //	Known Bugs:
 //	Todo: zoom out to show both user location and planned start point.
+// - straighten out naming/units of total time in Firebase and Global variables.
 //
 import UIKit
 import Mapbox
@@ -28,11 +29,11 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
     var actualTotalDistance: Double = 0
     
     override func getTime(time: Double) {
-       
+        //prevents this inherited function from doing anything.
     }
     
     override func getDistance(distance: Double) {
-        
+        //prevents this inherited function from doing anything.
     }
     
     override func viewDidLoad() {
@@ -53,19 +54,22 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
     {
         let location = locations.last! as CLLocation
         let wpt: Waypoint = Waypoint(coordinate: location.coordinate, name: "\(actualWaypointNumber)")
+        //Gets user's current location.
+        
         actualWaypoints.append(wpt)
         actualWaypointNumber = actualWaypointNumber + 1
         GlobalVariables.sharedManager.actualWaypoints.append(wpt)
         if actualWaypointNumber > 2 {
             self.activeDelegate?.appendToDrawnRoute()
         }
+        // Draws user's latest movement to map.
         
         if actualWaypointNumber > 1 {
             let prevLocation = CLLocation(latitude: actualWaypoints[actualWaypoints.count-2].coordinate.latitude, longitude: actualWaypoints[actualWaypoints.count-2].coordinate.longitude)
             let tempTotalDistance: Double = location.distance(from: prevLocation)
             self.actualTotalDistance = self.actualTotalDistance + tempTotalDistance
         }
-        // Tracks user's position. Sends data to GlobalVariables.
+        //Updates distance travelled in GlobalVariables.
     }
     
     override func didReceiveMemoryWarning() {
@@ -76,7 +80,7 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
     @IBAction func stopRun() {
         self.locationManager.stopUpdatingLocation()
         performSegue(withIdentifier: "stopRun", sender: self)
-    }
+    } //Discontinues user tracking and sends user back to Route Planner page.
 
     @IBAction func activeRunHelp(_ sender: Any) {
         let infoAlert = UIAlertController(title: "Run Tracking Help", message: "On this page you can see a record of your route on this trip. Select End Run! to stop recording and go back to the Route Planning page. Your total distance and time will be updated to include the distance and time from this trip.", preferredStyle: .alert)
@@ -86,21 +90,14 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
         //Explains Active Run page functionality to user.
     }
     
-    
     // Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "activerunembed" {
             self.activeDelegate = segue.destination as? ActiveMapUI
             let childViewController = segue.destination as? ActiveMapUI
             childViewController?.delegate = self
-    //        childViewController?.preselectedRoute = self.presetRoute
-  //          childViewController?.waypoints = self.waypoints
-            //Define self as delegate for embedded ActiveMapUI.
-            //Define embedded ActiveMapUI as delegate for self.
-            
-        }
+        } //sets self and embedded map as delegates of each other.
         if segue.identifier == "stopRun" {
-            print("searchable made it to stopRUN prepare")
             GlobalVariables.sharedManager.hasRunData = true
             GlobalVariables.sharedManager.endTime = Date()
             GlobalVariables.sharedManager.elapsedTimeThisRun = GlobalVariables.sharedManager.endTime!.timeIntervalSince(GlobalVariables.sharedManager.startTime!)
@@ -110,28 +107,17 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
                 if var totalTime = tempTotalTime {
                     totalTime = tempTotalTime! + (GlobalVariables.sharedManager.elapsedTimeThisRun! as Double)/60
                     super.ref?.child("Users").child(super.userID!).child("totalMins").setValue(totalTime as Double!)
-                    print("searchable totalTime: \(totalTime)")
                 }
-            })
-            
-            //test code
-            print("searchable time \(GlobalVariables.sharedManager.elapsedTimeThisRun)")
+            }) //calculates and sends total time for this run to GlobalVariables and Firebase. 
             
             var tempTotalKm: Double?
             super.ref?.child("Users").child(super.userID!).child("KMRun").observeSingleEvent(of: .value, with: { (snapshot) in
                 tempTotalKm = snapshot.value as? Double
-                print("searchable firebase total km: \(tempTotalKm)")
                 if var totalKm = tempTotalKm {
                     totalKm = self.actualTotalDistance/1000 + tempTotalKm!
                     super.ref?.child("Users").child(super.userID!).child("KMRun").setValue(totalKm)
                 }
             })
-            
-            let childViewController = segue.destination as? ViewRunController
-    //        childViewController?.route = self.route
-      //      childViewController?.presetRoute=self.presetRoute
-            
-            //Store run data in GlobalVariables and Firebase.
         }
     }
 }

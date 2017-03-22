@@ -39,7 +39,6 @@ class ViewRunController: UIViewController, MapViewDelegate {
     //Functions implementing MapViewDelegate headers
     func getTime(time: Double) {
         self.time = time
-        print("searchable time: \(time)")
         let seconds = Int(time) % 60;
         let minutes = Int(time / 60) % 60;
         let hours = Int(time / 3600);
