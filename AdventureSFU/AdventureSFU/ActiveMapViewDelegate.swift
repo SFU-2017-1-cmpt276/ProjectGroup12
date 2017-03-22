@@ -20,11 +20,10 @@ import Mapbox
 import MapboxDirections
 protocol ActiveMapViewDelegate: MapViewDelegate {
     
-    func getTime(time: Double) -> Double?
-    func getDistance(distance: Double) -> Double?
-    func getWaypoint(waypoint: Waypoint)
-    func getRoute(chosenRoute: Route) -> Route?
-//    func getCurrentLoc(waypoint: Waypoint)
-  //  func getActualRoute(actualRoute: Route) -> Route?
+    func getTime(time: Double)
+    func getDistance(distance: Double)
+//    func getWaypoint(waypoint: Waypoint)
+  //  func getRoute(chosenRoute: Route) -> Route?
+
     
 }

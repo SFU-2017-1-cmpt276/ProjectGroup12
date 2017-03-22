@@ -27,12 +27,12 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
     let calendar = Calendar.current
     var actualTotalDistance: Double = 0
     
-    override func getTime(time: Double) -> Double? {
-        return 0
+    override func getTime(time: Double) {
+       
     }
     
-    override func getDistance(distance: Double) -> Double? {
-        return 0
+    override func getDistance(distance: Double) {
+        
     }
     
     override func viewDidLoad() {
@@ -93,8 +93,8 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
             self.activeDelegate = segue.destination as? ActiveMapUI
             let childViewController = segue.destination as? ActiveMapUI
             childViewController?.delegate = self
-            childViewController?.preselectedRoute = self.presetRoute
-            childViewController?.waypoints = self.waypoints
+    //        childViewController?.preselectedRoute = self.presetRoute
+  //          childViewController?.waypoints = self.waypoints
             //Define self as delegate for embedded ActiveMapUI.
             //Define embedded ActiveMapUI as delegate for self.
             
@@ -128,8 +128,8 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
             })
             
             let childViewController = segue.destination as? ViewRunController
-            childViewController?.route = self.route
-            childViewController?.presetRoute=self.presetRoute
+    //        childViewController?.route = self.route
+      //      childViewController?.presetRoute=self.presetRoute
             
             //Store run data in GlobalVariables and Firebase.
         }
