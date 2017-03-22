@@ -12,8 +12,8 @@
 //	Programmers: Karan Aujla, Carlos Abaffy, Eleanor Lewis, Chris Norris-Jones
 //
 //	Known Bugs:
-//	Todo:	-Set up Explore Module
-//			-Improve UI, better display map
+//	Todo:
+//		
 //
 import UIKit
 import Firebase

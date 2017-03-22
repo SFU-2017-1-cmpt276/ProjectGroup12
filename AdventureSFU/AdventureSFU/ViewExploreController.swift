@@ -59,11 +59,11 @@ class ViewExploreController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var exploreTable: UITableView!
     
 //Functions
-
+	//Setting up the Explore Table
 	public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return(itemTitle.count)
 	}
-	
+	//Further work setting up the specific cells for the table. 
 	public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		
 		let exploreCell = tableView.dequeueReusableCell(withIdentifier: "exploreCell", for: indexPath) as! ExploreTableViewCell

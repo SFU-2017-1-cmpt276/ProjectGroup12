@@ -1,9 +1,19 @@
 //
 //  TeamSelect2.swift
-//  AdventureSFU
 //
-//  Created by Carlos Abaffy paz on 3/17/17.
-//  Copyright © 2017 Karan Aujla. All rights reserved.
+//	AdventureSFU: Make Your Path
+//	Created for SFU CMPT 276, Instructor Herbert H. Tsang, P.Eng., Ph.D.
+//	AdventureSFU was a project created by Group 12 of CMPT 276
+//
+//  Created by Group 12 on 3/19/17.
+//  Copyright © 2017 . All rights reserved.
+//
+//	TeamSelect2 - Displays on user's first time logging in, prompting them to join team
+//	Programmers: Karan Aujla, Carlos Abaffy, Eleanor Lewis, Chris Norris-Jones
+//
+//	Known Bugs:
+//	Todo:
+//
 //
 
 import UIKit

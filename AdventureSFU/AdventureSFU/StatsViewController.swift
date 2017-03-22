@@ -13,7 +13,7 @@
 //
 //	Known Bugs: 
 //	Todo:	-Further flesh out user's stats
-//          -Separate editable and non-editable info into seperate tables
+//          -Separate editable and non-editable info into separate tables
 //
 
 import UIKit

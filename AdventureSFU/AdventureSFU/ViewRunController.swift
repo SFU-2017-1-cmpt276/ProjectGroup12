@@ -17,6 +17,9 @@
 //			-Further run details information upon creating run
 //          -'Delete last point' function
 //          -Choose speed
+//			-In larger phone sizes, 'Save' and 'Clear' buttons conflict
+//
+
 import UIKit
 import Mapbox
 import MapboxDirections
