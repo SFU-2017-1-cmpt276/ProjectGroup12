@@ -37,6 +37,9 @@ class ViewRunController: UIViewController, MapViewDelegate {
     var ref: FIRDatabaseReference?
     let userID = FIRAuth.auth()?.currentUser?.uid
     var RunViewDelegate: RunViewControllerDelegate?
+     var keys: [String] = []
+    var wpts: [Waypoint] = []
+    
     
     //Functions
     //Functions implementing MapViewDelegate headers
@@ -55,12 +58,39 @@ class ViewRunController: UIViewController, MapViewDelegate {
         //Updates the distance stat of the planned route.
     }
     
+    @IBAction func restoreRoute(_ sender: AnyObject) {
+        self.RunViewDelegate?.handleRoute()
+        //draw the saved Route
+    }
+    
     //Load Actions
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = FIRDatabase.database().reference()
-    }
-    
+ 
+        ref?.child("Users").child(userID!).child("presetRoute").queryOrderedByKey().observeSingleEvent(of: .value, with: {
+            snapshot in
+            for childSnap in snapshot.children{
+                
+                guard let childSnapshot = childSnap as? FIRDataSnapshot else {
+                    continue
+                }
+            
+                let id = childSnapshot.key
+               
+                self.keys.append(id)
+                self.ref?.child("Users").child(self.userID!).child("presetRoute").child(id).observeSingleEvent(of: .value, with: { (snapshot) in
+                                       let value = snapshot.value as? NSDictionary
+                    let lat = value!["lat"] as! Double
+                    let long = value!["long"] as! Double
+                    let location = CLLocationCoordinate2D(latitude: lat, longitude: long)
+                    let wpt = Waypoint(coordinate: location, name: String(id))
+                    GlobalVariables.sharedManager.plannedWaypoints.append(wpt)
+                })
+            }
+        })
+    } // get the preset Route, if any, from Firebase and load it into GlobalVariables
+   
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

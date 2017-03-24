@@ -1,16 +1,16 @@
 {
-  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "92F457A6E9F24C4AAD8086B00A214BFDFD5F6D53",
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "F798C15960D15C685E3EF631DD646A881343305B",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
-    "3F6E067FE60448C77AE48495FCC407CCC4162304" : 9223372036854775807,
-    "92F457A6E9F24C4AAD8086B00A214BFDFD5F6D53" : 9223372036854775807
+    "F798C15960D15C685E3EF631DD646A881343305B" : 9223372036854775807,
+    "3F6E067FE60448C77AE48495FCC407CCC4162304" : 9223372036854775807
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "7E5F64ED-C83D-4286-B27B-96B3A15372FD",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "3F6E067FE60448C77AE48495FCC407CCC4162304" : "",
-    "92F457A6E9F24C4AAD8086B00A214BFDFD5F6D53" : "ProjectGroup12\/"
+    "F798C15960D15C685E3EF631DD646A881343305B" : "",
+    "3F6E067FE60448C77AE48495FCC407CCC4162304" : ""
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "AdventureSFU",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
@@ -24,7 +24,12 @@
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/SFU-2017-1-cmpt276\/ProjectGroup12.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "92F457A6E9F24C4AAD8086B00A214BFDFD5F6D53"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "3F6E067FE60448C77AE48495FCC407CCC4162304"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/SFU-2017-1-cmpt276\/ProjectGroup12.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F798C15960D15C685E3EF631DD646A881343305B"
     }
   ]
 }
