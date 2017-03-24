@@ -101,12 +101,14 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
             GlobalVariables.sharedManager.hasRunData = true
             GlobalVariables.sharedManager.endTime = Date()
             GlobalVariables.sharedManager.elapsedTimeThisRun = GlobalVariables.sharedManager.endTime!.timeIntervalSince(GlobalVariables.sharedManager.startTime!)
+            print("elapsed this run: \(GlobalVariables.sharedManager.elapsedTimeThisRun)")
             GlobalVariables.sharedManager.distanceThisRun = self.actualTotalDistance
-            super.ref?.child("Users").child(super.userID!).child("totalMins").observeSingleEvent(of: .value, with: { (snapshot) in
+            super.ref?.child("Users").child(super.userID!).child("totalSeconds").observeSingleEvent(of: .value, with: { (snapshot) in
                 let tempTotalTime = snapshot.value as? TimeInterval
                 if var totalTime = tempTotalTime {
-                    totalTime = tempTotalTime! + (GlobalVariables.sharedManager.elapsedTimeThisRun! as Double)/60
-                    super.ref?.child("Users").child(super.userID!).child("totalMins").setValue(totalTime as Double!)
+                    totalTime = tempTotalTime! + (GlobalVariables.sharedManager.elapsedTimeThisRun! as Double)
+                    print("totalTime: \(totalTime)")
+                    super.ref?.child("Users").child(super.userID!).child("totalSeconds").setValue(totalTime as Double!)
                 }
             }) //calculates and sends total time for this run to GlobalVariables and Firebase. 
             
