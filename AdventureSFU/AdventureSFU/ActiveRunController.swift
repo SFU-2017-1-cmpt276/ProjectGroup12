@@ -28,11 +28,7 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
     let calendar = Calendar.current
     var actualTotalDistance: Double = 0
     
-    override func getTime(time: Double) {
-        //prevents this inherited function from doing anything.
-    }
-    
-    override func getDistance(distance: Double) {
+    override func getDistanceAndTime(distance: Double, time: Double) {
         //prevents this inherited function from doing anything.
     }
     

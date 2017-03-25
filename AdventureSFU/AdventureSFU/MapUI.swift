@@ -80,10 +80,12 @@ class MapUI: UIViewController, RunViewControllerDelegate {
     
     //Functions
     func deleteAllPoints() {
+        print("makes it into mapuui delete all")
         if (GlobalVariables.sharedManager.plannedWaypoints.count > 0) {
             GlobalVariables.sharedManager.plannedWaypoints.removeAll()
             //delete Global copy of route
         }
+        print("mapui annotations: \(MapUI.annotations?.count)")
         if (MapUI.annotations?.count != nil) {
             MapUI.removeAnnotations(MapUI.annotations!)
             // remove drawn route so new route can be drawn
@@ -105,6 +107,7 @@ class MapUI: UIViewController, RunViewControllerDelegate {
     
     
     func handleRoute() {
+        print("gbl count from handleRoute: \(GlobalVariables.sharedManager.plannedWaypoints.count)")
         if GlobalVariables.sharedManager.plannedWaypoints.count > 0 {
             start.coordinate = GlobalVariables.sharedManager.plannedWaypoints[0].coordinate
             start.title="Start"
@@ -131,8 +134,8 @@ class MapUI: UIViewController, RunViewControllerDelegate {
 
     func drawRoute(route: Route) {
         //passes time and distance to containing view for display to user.
-        self.delegate?.getTime(time: route.expectedTravelTime)
-        self.delegate?.getDistance(distance: route.distance)
+        self.delegate?.getDistanceAndTime(distance: route.distance, time: route.expectedTravelTime)
+      //  self.delegate?.getTime(time: route.expectedTravelTime)
         var routeCoordinates = route.coordinates!
         let routeLine = MGLPolyline(coordinates: &routeCoordinates, count: route.coordinateCount)
         self.MapUI.addAnnotation(routeLine)

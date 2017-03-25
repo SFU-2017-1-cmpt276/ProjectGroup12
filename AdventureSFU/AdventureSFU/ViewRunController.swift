@@ -12,12 +12,15 @@
 //	Programmers: Karan Aujla, Carlos Abaffy, Eleanor Lewis, Chris Norris-Jones
 //
 //	Known Bugs:	-Route limit set to 25 waypoints currently, then assertion called and app crashes, need better method for either setting a limit or increasing number of waypoints without potentially introducing any stability issues
+
+//-inconsistent route loading behaviour.
 //              -Map sometimes will not load if info button is clicked first
 //	Todo:   -Further functionality with regards to run details, user's ability to create run
 //			-Further run details information upon creating run
 //          -'Delete last point' function
 //          -Choose speed
 //			-In larger phone sizes, 'Save' and 'Clear' buttons conflict
+
 //
 
 import UIKit
@@ -39,26 +42,63 @@ class ViewRunController: UIViewController, MapViewDelegate {
     var RunViewDelegate: RunViewControllerDelegate?
      var keys: [String] = []
     var wpts: [Waypoint] = []
-    
+    var userSpeed: Double?
+    var userTime: Double = 0.0
+    var userDistance: Double = 0.0
     
     //Functions
     //Functions implementing MapViewDelegate headers
-    func getTime(time: Double) {
-        self.time = time
-        let seconds = Int(time) % 60;
-        let minutes = Int(time / 60) % 60;
-        let hours = Int(time / 3600);
-        timeField.text = String("H:M:S: \(hours):\(minutes):\(seconds)")
-        //Updates the time stat of the planned route.
-    }
-    
-    func getDistance(distance: Double) {
+    func getDistanceAndTime(distance: Double, time: Double) {
         self.distance = distance/1000
         distanceField.text = String(format: "Kms: %.2f", distance/1000)
         //Updates the distance stat of the planned route.
-    }
+        
+     
+        
+        ref?.child("Users").child(userID!).child("totalSeconds").observeSingleEvent(of: .value, with: { (snapshot) in
+            //pull the user's name and display a welcome message
+            let timevalue = snapshot.value as? Double
+            self.userTime = timevalue!
+            print("userTime, value: \(self.userTime), \(timevalue!)")
+            self.ref?.child("Users").child(self.userID!).child("KMRun").observeSingleEvent(of: .value, with: { (snapshot) in
+                //pull the user's name and display a welcome message
+                let distancevalue = snapshot.value as? Double
+                self.userDistance = distancevalue!
+                
+                if self.userDistance != 0 && self.userTime != 0 {
+                    self.userSpeed = self.userDistance/self.userTime
+                    self.time = self.distance * self.userSpeed!
+                } else {
+                    self.time = time
+                print("made it into else for some reason")
+                }
+                
+                print("userDistance, userTime: \(self.userDistance), \(self.userTime)")
+                    let seconds = Int(time) % 60;
+                    let minutes = Int(time / 60) % 60;
+                    let hours = Int(time / 3600);
+                    self.timeField.text = String("H:M:S: \(hours):\(minutes):\(seconds)")
+                    //Updates the time stat of the planned route with the user's average speed if initialized or the Mapbox time estimate.
+                
+
+                
+            })
+            
+            
+        })
+    
+
+
+       
+            }
     
     @IBAction func restoreRoute(_ sender: AnyObject) {
+        
+        self.RunViewDelegate?.deleteAllPoints()
+     //   distanceField.text = String(format: "Kms: %.2f", 0)
+       // timeField.text = String("H:M:S: 0:0:0")
+        GlobalVariables.sharedManager.plannedWaypoints.removeAll()
+        self.getRouteFromDB()
         self.RunViewDelegate?.handleRoute()
         //draw the saved Route
     }
@@ -67,7 +107,15 @@ class ViewRunController: UIViewController, MapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = FIRDatabase.database().reference()
- 
+   
+     //set the Firebase user reference.
+    }
+   
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    func getRouteFromDB() {
         ref?.child("Users").child(userID!).child("presetRoute").queryOrderedByKey().observeSingleEvent(of: .value, with: {
             snapshot in
             for childSnap in snapshot.children{
@@ -75,12 +123,12 @@ class ViewRunController: UIViewController, MapViewDelegate {
                 guard let childSnapshot = childSnap as? FIRDataSnapshot else {
                     continue
                 }
-            
+                
                 let id = childSnapshot.key
-               
+                
                 self.keys.append(id)
                 self.ref?.child("Users").child(self.userID!).child("presetRoute").child(id).observeSingleEvent(of: .value, with: { (snapshot) in
-                                       let value = snapshot.value as? NSDictionary
+                    let value = snapshot.value as? NSDictionary
                     let lat = value!["lat"] as! Double
                     let long = value!["long"] as! Double
                     let location = CLLocationCoordinate2D(latitude: lat, longitude: long)
@@ -89,12 +137,11 @@ class ViewRunController: UIViewController, MapViewDelegate {
                 })
             }
         })
-    } // get the preset Route, if any, from Firebase and load it into GlobalVariables
-   
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+        
+       // get the preset Route, if any, from Firebase and load it into GlobalVariables
     }
     
+  
     //Actions
     @IBAction func runToMain() {
         performSegue(withIdentifier: "runControllerToMain", sender: self)
@@ -110,6 +157,9 @@ class ViewRunController: UIViewController, MapViewDelegate {
     }
    
     @IBAction func DeleteAllPoints(_ sender: UIButton) {
+        print("gbl count 1: \(GlobalVariables.sharedManager.plannedWaypoints.count)")
+        GlobalVariables.sharedManager.plannedWaypoints.removeAll()
+            print("gbl count 2: \(GlobalVariables.sharedManager.plannedWaypoints.count)")
         self.RunViewDelegate?.deleteAllPoints()
         distanceField.text = String(format: "Kms: %.2f", 0)
         timeField.text = String("H:M:S: 0:0:0")
