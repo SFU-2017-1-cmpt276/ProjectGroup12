@@ -120,6 +120,11 @@ class ViewExploreController: UIViewController, UITableViewDelegate, UITableViewD
 	@IBAction func toMainControllerPage() {
 		performSegue(withIdentifier: "exploreToMain", sender: self)
 	}
+	
+	@IBAction func toCreateExplorePage() {
+		performSegue(withIdentifier: "createNewExplore", sender: self)
+	}
+	
     //Gives high level details for the page
     @IBAction func InfoButton(){
         let infoAlert = UIAlertController(title: "Explore Listing Details", message: "Welcome to the Explore Module! There are numerous treasures and artifacts hidden throughout the forests and trails of the Burnaby Mountains, and on this page you can begin your journey to find them!\n\n Select one of the possible items above to begin the exploration, though if the light next to it is green that means you've already found it!", preferredStyle: .alert)
