@@ -79,11 +79,11 @@ class NewExploreItem: UIViewController, CLLocationManagerDelegate {
 		} else {
 			
 			self.ref?.child("ExploreItems").child("InUse").setValue(1)
-			ref?.child("ExploreItems").child("Total").observeSingleEvent(of: .value, with: {(snapshot) in
+			ref?.child("ExploreItemTotal").observeSingleEvent(of: .value, with: {(snapshot) in
 				let tempVal = snapshot.value as? Int
 				
 				if let totalVal = tempVal {
-					self.ref?.child("ExploreItems").child("Total").setValue(totalVal + 1)
+					self.ref?.child("ExploreItemTotal").setValue(totalVal + 1)
 				}
 				let exploreID:Int = tempVal! + 1
 				let exploreItemTitle:String = self.exploreTitle.text!
@@ -97,7 +97,7 @@ class NewExploreItem: UIViewController, CLLocationManagerDelegate {
 				self.ref?.child("ExploreItems").child(String(exploreID)).child("Longitude").setValue(self.longitude)
 			})
 			self.ref?.child("ExploreItems").child("InUse").setValue(0)
-			let exploreCreateAlert = UIAlertController(title: "Congratulations!", message: "You created an Explore Item!", preferredStyle: .alert)
+			let exploreCreateAlert = UIAlertController(title: "Congratulations!", message: "You created an Explore Item! It should be visible on the previous screen!", preferredStyle: .alert)
 			let finishAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
 			exploreCreateAlert.addAction(finishAction)
 			self.present(exploreCreateAlert, animated: true, completion: nil)
