@@ -83,6 +83,12 @@ class TeamSelect2: UIViewController {
         
         //lets the database and app know the user has logged in at least once and therefore been presented the team select page
         self.ref?.child("Users").child(userID!).child("firstLogin").setValue(false)
+        
+        self.ref?.child("Users").child(userID!).observe(FIRDataEventType.value, with: { (snapshot) in
+            if let data = snapshot.value as? [String : AnyObject] {
+                self.ref?.child("Teams").child("Eagles").child(userID!).setValue(data)
+            }
+        })
      
 
         dismiss(animated: true, completion: nil)
@@ -99,6 +105,12 @@ class TeamSelect2: UIViewController {
         
         //lets the database and app know the user has logged in at least once and therefore been presented the team select page
         self.ref?.child("Users").child(userID!).child("firstLogin").setValue(false)
+        
+        self.ref?.child("Users").child(userID!).observe(FIRDataEventType.value, with: { (snapshot) in
+            if let data = snapshot.value as? [String : AnyObject] {
+                self.ref?.child("Teams").child("Bobcats").child(userID!).setValue(data)
+            }
+        })
         
         
 
@@ -118,6 +130,12 @@ class TeamSelect2: UIViewController {
         
         //lets the database and app know the user has logged in at least once and therefore been presented the team select page
         self.ref?.child("Users").child(userID!).child("firstLogin").setValue(false)
+        
+        self.ref?.child("Users").child(userID!).observe(FIRDataEventType.value, with: { (snapshot) in
+            if let data = snapshot.value as? [String : AnyObject] {
+                self.ref?.child("Teams").child("Bears").child(userID!).setValue(data)
+            }
+        })
         
         
      

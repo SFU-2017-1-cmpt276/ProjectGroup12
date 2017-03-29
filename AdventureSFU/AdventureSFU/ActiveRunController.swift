@@ -102,11 +102,14 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
             GlobalVariables.sharedManager.endTime = Date()
             GlobalVariables.sharedManager.elapsedTimeThisRun = GlobalVariables.sharedManager.endTime!.timeIntervalSince(GlobalVariables.sharedManager.startTime!)
             GlobalVariables.sharedManager.distanceThisRun = self.actualTotalDistance
+            
             super.ref?.child("Users").child(super.userID!).child("totalMins").observeSingleEvent(of: .value, with: { (snapshot) in
                 let tempTotalTime = snapshot.value as? TimeInterval
                 if var totalTime = tempTotalTime {
                     totalTime = tempTotalTime! + (GlobalVariables.sharedManager.elapsedTimeThisRun! as Double)/60
                     super.ref?.child("Users").child(super.userID!).child("totalMins").setValue(totalTime as Double!)
+                    
+                    
                 }
             }) //calculates and sends total time for this run to GlobalVariables and Firebase. 
             
@@ -115,7 +118,62 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
                 tempTotalKm = snapshot.value as? Double
                 if var totalKm = tempTotalKm {
                     totalKm = self.actualTotalDistance/1000 + tempTotalKm!
+                    let kmUpdate = self.actualTotalDistance/1000
                     super.ref?.child("Users").child(super.userID!).child("KMRun").setValue(totalKm)
+                    
+                    //adds new Kms to user's team Km stats
+                    super.ref?.child("Users").child(super.userID!).child("Team").observeSingleEvent(of: .value, with: { (snapshot) in
+                        let tempTeam = snapshot.value as? String
+                        print("\(tempTeam)")
+                        if let team = tempTeam {
+                            
+                            //updates Team Eagles Km
+                            if team == "Eagles" {
+                                
+                                super.ref?.child("Teams").child("Eagles").child("TotalKm").observeSingleEvent(of: .value, with: { (snapshot) in
+                                    let tempTotalKmT = snapshot.value as? Double
+                                    if var totalKmT = tempTotalKmT {
+                                        
+                                        totalKmT = totalKmT + kmUpdate
+                                        super.ref?.child("Teams").child("Eagles").child("TotalKm").setValue(totalKmT)
+                                    }
+                                })
+                                
+                            }
+                            
+                            //updates Team Bobcat Km
+                            if team == "Bobcats" {
+                                
+                                super.ref?.child("Teams").child("Bobcats").child("TotalKm").observeSingleEvent(of: .value, with: { (snapshot) in
+                                    let tempTotalKmT = snapshot.value as? Double
+                                    if var totalKmT = tempTotalKmT {
+                                        
+                                        totalKmT = totalKmT + kmUpdate
+                                        super.ref?.child("Teams").child("Bobcats").child("TotalKm").setValue(totalKmT)
+                                    }
+                                })
+                                
+                            }
+                            
+                            //updates Team Bear Km
+                            if team == "Bears" {
+                                
+                                super.ref?.child("Teams").child("Bobcats").child("TotalKm").observeSingleEvent(of: .value, with: { (snapshot) in
+                                    let tempTotalKmT = snapshot.value as? Double
+                                    if var totalKmT = tempTotalKmT {
+                                        
+                                        totalKmT = totalKmT + kmUpdate
+                                        super.ref?.child("Teams").child("Bears").child("TotalKm").setValue(totalKmT)
+                                    }
+                                })
+                                
+                            }
+                            
+                        }
+                    
+                    })
+            
+            
                 }
             })
         }
