@@ -419,7 +419,9 @@
                         <viewControllerLayoutGuide type="bottom" id="hEY-cD-bYR"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8Na-KS-q3u" userLabel="MainMapUI" customClass="MGLMapView">
+
                         <rect key="frame" x="0.0" y="0.0" width="375" height="352"/>
+
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -602,7 +604,7 @@
                                     <color key="titleColor" red="0.44725483659999998" green="0.16517576580000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="DeleteAllPoints:" destination="3yT-BT-JeF" eventType="touchUpInside" id="Wv1-7l-mKd"/>
+                                    <action selector="DeleteAllPoints:" destination="3yT-BT-JeF" eventType="touchUpInside" id="6UB-39-l2R"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ROUTE STATS:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aR4-2Y-VZX">
@@ -638,6 +640,14 @@
                                 </state>
                                 <connections>
                                     <action selector="submitRunStats:" destination="3yT-BT-JeF" eventType="touchUpInside" id="0Ch-tg-pq4"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0lT-w3-XEy">
+                                <frame key="frameInset" minX="27" minY="554" width="53" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Restore"/>
+                                <connections>
+                                    <action selector="restoreRoute:" destination="3yT-BT-JeF" eventType="touchUpInside" id="aZ6-Sg-yoI"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1181,7 +1191,9 @@
                                 <color key="sectionIndexColor" red="0.44725483659999998" green="0.16517576580000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="userInfo" textLabel="GmP-T0-LcZ" detailTextLabel="CFx-Ve-TVt" style="IBUITableViewCellStyleValue1" id="dMS-j2-suS">
+
                                         <rect key="frame" x="0.0" y="28" width="343" height="44"/>
+
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dMS-j2-suS" id="TCU-9b-DqE">
                                             <frame key="frameInset" width="343" height="43"/>
@@ -1302,9 +1314,11 @@
         <image name="white" width="1890" height="1417"/>
     </resources>
     <inferredMetricsTieBreakers>
+
         <segue reference="czh-Fs-oDl"/>
         <segue reference="re6-Ne-MvG"/>
         <segue reference="9aO-A6-bAv"/>
         <segue reference="ADt-zq-scG"/>
+
     </inferredMetricsTieBreakers>
 </document>

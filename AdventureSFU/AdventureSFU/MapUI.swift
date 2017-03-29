@@ -127,12 +127,13 @@ class MapUI: UIViewController, RunViewControllerDelegate {
                 }
             } //generates route if there is more than one point. submits it to be drawn.
         }
+       
     }
 
     func drawRoute(route: Route) {
+        print("expectedtraveltime: \(route.expectedTravelTime)")
         //passes time and distance to containing view for display to user.
-        self.delegate?.getTime(time: route.expectedTravelTime)
-        self.delegate?.getDistance(distance: route.distance)
+        self.delegate?.getDistanceAndTime(distance: route.distance, time: route.expectedTravelTime)
         var routeCoordinates = route.coordinates!
         let routeLine = MGLPolyline(coordinates: &routeCoordinates, count: route.coordinateCount)
         self.MapUI.addAnnotation(routeLine)

@@ -15,7 +15,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "31"
             endingLineNumber = "31"
-            landmarkName = "didReceiveMemoryWarning()"
+            landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -30,9 +30,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "18"
-            endingLineNumber = "18"
-            landmarkName = "ActiveRunController"
-            landmarkType = "3">
+            endingLineNumber = "18">
             <Locations>
                <Location
                   shouldBeEnabled = "Yes"
@@ -189,6 +187,54 @@
             endingLineNumber = "32"
             landmarkName = "handleSingleTap(tap:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AdventureSFU/ViewRunController.swift"
+            timestampString = "512517373.85504"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AdventureSFU.ViewRunController.viewDidLoad () -&gt; ()"
+                  moduleName = "AdventureSFU"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ela50/CMPT276/ProjectGroup12/AdventureSFU/AdventureSFU/ViewRunController.swift"
+                  timestampString = "512084333.170112"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "63"
+                  endingLineNumber = "63"
+                  offsetFromSymbolStart = "258">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AdventureSFU.ViewRunController.(viewDidLoad () -&gt; ()).(closure #1)"
+                  moduleName = "AdventureSFU"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ela50/CMPT276/ProjectGroup12/AdventureSFU/AdventureSFU/ViewRunController.swift"
+                  timestampString = "512084333.171533"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "62"
+                  endingLineNumber = "62"
+                  offsetFromSymbolStart = "16">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
