@@ -244,7 +244,7 @@ class signUpViewController: UIViewController, UITextFieldDelegate {
                                                         self.ref?.child("Users").child(user!.uid).child("personalMessage").setValue(validPersonalMessage)
                                                         self.ref?.child("Users").child(user!.uid).child("firstLogin").setValue(true)
                                                         self.ref?.child("Users").child(user!.uid).child("Team").setValue("No Team")
-                                                        self.ref?.child("Users").child(user!.uid).child("hasStoredRun").setValue("false")
+                                                self.ref?.child("Users").child(user!.uid).child("presetRouteCoordinateCount").setValue(0)
                                                         var count:Int = 0
                                                         while (count < 10) {
                                                             self.ref?.child("Users").child(user!.uid).child("ExploreItems").child(String(count)).setValue(0)

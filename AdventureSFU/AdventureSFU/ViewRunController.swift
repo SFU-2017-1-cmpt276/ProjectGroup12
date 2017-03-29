@@ -12,8 +12,7 @@
 //	Programmers: Karan Aujla, Carlos Abaffy, Eleanor Lewis, Chris Norris-Jones
 //
 //	Known Bugs:	-Route limit set to 25 waypoints currently, then assertion called and app crashes, need better method for either setting a limit or increasing number of waypoints without potentially introducing any stability issues
-
-//-inconsistent route loading behaviour.
+//
 //              -Map sometimes will not load if info button is clicked first
 //	Todo:   -Further functionality with regards to run details, user's ability to create run
 //			-Further run details information upon creating run
@@ -40,7 +39,7 @@ class ViewRunController: UIViewController, MapViewDelegate {
     var ref: FIRDatabaseReference?
     let userID = FIRAuth.auth()?.currentUser?.uid
     var RunViewDelegate: RunViewControllerDelegate?
-     var keys: [String] = []
+  //  var keys: [String] = []
     var wpts: [Waypoint] = []
     var userSpeed: Double?
     var userTime: Double = 0.0
@@ -52,63 +51,42 @@ class ViewRunController: UIViewController, MapViewDelegate {
         self.distance = distance/1000
         distanceField.text = String(format: "Kms: %.2f", distance/1000)
         //Updates the distance stat of the planned route.
-        
-     
-        
         ref?.child("Users").child(userID!).child("totalSeconds").observeSingleEvent(of: .value, with: { (snapshot) in
             //pull the user's name and display a welcome message
             let timevalue = snapshot.value as? Double
             self.userTime = timevalue!
-            print("userTime, value: \(self.userTime), \(timevalue!)")
             self.ref?.child("Users").child(self.userID!).child("KMRun").observeSingleEvent(of: .value, with: { (snapshot) in
                 //pull the user's name and display a welcome message
                 let distancevalue = snapshot.value as? Double
                 self.userDistance = distancevalue!
-                
                 if self.userDistance != 0 && self.userTime != 0 {
                     self.userSpeed = self.userDistance/self.userTime
                     self.time = self.distance * self.userSpeed!
                 } else {
                     self.time = time
-                print("made it into else for some reason")
                 }
-                
                 print("userDistance, userTime: \(self.userDistance), \(self.userTime)")
                     let seconds = Int(time) % 60;
                     let minutes = Int(time / 60) % 60;
                     let hours = Int(time / 3600);
                     self.timeField.text = String("H:M:S: \(hours):\(minutes):\(seconds)")
                     //Updates the time stat of the planned route with the user's average speed if initialized or the Mapbox time estimate.
-                
-
-                
             })
-            
-            
         })
-    
-
-
-       
-            }
+    }
     
     @IBAction func restoreRoute(_ sender: AnyObject) {
-        
         self.RunViewDelegate?.deleteAllPoints()
-     //   distanceField.text = String(format: "Kms: %.2f", 0)
-       // timeField.text = String("H:M:S: 0:0:0")
         GlobalVariables.sharedManager.plannedWaypoints.removeAll()
         self.getRouteFromDB()
-        self.RunViewDelegate?.handleRoute()
-        //draw the saved Route
+        //clears current route from memory, then loads stored route, if any, from Firebase
     }
     
     //Load Actions
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = FIRDatabase.database().reference()
-   
-     //set the Firebase user reference.
+       //set the Firebase user reference.
     }
    
     override func didReceiveMemoryWarning() {
@@ -116,31 +94,28 @@ class ViewRunController: UIViewController, MapViewDelegate {
     }
     
     func getRouteFromDB() {
-        ref?.child("Users").child(userID!).child("presetRoute").queryOrderedByKey().observeSingleEvent(of: .value, with: {
-            snapshot in
-            for childSnap in snapshot.children{
-                
+        self.ref?.child("Users").child(userID!).child("presetRoute").queryOrderedByKey().observeSingleEvent(of: .value, with: {
+                        snapshot in
+                for childSnap in snapshot.children{
                 guard let childSnapshot = childSnap as? FIRDataSnapshot else {
                     continue
                 }
-                
                 let id = childSnapshot.key
-                
-                self.keys.append(id)
+           //     self.keys.append(id)
                 self.ref?.child("Users").child(self.userID!).child("presetRoute").child(id).observeSingleEvent(of: .value, with: { (snapshot) in
-                    let value = snapshot.value as? NSDictionary
-                    let lat = value!["lat"] as! Double
-                    let long = value!["long"] as! Double
-                    let location = CLLocationCoordinate2D(latitude: lat, longitude: long)
-                    let wpt = Waypoint(coordinate: location, name: String(id))
-                    GlobalVariables.sharedManager.plannedWaypoints.append(wpt)
+                        let value = snapshot.value as? NSDictionary
+                        let lat = value!["lat"] as! Double
+                        let long = value!["long"] as! Double
+                        let location = CLLocationCoordinate2D(latitude: lat, longitude: long)
+                        let wpt = Waypoint(coordinate: location, name: String(id))
+                        GlobalVariables.sharedManager.plannedWaypoints.append(wpt)
+                    self.RunViewDelegate?.handleRoute()
                 })
-            }
-        })
-        
-       // get the preset Route, if any, from Firebase and load it into GlobalVariables
+                }
+            })
+       // one by one, get the coordinates from the preset Route, if any, load them into GlobalVariables 
+        //and call the MapUI method to add them to the map
     }
-    
   
     //Actions
     @IBAction func runToMain() {
@@ -149,7 +124,7 @@ class ViewRunController: UIViewController, MapViewDelegate {
     }
     
     @IBAction func helpPopup(_ sender: Any) {
-        let infoAlert = UIAlertController(title: "Route Plan Help", message: "On this page you can plan your route. Select a starting point and subsequent points by single tap to generate a route and get its distance and estimated travel time. Select CLEAR to start over. Select SAVE to keep this route available for when you next log in. Select Run! to start tracking your route!", preferredStyle: .alert)
+        let infoAlert = UIAlertController(title: "Route Plan Help", message: "On this page you can plan your route. Select a starting point and subsequent points by single tap to generate a route and get its distance and estimated travel time. Select CLEAR to start over. Select SAVE to keep this route available for when you next log in. Select RESTORE to load a saved route. Select Run! to start tracking your run!", preferredStyle: .alert)
         let agreeAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
         infoAlert.addAction(agreeAction)
         self.present(infoAlert, animated: true, completion: nil)
@@ -157,9 +132,7 @@ class ViewRunController: UIViewController, MapViewDelegate {
     }
    
     @IBAction func DeleteAllPoints(_ sender: UIButton) {
-        print("gbl count 1: \(GlobalVariables.sharedManager.plannedWaypoints.count)")
         GlobalVariables.sharedManager.plannedWaypoints.removeAll()
-            print("gbl count 2: \(GlobalVariables.sharedManager.plannedWaypoints.count)")
         self.RunViewDelegate?.deleteAllPoints()
         distanceField.text = String(format: "Kms: %.2f", 0)
         timeField.text = String("H:M:S: 0:0:0")
@@ -174,12 +147,17 @@ class ViewRunController: UIViewController, MapViewDelegate {
                                        "long" : wpt.coordinate.longitude]
             self.ref?.child("Users").child(self.userID!).child("presetRoute").updateChildValues(["/\(key)" : waypt])
         }
+        self.submissionAlert()
+        //Submits run plan to Firebase (as a list of coordinates).
+    }
+    
+    func submissionAlert() {
         let alertController = UIAlertController(title: "Run is stored", message:nil, preferredStyle: .alert)
         let defaultAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
         alertController.addAction(defaultAction)
         self.present(alertController, animated: true, completion: nil)
-        //Submits run plan to Firebase (as a list of coordinates).
     }
+    
     
     // Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
