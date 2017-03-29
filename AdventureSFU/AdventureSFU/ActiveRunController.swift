@@ -106,6 +106,60 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
                     totalTime = tempTotalTime! + (GlobalVariables.sharedManager.elapsedTimeThisRun! as Double)
                     print("totalTime: \(totalTime)")
                     super.ref?.child("Users").child(super.userID!).child("totalSeconds").setValue(totalTime as Double!)
+                    
+                    //adds new Kms to user's team Km stats
+                    super.ref?.child("Users").child(super.userID!).child("Team").observeSingleEvent(of: .value, with: { (snapshot) in
+                        let tempTeam = snapshot.value as? String
+
+                        if let team = tempTeam {
+                            
+                            //updates Team Eagles Km
+                            if team == "Eagles" {
+                                
+                                super.ref?.child("Teams").child("Eagles").child("Totaltime").observeSingleEvent(of: .value, with: { (snapshot) in
+                                    let tempTotaltimeT = snapshot.value as? Double
+                                    if var totaltimeT = tempTotaltimeT {
+                                        
+                                        totaltimeT = totaltimeT + (GlobalVariables.sharedManager.elapsedTimeThisRun! as Double)
+                                        super.ref?.child("Teams").child("Eagles").child("Totaltime").setValue(totaltimeT)
+                                    }
+                                    
+                                })
+                                
+                            }
+                            
+                            //updates Team Bobcat Km
+                            if team == "Bobcats" {
+                                
+                                super.ref?.child("Teams").child("Bobcats").child("Totaltime").observeSingleEvent(of: .value, with: { (snapshot) in
+                                    let tempTotaltimeT = snapshot.value as? Double
+                                    if var totaltimeT = tempTotaltimeT {
+                                        
+                                        totaltimeT = totaltimeT + (GlobalVariables.sharedManager.elapsedTimeThisRun! as Double)
+                                        super.ref?.child("Teams").child("Bobcats").child("Totaltime").setValue(totaltimeT)
+                                    }
+                                    
+                                })
+                            }
+                            
+                            //updates Team Bear Km
+                            if team == "Bears" {
+                                
+                                super.ref?.child("Teams").child("Bears").child("Totaltime").observeSingleEvent(of: .value, with: { (snapshot) in
+                                    let tempTotaltimeT = snapshot.value as? Double
+                                    if var totaltimeT = tempTotaltimeT {
+                                        
+                                        totaltimeT = totaltimeT + (GlobalVariables.sharedManager.elapsedTimeThisRun! as Double)
+                                        super.ref?.child("Teams").child("Bears").child("Totaltime").setValue(totaltimeT)
+                                    }
+                                    
+                                })
+                                
+                            }
+                            
+                        }
+                        
+                    })
 
                 }
             }) //calculates and sends total time for this run to GlobalVariables and Firebase. 
@@ -134,6 +188,12 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
                                         totalKmT = totalKmT + kmUpdate
                                         super.ref?.child("Teams").child("Eagles").child("TotalKm").setValue(totalKmT)
                                     }
+                                    
+                                    super.ref?.child("Users").child(super.userID!).observe(FIRDataEventType.value, with: { (snapshot) in
+                                        if let data = snapshot.value as? [String : AnyObject] {
+                                            super.ref?.child("Teams").child("Eagles").child(super.userID!).setValue(data)
+                                        }
+                                    })
                                 })
                                 
                             }
@@ -148,6 +208,12 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
                                         totalKmT = totalKmT + kmUpdate
                                         super.ref?.child("Teams").child("Bobcats").child("TotalKm").setValue(totalKmT)
                                     }
+                                    
+                                    super.ref?.child("Users").child(super.userID!).observe(FIRDataEventType.value, with: { (snapshot) in
+                                        if let data = snapshot.value as? [String : AnyObject] {
+                                            super.ref?.child("Teams").child("Bobcats").child(super.userID!).setValue(data)
+                                        }
+                                    })
                                 })
                                 
                             }
@@ -155,13 +221,19 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
                             //updates Team Bear Km
                             if team == "Bears" {
                                 
-                                super.ref?.child("Teams").child("Bobcats").child("TotalKm").observeSingleEvent(of: .value, with: { (snapshot) in
+                                super.ref?.child("Teams").child("Bears").child("TotalKm").observeSingleEvent(of: .value, with: { (snapshot) in
                                     let tempTotalKmT = snapshot.value as? Double
                                     if var totalKmT = tempTotalKmT {
                                         
                                         totalKmT = totalKmT + kmUpdate
                                         super.ref?.child("Teams").child("Bears").child("TotalKm").setValue(totalKmT)
                                     }
+                                    
+                                    super.ref?.child("Users").child(super.userID!).observe(FIRDataEventType.value, with: { (snapshot) in
+                                        if let data = snapshot.value as? [String : AnyObject] {
+                                            super.ref?.child("Teams").child("Bears").child(super.userID!).setValue(data)
+                                        }
+                                    })
                                 })
                                 
                             }

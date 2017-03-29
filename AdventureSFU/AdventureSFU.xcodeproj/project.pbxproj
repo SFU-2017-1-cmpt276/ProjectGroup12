@@ -29,6 +29,7 @@
 		C941919B1E78B7F500EB6178 /* ActiveRunController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C941919A1E78B7F500EB6178 /* ActiveRunController.swift */; };
 		C941919D1E78B95200EB6178 /* ActiveMapUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C941919C1E78B95200EB6178 /* ActiveMapUI.swift */; };
 		C959A3321E80EE17004D6C3B /* MainMapUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C959A3311E80EE17004D6C3B /* MainMapUI.swift */; };
+		C9CA4DE31E8C7D1D0070B4B9 /* OfflineMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CA4DE21E8C7D1D0070B4B9 /* OfflineMapViewController.swift */; };
 		C9EAD2BE1E7F406A00145B09 /* RunViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EAD2BD1E7F406A00145B09 /* RunViewControllerDelegate.swift */; };
 		C9EAD2C01E7F59F800145B09 /* ExploreMapUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EAD2BF1E7F59F800145B09 /* ExploreMapUI.swift */; };
 		DE23212A1E78679F00E7A8E9 /* ViewExploreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2321291E78679F00E7A8E9 /* ViewExploreController.swift */; };
@@ -103,6 +104,7 @@
 		C941919A1E78B7F500EB6178 /* ActiveRunController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveRunController.swift; sourceTree = "<group>"; };
 		C941919C1E78B95200EB6178 /* ActiveMapUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveMapUI.swift; sourceTree = "<group>"; };
 		C959A3311E80EE17004D6C3B /* MainMapUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMapUI.swift; sourceTree = "<group>"; };
+		C9CA4DE21E8C7D1D0070B4B9 /* OfflineMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfflineMapViewController.swift; sourceTree = "<group>"; };
 		C9EAD2BD1E7F406A00145B09 /* RunViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunViewControllerDelegate.swift; sourceTree = "<group>"; };
 		C9EAD2BF1E7F59F800145B09 /* ExploreMapUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreMapUI.swift; sourceTree = "<group>"; };
 		DE2321291E78679F00E7A8E9 /* ViewExploreController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewExploreController.swift; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 				9E1B869B1E691C08006C0E61 /* Info.plist */,
 				DEE6203C1E6B47E000B49665 /* GoogleService-Info.plist */,
 				9E1B86931E691C08006C0E61 /* AdventureSFU.xcdatamodeld */,
+				C9CA4DE21E8C7D1D0070B4B9 /* OfflineMapViewController.swift */,
 			);
 			path = AdventureSFU;
 			sourceTree = "<group>";
@@ -528,6 +531,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22BA585C1E8B1232008575EC /* TeamPageViewController.swift in Sources */,
+				C9CA4DE31E8C7D1D0070B4B9 /* OfflineMapViewController.swift in Sources */,
 				9E1B86951E691C08006C0E61 /* AdventureSFU.xcdatamodeld in Sources */,
 				22419C231E7CB3100059D3D2 /* TeamSelect2.swift in Sources */,
 				2204B2811E6B7572009A6DF5 /* ViewRunController.swift in Sources */,
