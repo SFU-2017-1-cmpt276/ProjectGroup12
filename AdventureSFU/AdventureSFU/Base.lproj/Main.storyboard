@@ -419,7 +419,9 @@
                         <viewControllerLayoutGuide type="bottom" id="hEY-cD-bYR"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8Na-KS-q3u" userLabel="MainMapUI" customClass="MGLMapView">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="351.5"/>
+
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="352"/>
+
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -770,6 +772,20 @@
                                     <segue destination="PIz-B4-OHD" kind="show" identifier="mainToStats" id="gR2-Hk-qNf"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="37f-OX-4L6">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="105" id="srg-v0-vgS"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                <state key="normal" title="Teams">
+                                    <color key="titleColor" red="0.44725483659999998" green="0.16517576580000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="goToTeams:" destination="SeN-AB-Feg" eventType="touchUpInside" id="VGp-8V-xMh"/>
+                                    <action selector="goToTeamsPage" destination="SeN-AB-Feg" eventType="touchUpInside" id="uns-u7-8w2"/>
+                                    <segue destination="JUj-OB-dax" kind="show" identifier="goToTeams" id="ziS-50-T3M"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -778,6 +794,8 @@
                             <constraint firstItem="mUe-X7-9fB" firstAttribute="leading" secondItem="7n0-B6-UaR" secondAttribute="leading" constant="16" id="77H-x0-1yw"/>
                             <constraint firstItem="ES1-Cb-qKC" firstAttribute="centerX" secondItem="mUe-X7-9fB" secondAttribute="centerX" id="EPm-kD-poo"/>
                             <constraint firstItem="ES1-Cb-qKC" firstAttribute="leading" secondItem="7n0-B6-UaR" secondAttribute="leadingMargin" constant="75" id="FcV-Au-bMQ"/>
+                            <constraint firstItem="37f-OX-4L6" firstAttribute="top" secondItem="epn-7F-ZJh" secondAttribute="bottom" constant="65" id="GIj-Il-9tc"/>
+                            <constraint firstItem="37f-OX-4L6" firstAttribute="centerX" secondItem="ES1-Cb-qKC" secondAttribute="centerX" id="GjY-HQ-E7u"/>
                             <constraint firstItem="epn-7F-ZJh" firstAttribute="top" secondItem="u7d-1C-bm1" secondAttribute="bottom" constant="8" id="Hgz-bX-T4S"/>
                             <constraint firstItem="Pmz-FC-q0f" firstAttribute="trailing" secondItem="mUe-X7-9fB" secondAttribute="trailing" id="Hw8-Ey-trW"/>
                             <constraint firstItem="gEZ-9p-3aO" firstAttribute="top" secondItem="mUe-X7-9fB" secondAttribute="bottom" constant="20" id="Iey-eq-uau"/>
@@ -785,6 +803,7 @@
                             <constraint firstItem="ES1-Cb-qKC" firstAttribute="baseline" secondItem="Pmz-FC-q0f" secondAttribute="baseline" id="JrR-FY-sM5"/>
                             <constraint firstAttribute="trailing" secondItem="gUn-eC-mnX" secondAttribute="trailing" id="KKs-2K-FEh"/>
                             <constraint firstItem="gEZ-9p-3aO" firstAttribute="top" secondItem="gUn-eC-mnX" secondAttribute="bottom" id="REO-6O-coA"/>
+                            <constraint firstItem="ES1-Cb-qKC" firstAttribute="top" secondItem="37f-OX-4L6" secondAttribute="bottom" constant="20" id="RIx-qN-nTm"/>
                             <constraint firstItem="ZMW-gX-hNA" firstAttribute="baseline" secondItem="ES1-Cb-qKC" secondAttribute="baseline" id="Rd3-ZR-PEW"/>
                             <constraint firstAttribute="trailing" secondItem="epn-7F-ZJh" secondAttribute="trailing" constant="16" id="YiA-pz-2ed"/>
                             <constraint firstItem="u7d-1C-bm1" firstAttribute="leading" secondItem="7n0-B6-UaR" secondAttribute="leading" id="cFR-1o-yAA"/>
@@ -805,7 +824,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dJe-ZX-cj5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1326" y="-517"/>
+            <point key="canvasLocation" x="1325.5999999999999" y="-517.6911544227886"/>
         </scene>
         <!--View Explore Controller-->
         <scene sceneID="erc-FP-1RN">
@@ -1077,6 +1096,30 @@
             </objects>
             <point key="canvasLocation" x="1326" y="257"/>
         </scene>
+        <!--Team Page View Controller-->
+        <scene sceneID="MHs-21-Jwa">
+            <objects>
+                <viewController id="JUj-OB-dax" customClass="TeamPageViewController" customModule="AdventureSFU" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tkD-vL-0ck"/>
+                        <viewControllerLayoutGuide type="bottom" id="NhR-z3-556"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="FCi-l8-8xX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="sfu-aq-pond1" translatesAutoresizingMaskIntoConstraints="NO" id="8JO-XY-o7a">
+                                <frame key="frameInset" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lNR-0U-8Nc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2290" y="358"/>
+        </scene>
         <!--Active Run Controller-->
         <scene sceneID="Fdu-8a-ae4">
             <objects>
@@ -1148,7 +1191,9 @@
                                 <color key="sectionIndexColor" red="0.44725483659999998" green="0.16517576580000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="userInfo" textLabel="GmP-T0-LcZ" detailTextLabel="CFx-Ve-TVt" style="IBUITableViewCellStyleValue1" id="dMS-j2-suS">
-                                        <rect key="frame" x="0.0" y="28" width="1000" height="44"/>
+
+                                        <rect key="frame" x="0.0" y="28" width="343" height="44"/>
+
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dMS-j2-suS" id="TCU-9b-DqE">
                                             <frame key="frameInset" width="343" height="43"/>
@@ -1269,9 +1314,11 @@
         <image name="white" width="1890" height="1417"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="0hT-Ia-Hkj"/>
-        <segue reference="OXH-jh-MxA"/>
-        <segue reference="F4x-Bf-aXV"/>
-        <segue reference="jyd-Dk-DzP"/>
+
+        <segue reference="czh-Fs-oDl"/>
+        <segue reference="re6-Ne-MvG"/>
+        <segue reference="9aO-A6-bAv"/>
+        <segue reference="ADt-zq-scG"/>
+
     </inferredMetricsTieBreakers>
 </document>

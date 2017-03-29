@@ -48,7 +48,6 @@ class MainViewController: UIViewController {
             //if it is the first time the user logged in, present the team select page
             let value = snapshot.value as? Bool
             let condition = value!
-            print("\(condition)")
             if(condition == true) {
                 self.performSegue(withIdentifier: "TeamSelect", sender: self)
             }
@@ -90,6 +89,11 @@ class MainViewController: UIViewController {
     @IBAction func toExploreControllerPage() {
         performSegue(withIdentifier: "mainToExplore", sender: self)
     }
+    
+    @IBAction func goToTeamsPage() {
+        performSegue(withIdentifier: "goToTeams", sender: self)
+    }
+
     
     
 }
