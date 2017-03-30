@@ -420,9 +420,10 @@
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8Na-KS-q3u" userLabel="MainMapUI" customClass="MGLMapView">
 
+
                         <rect key="frame" x="0.0" y="0.0" width="375" height="352"/>
 
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
@@ -565,7 +566,7 @@
                                                                                                                     <color key="titleColor" red="0.44725483659999998" green="0.16517576580000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                                                 </state>
                                                                                                                 <connections>
-                                                                                                                    <segue destination="SeN-AB-Feg" kind="show" identifier="runControllerToMain" id="F4x-Bf-aXV"/>
+                                                                                                                    <action selector="dismissRunView:" destination="3yT-BT-JeF" eventType="touchUpInside" id="9kG-Si-uOv"/>
                                                                                                                 </connections>
                                                                                                             </button>
                                                                                                         </subviews>
@@ -857,10 +858,12 @@
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" alpha="0.5" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="exploreCell" rowHeight="59" id="DTb-Ag-Xg4" customClass="ExploreTableViewCell" customModule="AdventureSFU" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="1000" height="59"/>
+
+                                        <rect key="frame" x="0.0" y="28" width="343" height="59"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DTb-Ag-Xg4" id="gBt-dx-93l">
-                                            <frame key="frameInset" width="1000" height="59"/>
+                                            <frame key="frameInset" width="343" height="59"/>
+
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yji-uL-EgU">
@@ -1316,9 +1319,9 @@
     <inferredMetricsTieBreakers>
 
         <segue reference="czh-Fs-oDl"/>
-        <segue reference="re6-Ne-MvG"/>
-        <segue reference="9aO-A6-bAv"/>
-        <segue reference="ADt-zq-scG"/>
+        <segue reference="0hT-Ia-Hkj"/>
+        <segue reference="jyd-Dk-DzP"/>
+        <segue reference="OXH-jh-MxA"/>
 
     </inferredMetricsTieBreakers>
 </document>

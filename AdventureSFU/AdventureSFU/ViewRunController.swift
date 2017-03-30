@@ -45,6 +45,9 @@ class ViewRunController: UIViewController, MapViewDelegate {
     var userTime: Double = 0.0
     var userDistance: Double = 0.0
     
+    @IBAction func dismissRunView(_ sender: AnyObject) {
+        dismiss(animated: true, completion: nil)
+    }
     //Functions
     //Functions implementing MapViewDelegate headers
     func getDistanceAndTime(distance: Double, time: Double) {

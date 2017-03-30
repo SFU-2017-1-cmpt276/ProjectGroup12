@@ -76,6 +76,7 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
     @IBAction func stopRun() {
         self.locationManager.stopUpdatingLocation()
         performSegue(withIdentifier: "stopRun", sender: self)
+  
     } //Discontinues user tracking and sends user back to Route Planner page.
 
     @IBAction func activeRunHelp(_ sender: Any) {

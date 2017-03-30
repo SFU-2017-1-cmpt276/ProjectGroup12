@@ -1,6 +1,6 @@
 import Mapbox
 
-class ViewController: UIViewController, MGLMapViewDelegate {
+class OfflineViewController: UIViewController, MGLMapViewDelegate {
     var mapView: MGLMapView!
     var progressView: UIProgressView!
     

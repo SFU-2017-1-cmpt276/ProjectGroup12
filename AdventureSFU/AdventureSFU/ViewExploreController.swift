@@ -118,7 +118,7 @@ class ViewExploreController: UIViewController, UITableViewDelegate, UITableViewD
 	
 //Actions
 	@IBAction func toMainControllerPage() {
-		performSegue(withIdentifier: "exploreToMain", sender: self)
+        dismiss(animated: true, completion: nil)
 	}
     //Gives high level details for the page
     @IBAction func InfoButton(){

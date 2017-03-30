@@ -45,7 +45,7 @@ class ExploreViewOneController: UIViewController {
 //Actions
     
     @IBAction func BackButton(){
-        performSegue(withIdentifier: "exploreOnetoAll", sender: self)
+        dismiss(animated: true, completion: nil)
     }
     
     //Info alert displayed when info button hit
