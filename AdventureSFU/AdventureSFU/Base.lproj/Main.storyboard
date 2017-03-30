@@ -1143,18 +1143,18 @@
                                         <rect key="frame" x="0.0" y="28" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dMS-j2-suS" id="TCU-9b-DqE">
-                                            <frame key="frameInset" width="343" height="43.5"/>
+                                            <frame key="frameInset" width="343" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="GmP-T0-LcZ">
-                                                    <frame key="frameInset" minX="15" minY="12" width="33.5" height="20.5"/>
+                                                    <frame key="frameInset" minX="15" minY="11" width="34" height="21"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.44841498140000002" green="0.047192201019999998" blue="0.06779315323" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CFx-Ve-TVt">
-                                                    <frame key="frameInset" minX="284" minY="12" width="44" height="20.5"/>
+                                                    <frame key="frameInset" minX="284" minY="11" width="44" height="21"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.44841498140000002" green="0.047192201019999998" blue="0.06779315323" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1261,9 +1261,9 @@
         <image name="white" width="1890" height="1417"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="oHH-Rz-i1W"/>
-        <segue reference="ADt-zq-scG"/>
-        <segue reference="jyd-Dk-DzP"/>
+        <segue reference="czh-Fs-oDl"/>
         <segue reference="0hT-Ia-Hkj"/>
+        <segue reference="jyd-Dk-DzP"/>
+        <segue reference="OXH-jh-MxA"/>
     </inferredMetricsTieBreakers>
 </document>
