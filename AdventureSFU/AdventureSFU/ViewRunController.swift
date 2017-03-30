@@ -38,6 +38,9 @@ class ViewRunController: UIViewController, MapViewDelegate {
     let userID = FIRAuth.auth()?.currentUser?.uid
     var RunViewDelegate: RunViewControllerDelegate?
     
+    @IBAction func dismissRunView(_ sender: AnyObject) {
+        dismiss(animated: true, completion: nil)
+    }
     //Functions
     //Functions implementing MapViewDelegate headers
     func getTime(time: Double) {
