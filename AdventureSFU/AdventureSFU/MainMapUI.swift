@@ -28,7 +28,7 @@ class MainMapUI: UIViewController, CLLocationManagerDelegate {
         super.viewDidLoad()
        
         //draws the map
-        MainMapUI = MGLMapView(frame: view.bounds, styleURL: MGLStyle.satelliteStyleURL(withVersion: 9))
+        MainMapUI = MGLMapView(frame: view.bounds, styleURL: MGLStyle.satelliteStreetsStyleURL(withVersion: 9))
         view.addSubview(MainMapUI)
         
         //centres the map to burnaby mountain

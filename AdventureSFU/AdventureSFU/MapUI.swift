@@ -55,7 +55,7 @@ class MapUI: UIViewController, RunViewControllerDelegate {
         }
         
         //load map and draw planned route
-        MapUI = MGLMapView(frame: view.bounds)
+        MapUI = MGLMapView(frame: view.bounds, styleURL: MGLStyle.outdoorsStyleURL(withVersion: 9))
         MapUI.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(MapUI)
         MapUI.setCenter(CLLocationCoordinate2D(latitude: 49.273382, longitude: -122.908837),
