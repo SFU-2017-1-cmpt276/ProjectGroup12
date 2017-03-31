@@ -1,16 +1,16 @@
 //
-//  TeamPageViewController.swift
+//  LeaderBoardViewController.swift
 //  AdventureSFU
 //
-//  Created by Carlos Abaffy paz on 3/28/17.
+//  Created by Karan Aujla on 3/30/17.
 //  Copyright © 2017 Karan Aujla. All rights reserved.
 //
 
 import UIKit
-import Firebase
 
-class TeamPageViewController: UIViewController {
+class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet weak var users: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,8 +21,16 @@ class TeamPageViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
+        let cellToBeReturned: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "users")!
+        cellToBeReturned.textLabel?.text = "test"
+        cellToBeReturned.detailTextLabel?.text = "testest"
+        return cellToBeReturned
+    }
     
-
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+        return 5
+    }
     /*
     // MARK: - Navigation
 
