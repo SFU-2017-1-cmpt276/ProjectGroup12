@@ -33,6 +33,11 @@ class ExploreMapUI: MapUI {
         //do nothing; overwrites route selection function of MapUI class
     }
 
+    override func handleRoute() {
+        //do nothing
+    }
+
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

@@ -1212,6 +1212,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="nOz-NA-90A" id="ugx-Oa-O2Y"/>
+                                    <outlet property="delegate" destination="nOz-NA-90A" id="9Wc-Pe-ilD"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1250,15 +1254,22 @@
                                     <color key="titleColor" red="0.44725483659999998" green="0.16517576580000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="stopRun" destination="St2-cC-QcT" eventType="touchUpInside" id="hiv-vE-3xZ"/>
-                                    <segue destination="3yT-BT-JeF" kind="show" identifier="stopRun" id="OXH-jh-MxA"/>
+                                    <action selector="stopRun:" destination="St2-cC-QcT" eventType="touchUpInside" id="Sc9-hY-Xzr"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mvi-pl-Fdo">
                                 <rect key="frame" x="42" y="608" width="22" height="22"/>
                                 <color key="tintColor" red="0.44725483659999998" green="0.16517576580000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
-                                    <action selector="activeRunHelp:" destination="St2-cC-QcT" eventType="touchUpInside" id="QXH-bI-EzN"/>
+                                    <action selector="activeRunHelp:" destination="St2-cC-QcT" eventType="touchUpInside" id="ag6-P8-upx"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o8L-VU-PEv">
+                                <rect key="frame" x="57" y="508" width="116" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="back to run page"/>
+                                <connections>
+                                    <action selector="dismissActive:" destination="St2-cC-QcT" eventType="touchUpInside" id="Nsu-jc-fRn"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1271,6 +1282,9 @@
                             <constraint firstAttribute="trailingMargin" secondItem="Otp-iP-iHU" secondAttribute="trailing" constant="21" id="ik5-Yc-oCc"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="runToggle" destination="Otp-iP-iHU" id="vBr-8V-gxS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0pq-o4-Eal" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1423,8 +1437,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="czh-Fs-oDl"/>
-        <segue reference="re6-Ne-MvG"/>
-        <segue reference="ADt-zq-scG"/>
-        <segue reference="9aO-A6-bAv"/>
+        <segue reference="0hT-Ia-Hkj"/>
+        <segue reference="jyd-Dk-DzP"/>
     </inferredMetricsTieBreakers>
 </document>

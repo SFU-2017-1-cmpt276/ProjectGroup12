@@ -7,12 +7,34 @@
 //
 
 import UIKit
+import Firebase
 
 class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+    
+    var ref: FIRDatabaseReference?
+    var team = "No Team"
+    var  userCount = 1
+    
     @IBOutlet weak var users: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        let userID = FIRAuth.auth()?.currentUser?.uid
+        ref = FIRDatabase.database().reference()
+        
+        ref?.child("Users").child(userID!).child("Team").observeSingleEvent(of: .value, with: { (snapshot) in
+            let value = snapshot.value as? String
+            print("team value is \(String(describing: value))")
+            self.team = value!
+            print("set team to \(self.team)")
+            self.ref?.child("Teams").child(self.team).child("UserCount").observeSingleEvent(of: .value, with: { (snapshot) in
+                let value = snapshot.value as? Int
+                print("value is \(String(describing: value))")
+                self.userCount = value!
+                print("set usercount to \(self.userCount)")
+                self.users.reloadData()
+            })
+            self.users.reloadData()
+        })
 
         // Do any additional setup after loading the view.
     }
@@ -29,7 +51,21 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return 5
+        ref = FIRDatabase.database().reference()
+        
+        self.ref?.child("Teams").child(self.team).child("UserCount").observeSingleEvent(of: .value, with: { (snapshot) in
+            let tempCount = snapshot.value as? Int
+            
+            if let userCount = tempCount {
+                self.userCount = userCount
+               
+            }else{
+                self.userCount = 1
+            }
+        
+            self.users.reloadData()
+        })
+        return userCount
     }
     /*
     // MARK: - Navigation

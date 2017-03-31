@@ -60,7 +60,11 @@ class MainMapUI: UIViewController, CLLocationManagerDelegate, MGLMapViewDelegate
     func startOfflinePackDownload() {
             // Create a region that includes the current viewport and any tiles needed to view it when zoomed further in.
             // Because tile count grows exponentially with the maximum zoom level, you should be conservative with your `toZoomLevel` setting.
-            let region = MGLTilePyramidOfflineRegion(styleURL: MainMapUI.styleURL, bounds: MainMapUI.visibleCoordinateBounds, fromZoomLevel: MainMapUI.zoomLevel, toZoomLevel: 14)
+        let swcoord = CLLocationCoordinate2D(latitude: 49.261120, longitude: -122.953269)
+        let necoord = CLLocationCoordinate2D(latitude: 49.292817, longitude: -122.892581)
+        let sfubounds = MGLCoordinateBounds(sw: swcoord, ne: necoord)
+            let region = MGLTilePyramidOfflineRegion(styleURL: MainMapUI.styleURL, bounds: sfubounds, fromZoomLevel: MainMapUI.zoomLevel, toZoomLevel: 16)
+        print("searchable bounds: \(MainMapUI.visibleCoordinateBounds)")
     
             // Store some data for identification purposes alongside the downloaded resources.
             let userInfo = ["name": "MainMapUI Offline Pack"]
