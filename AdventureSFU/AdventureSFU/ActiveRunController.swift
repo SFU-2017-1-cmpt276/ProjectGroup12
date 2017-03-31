@@ -10,7 +10,7 @@
 //	Shows current user location and actual path on current outing.
 //	Programmers: Karan Aujla, Carlos Abaffy, Eleanor Lewis, Chris Norris-Jones
 //
-//	Known Bugs:
+//	Known Bugs: 
 //	Todo: zoom out to show both user location and planned start point.
 // - straighten out naming/units of total time in Firebase and Global variables.
 //
@@ -27,6 +27,8 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
     var actualWaypoints: [Waypoint] = []
     let calendar = Calendar.current
     var actualTotalDistance: Double = 0
+    var tracking: Bool = true
+
     
     override func getDistanceAndTime(distance: Double, time: Double) {
         //prevents this inherited function from doing anything.
@@ -42,6 +44,9 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
             self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
             self.locationManager.distanceFilter = kCLLocationAccuracyBest
             self.locationManager.startUpdatingLocation()
+            runToggle.setTitle("Stop Run", for: [])
+        } else {
+            runToggle.setTitle("Not tracking run", for: [])
         }
         // Initiate user-route updating and set start time.
     }
@@ -73,13 +78,35 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
         // Dispose of any resources that can be recreated.
     }
   
-    @IBAction func stopRun() {
-        self.locationManager.stopUpdatingLocation()
-        performSegue(withIdentifier: "stopRun", sender: self)
-  
-    } //Discontinues user tracking and sends user back to Route Planner page.
 
-    @IBAction func activeRunHelp(_ sender: Any) {
+    @IBAction func stopRun(_ sender: UIButton) {
+        print("made it to stopRUn")
+        
+        if (CLLocationManager.locationServicesEnabled()) {
+        if (self.tracking == true)  {
+            print("searchable made it to beginning of stopRun if stattment")
+            self.locationManager.stopUpdatingLocation()
+        //performSegue(withIdentifier: "stopRun", sender: self)
+            self.submitRunInfo()
+            //print("sender.title: \(sender.titleLabel)")
+           runToggle.setTitle("Start Run", for: [])
+            self.tracking = false
+            print("searchable made it to end of stopRun if sttment")
+        } else {
+            self.tracking = true
+            runToggle.setTitle("Stop Run", for: [])
+            GlobalVariables.sharedManager.startTime = Date()
+            self.locationManager.startUpdatingLocation()
+            
+        }
+        }
+      // dismiss(animated: false, completion: nil)
+    } //Discontinues user tracking and sends user back to Route Planner page.
+ //   @IBOutlet weak var runToggleButton: UIButton!
+
+    @IBOutlet weak var runToggle: UIButton!
+    
+    @IBAction func activeRunHelp(_ sender: UIButton) {
         let infoAlert = UIAlertController(title: "Run Tracking Help", message: "On this page you can see a record of your route on this trip. Select End Run! to stop recording and go back to the Route Planning page. Your total distance and time will be updated to include the distance and time from this trip.", preferredStyle: .alert)
         let agreeAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
         infoAlert.addAction(agreeAction)
@@ -94,10 +121,21 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
             let childViewController = segue.destination as? ActiveMapUI
             childViewController?.delegate = self
         } //sets self and embedded map as delegates of each other.
-        if segue.identifier == "stopRun" {
+        }
+    
+    @IBAction func dismissActive(_ sender: AnyObject) {
+        dismiss(animated: false, completion: nil)
+    }
+   
+    func submitRunInfo() {
+        print("searchable made it to runinfo")
             GlobalVariables.sharedManager.hasRunData = true
             GlobalVariables.sharedManager.endTime = Date()
             GlobalVariables.sharedManager.elapsedTimeThisRun = GlobalVariables.sharedManager.endTime!.timeIntervalSince(GlobalVariables.sharedManager.startTime!)
+            GlobalVariables.sharedManager.startTime = nil
+        
+       
+        
             print("elapsed this run: \(GlobalVariables.sharedManager.elapsedTimeThisRun)")
             GlobalVariables.sharedManager.distanceThisRun = self.actualTotalDistance
 
@@ -123,6 +161,7 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
                                         
                                         totaltimeT = totaltimeT + (GlobalVariables.sharedManager.elapsedTimeThisRun! as Double)
                                         super.ref?.child("Teams").child("Eagles").child("Totaltime").setValue(totaltimeT)
+                                        GlobalVariables.sharedManager.elapsedTimeThisRun = 0
                                     }
                                     
                                 })
@@ -138,6 +177,7 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
                                         
                                         totaltimeT = totaltimeT + (GlobalVariables.sharedManager.elapsedTimeThisRun! as Double)
                                         super.ref?.child("Teams").child("Bobcats").child("Totaltime").setValue(totaltimeT)
+                                        GlobalVariables.sharedManager.elapsedTimeThisRun = 0
                                     }
                                     
                                 })
@@ -152,6 +192,7 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
                                         
                                         totaltimeT = totaltimeT + (GlobalVariables.sharedManager.elapsedTimeThisRun! as Double)
                                         super.ref?.child("Teams").child("Bears").child("Totaltime").setValue(totaltimeT)
+                                        GlobalVariables.sharedManager.elapsedTimeThisRun = 0
                                     }
                                     
                                 })
@@ -193,6 +234,7 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
                                     super.ref?.child("Users").child(super.userID!).observe(FIRDataEventType.value, with: { (snapshot) in
                                         if let data = snapshot.value as? [String : AnyObject] {
                                             super.ref?.child("Teams").child("Eagles").child(super.userID!).setValue(data)
+                                            self.actualTotalDistance = 0
                                         }
                                     })
                                 })
@@ -213,6 +255,7 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
                                     super.ref?.child("Users").child(super.userID!).observe(FIRDataEventType.value, with: { (snapshot) in
                                         if let data = snapshot.value as? [String : AnyObject] {
                                             super.ref?.child("Teams").child("Bobcats").child(super.userID!).setValue(data)
+                                            self.actualTotalDistance = 0
                                         }
                                     })
                                 })
@@ -233,6 +276,7 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
                                     super.ref?.child("Users").child(super.userID!).observe(FIRDataEventType.value, with: { (snapshot) in
                                         if let data = snapshot.value as? [String : AnyObject] {
                                             super.ref?.child("Teams").child("Bears").child(super.userID!).setValue(data)
+                                            self.actualTotalDistance = 0
                                         }
                                     })
                                 })
@@ -247,5 +291,5 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
                 }
             })
         }
-    }
+    
 }
