@@ -80,18 +80,14 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
   
 
     @IBAction func stopRun(_ sender: UIButton) {
-        print("made it to stopRUn")
-        
         if (CLLocationManager.locationServicesEnabled()) {
         if (self.tracking == true)  {
-            print("searchable made it to beginning of stopRun if stattment")
             self.locationManager.stopUpdatingLocation()
         //performSegue(withIdentifier: "stopRun", sender: self)
             self.submitRunInfo()
             //print("sender.title: \(sender.titleLabel)")
            runToggle.setTitle("Start Run", for: [])
             self.tracking = false
-            print("searchable made it to end of stopRun if sttment")
         } else {
             self.tracking = true
             runToggle.setTitle("Stop Run", for: [])
@@ -128,168 +124,54 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
     }
    
     func submitRunInfo() {
-        print("searchable made it to runinfo")
             GlobalVariables.sharedManager.hasRunData = true
             GlobalVariables.sharedManager.endTime = Date()
             GlobalVariables.sharedManager.elapsedTimeThisRun = GlobalVariables.sharedManager.endTime!.timeIntervalSince(GlobalVariables.sharedManager.startTime!)
             GlobalVariables.sharedManager.startTime = nil
-        
-       
-        
-            print("elapsed this run: \(GlobalVariables.sharedManager.elapsedTimeThisRun)")
             GlobalVariables.sharedManager.distanceThisRun = self.actualTotalDistance
-
-            super.ref?.child("Users").child(super.userID!).child("totalSeconds").observeSingleEvent(of: .value, with: { (snapshot) in
-                let tempTotalTime = snapshot.value as? TimeInterval
-                if var totalTime = tempTotalTime {
-                    totalTime = tempTotalTime! + (GlobalVariables.sharedManager.elapsedTimeThisRun! as Double)
-                    print("totalTime: \(totalTime)")
-                    super.ref?.child("Users").child(super.userID!).child("totalSeconds").setValue(totalTime as Double!)
+   
+            super.ref?.child("Users").child(super.userID!).child("Team").observeSingleEvent(of: .value, with: { (snapshot) in
+                let tempTeam = snapshot.value as? String
+                if let team = tempTeam {
+                super.ref?.child("Users").child(super.userID!).child("totalSeconds").observeSingleEvent(of: .value, with: { (snapshot) in
+                    let tempTotalTime = snapshot.value as? TimeInterval
+                    if var totalTime = tempTotalTime {
+                        totalTime = tempTotalTime! + (GlobalVariables.sharedManager.elapsedTimeThisRun! as Double)
+                        super.ref?.child("Users").child(super.userID!).child("totalSeconds").setValue(totalTime as Double!)
+                        super.ref?.child("Teams").child(team).child("Totaltime").observeSingleEvent(of: .value, with: { (snapshot) in
+                            let tempTotaltimeT = snapshot.value as? Double
+                            if var totaltimeT = tempTotaltimeT {
+                                totaltimeT = totaltimeT + (GlobalVariables.sharedManager.elapsedTimeThisRun! as Double)
+                                super.ref?.child("Teams").child(team).child("Totaltime").setValue(totaltimeT)
+                                GlobalVariables.sharedManager.elapsedTimeThisRun = 0
+                            }
+                        })
+                    }
+                })
                     
-                    //adds new Kms to user's team Km stats
-                    super.ref?.child("Users").child(super.userID!).child("Team").observeSingleEvent(of: .value, with: { (snapshot) in
-                        let tempTeam = snapshot.value as? String
-
-                        if let team = tempTeam {
-                            
-                            //updates Team Eagles Km
-                            if team == "Eagles" {
-                                
-                                super.ref?.child("Teams").child("Eagles").child("Totaltime").observeSingleEvent(of: .value, with: { (snapshot) in
-                                    let tempTotaltimeT = snapshot.value as? Double
-                                    if var totaltimeT = tempTotaltimeT {
-                                        
-                                        totaltimeT = totaltimeT + (GlobalVariables.sharedManager.elapsedTimeThisRun! as Double)
-                                        super.ref?.child("Teams").child("Eagles").child("Totaltime").setValue(totaltimeT)
-                                        GlobalVariables.sharedManager.elapsedTimeThisRun = 0
-                                    }
-                                    
-                                })
-                                
-                            }
-                            
-                            //updates Team Bobcat Km
-                            if team == "Bobcats" {
-                                
-                                super.ref?.child("Teams").child("Bobcats").child("Totaltime").observeSingleEvent(of: .value, with: { (snapshot) in
-                                    let tempTotaltimeT = snapshot.value as? Double
-                                    if var totaltimeT = tempTotaltimeT {
-                                        
-                                        totaltimeT = totaltimeT + (GlobalVariables.sharedManager.elapsedTimeThisRun! as Double)
-                                        super.ref?.child("Teams").child("Bobcats").child("Totaltime").setValue(totaltimeT)
-                                        GlobalVariables.sharedManager.elapsedTimeThisRun = 0
-                                    }
-                                    
-                                })
-                            }
-                            
-                            //updates Team Bear Km
-                            if team == "Bears" {
-                                
-                                super.ref?.child("Teams").child("Bears").child("Totaltime").observeSingleEvent(of: .value, with: { (snapshot) in
-                                    let tempTotaltimeT = snapshot.value as? Double
-                                    if var totaltimeT = tempTotaltimeT {
-                                        
-                                        totaltimeT = totaltimeT + (GlobalVariables.sharedManager.elapsedTimeThisRun! as Double)
-                                        super.ref?.child("Teams").child("Bears").child("Totaltime").setValue(totaltimeT)
-                                        GlobalVariables.sharedManager.elapsedTimeThisRun = 0
-                                    }
-                                    
-                                })
-                                
-                            }
-                            
-                        }
-                        
-                    })
-
-                }
-            }) //calculates and sends total time for this run to GlobalVariables and Firebase. 
-            
-            var tempTotalKm: Double?
-            super.ref?.child("Users").child(super.userID!).child("KMRun").observeSingleEvent(of: .value, with: { (snapshot) in
+                var tempTotalKm: Double?
+                super.ref?.child("Users").child(super.userID!).child("KMRun").observeSingleEvent(of: .value, with: { (snapshot) in
                 tempTotalKm = snapshot.value as? Double
                 if var totalKm = tempTotalKm {
                     totalKm = self.actualTotalDistance/1000 + tempTotalKm!
                     let kmUpdate = self.actualTotalDistance/1000
                     super.ref?.child("Users").child(super.userID!).child("KMRun").setValue(totalKm)
-                    
-                    //adds new Kms to user's team Km stats
-                    super.ref?.child("Users").child(super.userID!).child("Team").observeSingleEvent(of: .value, with: { (snapshot) in
-                        let tempTeam = snapshot.value as? String
-                        print("\(tempTeam)")
-                        if let team = tempTeam {
-                            
-                            //updates Team Eagles Km
-                            if team == "Eagles" {
-                                
-                                super.ref?.child("Teams").child("Eagles").child("TotalKm").observeSingleEvent(of: .value, with: { (snapshot) in
-                                    let tempTotalKmT = snapshot.value as? Double
-                                    if var totalKmT = tempTotalKmT {
-                                        
-                                        totalKmT = totalKmT + kmUpdate
-                                        super.ref?.child("Teams").child("Eagles").child("TotalKm").setValue(totalKmT)
-                                    }
-                                    
-                                    super.ref?.child("Users").child(super.userID!).observe(FIRDataEventType.value, with: { (snapshot) in
-                                        if let data = snapshot.value as? [String : AnyObject] {
-                                            super.ref?.child("Teams").child("Eagles").child(super.userID!).setValue(data)
-                                            self.actualTotalDistance = 0
-                                        }
-                                    })
-                                })
-                                
+                        super.ref?.child("Teams").child(team).child("TotalKm").observeSingleEvent(of: .value, with: { (snapshot) in
+                            let tempTotalKmT = snapshot.value as? Double
+                            if var totalKmT = tempTotalKmT {
+                                totalKmT = totalKmT + kmUpdate
+                                super.ref?.child("Teams").child(team).child("TotalKm").setValue(totalKmT)
                             }
-                            
-                            //updates Team Bobcat Km
-                            if team == "Bobcats" {
-                                
-                                super.ref?.child("Teams").child("Bobcats").child("TotalKm").observeSingleEvent(of: .value, with: { (snapshot) in
-                                    let tempTotalKmT = snapshot.value as? Double
-                                    if var totalKmT = tempTotalKmT {
-                                        
-                                        totalKmT = totalKmT + kmUpdate
-                                        super.ref?.child("Teams").child("Bobcats").child("TotalKm").setValue(totalKmT)
-                                    }
-                                    
-                                    super.ref?.child("Users").child(super.userID!).observe(FIRDataEventType.value, with: { (snapshot) in
-                                        if let data = snapshot.value as? [String : AnyObject] {
-                                            super.ref?.child("Teams").child("Bobcats").child(super.userID!).setValue(data)
-                                            self.actualTotalDistance = 0
-                                        }
-                                    })
-                                })
-                                
+                        })
+                        super.ref?.child("Users").child(super.userID!).observe(FIRDataEventType.value, with: { (snapshot) in
+                            if let data = snapshot.value as? [String : AnyObject] {
+                                super.ref?.child("Teams").child(team).child(super.userID!).setValue(data)
+                                self.actualTotalDistance = 0
                             }
-                            
-                            //updates Team Bear Km
-                            if team == "Bears" {
-                                
-                                super.ref?.child("Teams").child("Bears").child("TotalKm").observeSingleEvent(of: .value, with: { (snapshot) in
-                                    let tempTotalKmT = snapshot.value as? Double
-                                    if var totalKmT = tempTotalKmT {
-                                        
-                                        totalKmT = totalKmT + kmUpdate
-                                        super.ref?.child("Teams").child("Bears").child("TotalKm").setValue(totalKmT)
-                                    }
-                                    
-                                    super.ref?.child("Users").child(super.userID!).observe(FIRDataEventType.value, with: { (snapshot) in
-                                        if let data = snapshot.value as? [String : AnyObject] {
-                                            super.ref?.child("Teams").child("Bears").child(super.userID!).setValue(data)
-                                            self.actualTotalDistance = 0
-                                        }
-                                    })
-                                })
-                                
-                            }
-                            
-                        }
-                    
-                    })
-            
-            
-                }
-            })
-        }
-    
+                        })
+                    }
+                })
+            }
+        })
+    }
 }
