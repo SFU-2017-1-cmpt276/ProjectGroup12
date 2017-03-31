@@ -63,12 +63,12 @@ class NewExploreItem: UIViewController, CLLocationManagerDelegate {
 	
 	//Gives high level details for the page
 	@IBAction func InfoButton(){
-		let infoAlert = UIAlertController(title: "Create Your Own Explore Item!", message: "So you want to create your own place for others to find, eh? Once you're at your desired Explore location, enter in the name for the explore item, the password the user will need to enter to prove they found your location, as well as a short hint! The system will take your details and your coordinates and create a new Explore point, visible on the Explore Listing, for others to find!\n\nPlease when you create your Explore Item, be sure to make it a physical object, and to make sure the password is included!", preferredStyle: .alert)
+		let infoAlert = UIAlertController(title: "Create Your Own Explore Item!", message: "So you want to create your own place for others to find, eh? Once you're at your desired Explore location, enter in the name for the explore item, the password the user will need to enter to prove they found your location, as well as a short hint! The system will take your details and your coordinates and create a new Explore point, visible on the Explore Listing, for others to find!\n\nRemember this is just like geocaching; when you create your Explore Item in the app, you should actually be putting something with a password on that spot in real life!", preferredStyle: .alert)
 		let agreeAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
 		infoAlert.addAction(agreeAction)
 		self.present(infoAlert, animated: true, completion: nil)
 	}
-	
+	//Creates a New Explore Item, it will be loaded into the database and subsequently displayed on the ViewExploreController page
 	@IBAction func CreateExplore() {
 		//First make sure fields aren't empty
 		if self.exploreTitle.text == "" || self.explorePassword.text == "" || self.exploreHintField.text == "" {
@@ -77,14 +77,16 @@ class NewExploreItem: UIViewController, CLLocationManagerDelegate {
 			alertController.addAction(defaultAction)
 			self.present(alertController, animated: true, completion: nil)
 		} else {
-			
+			//Set call to database
 			self.ref?.child("ExploreItems").child("InUse").setValue(1)
 			ref?.child("ExploreItemTotal").observeSingleEvent(of: .value, with: {(snapshot) in
 				let tempVal = snapshot.value as? Int
-				
+				//Iterate on the cell holding the total number of Explore Items in the Database
 				if let totalVal = tempVal {
 					self.ref?.child("ExploreItemTotal").setValue(totalVal + 1)
 				}
+                
+                //Setup the Explore Item values in database
 				let exploreID:Int = tempVal! + 1
 				let exploreItemTitle:String = self.exploreTitle.text!
 				let exploreItemPassword:String = self.explorePassword.text!
@@ -97,7 +99,8 @@ class NewExploreItem: UIViewController, CLLocationManagerDelegate {
 				self.ref?.child("ExploreItems").child(String(exploreID)).child("Longitude").setValue(self.longitude)
 			})
 			self.ref?.child("ExploreItems").child("InUse").setValue(0)
-			let exploreCreateAlert = UIAlertController(title: "Congratulations!", message: "You created an Explore Item! It should be visible on the previous screen!", preferredStyle: .alert)
+            //Alert user they've created a new explore item
+			let exploreCreateAlert = UIAlertController(title: "Congratulations!", message: "You created an Explore Item! It should be visible on the Explore View screen!", preferredStyle: .alert)
 			let finishAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
 			exploreCreateAlert.addAction(finishAction)
 			self.present(exploreCreateAlert, animated: true, completion: nil)
