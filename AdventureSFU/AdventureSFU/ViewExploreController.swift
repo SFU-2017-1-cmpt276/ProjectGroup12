@@ -178,7 +178,7 @@ class ViewExploreController: UIViewController, UITableViewDelegate, UITableViewD
 	
 //Actions
 	@IBAction func toMainControllerPage() {
-		performSegue(withIdentifier: "exploreToMain", sender: self)
+        dismiss(animated: true, completion: nil)
 	}
 	
 	@IBAction func toCreateExplorePage() {

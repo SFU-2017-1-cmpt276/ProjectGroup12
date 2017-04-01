@@ -238,12 +238,13 @@ class signUpViewController: UIViewController, UITextFieldDelegate {
 														self.ref?.child("Users").child(user!.uid).child("email").setValue(self.emailField.text)
 														self.ref?.child("Users").child(user!.uid).child("username").setValue(self.userNameField.text)
 														self.ref?.child("Users").child(user!.uid).child("KMRun").setValue(0.0)
+                                                        self.ref?.child("Users").child(user!.uid).child("totalSeconds").setValue(0.0)
                                                         self.ref?.child("Users").child(user!.uid).child("height").setValue(userHeight)
                                                         self.ref?.child("Users").child(user!.uid).child("weight").setValue(validWeight)
                                                         self.ref?.child("Users").child(user!.uid).child("personalMessage").setValue(validPersonalMessage)
                                                         self.ref?.child("Users").child(user!.uid).child("firstLogin").setValue(true)
                                                         self.ref?.child("Users").child(user!.uid).child("Team").setValue("No Team")
-                                                        self.ref?.child("Users").child(user!.uid).child("hasStoredRun").setValue("false")
+                                                self.ref?.child("Users").child(user!.uid).child("presetRouteCoordinateCount").setValue(0)
                                                         var count:Int = 0
                                                       
                                                         self.ref?.child("ExploreItemTotal").observeSingleEvent(of: .value, with: { (snapshot) in
