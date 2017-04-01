@@ -31,9 +31,7 @@ import Firebase
 class MapUI: UIViewController, RunViewControllerDelegate, MGLMapViewDelegate {
     
     //View Outlets
-    //@IBOutlet
     var MapUI: MGLMapView!
-    var progressView: UIProgressView!
     
     //Variables
     var delegate: MapViewDelegate?
@@ -153,16 +151,7 @@ class MapUI: UIViewController, RunViewControllerDelegate, MGLMapViewDelegate {
             
             // Calculate current progress percentage.
             let progressPercentage = Float(completedResources) / Float(expectedResources)
-            
-            // Setup the progress bar.
-            if progressView == nil {
-                progressView = UIProgressView(progressViewStyle: .default)
-                let frame = view.bounds.size
-                progressView.frame = CGRect(x: frame.width / 4, y: frame.height * 0.75, width: frame.width / 2, height: 10)
-                view.addSubview(progressView)
-            }
-            
-            progressView.progress = progressPercentage
+
             
             // If this pack has finished, print its size and resource count.
             if completedResources == expectedResources {

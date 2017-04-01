@@ -41,9 +41,10 @@ class MainViewController: UIViewController {
         super.viewDidAppear(animated)
         // get the uid for the logged in user
         let userID = FIRAuth.auth()?.currentUser?.uid
+        GlobalVariables.sharedManager.userID = userID
         //and get a reference to the database
         ref = FIRDatabase.database().reference()
-        
+        GlobalVariables.sharedManager.ref = ref
         ref?.child("Users").child(userID!).child("firstLogin").observeSingleEvent(of: .value, with: { (snapshot) in
             //if it is the first time the user logged in, present the team select page
             let value = snapshot.value as? Bool
