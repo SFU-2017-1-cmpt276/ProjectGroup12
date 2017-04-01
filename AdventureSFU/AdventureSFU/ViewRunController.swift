@@ -142,6 +142,13 @@ class ViewRunController: UIViewController, MapViewDelegate {
         //Resets time and distance stats to zero and prompts MapUI to delete the planned route.
     }
     
+    func maxPointsAlert() {
+        let infoAlert = UIAlertController(title: "Max Coordinates Entered", message: "At most 25 user-entered coordinates can included in a route.", preferredStyle: .alert)
+        let agreeAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+        infoAlert.addAction(agreeAction)
+        self.present(infoAlert, animated: true, completion: nil)
+    }
+    
     @IBAction func submitRunStats(_ sender: AnyObject) {
         self.ref?.child("Users").child(self.userID!).child("presetRoute").setValue("")
         for wpt in GlobalVariables.sharedManager.plannedWaypoints {

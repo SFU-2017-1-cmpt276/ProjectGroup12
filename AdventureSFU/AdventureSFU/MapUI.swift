@@ -182,6 +182,7 @@ class MapUI: UIViewController, RunViewControllerDelegate, MGLMapViewDelegate {
     }
     
     func handleSingleTap(tap: UITapGestureRecognizer) {
+        if GlobalVariables.sharedManager.plannedWaypoints.count < 25 {
         let location: CLLocationCoordinate2D = MapUI.convert(tap.location(in: MapUI), toCoordinateFrom: MapUI)
         let wpt: Waypoint = Waypoint(coordinate: location, name: "\(names)")
         GlobalVariables.sharedManager.plannedWaypoints.append(wpt)
@@ -190,6 +191,9 @@ class MapUI: UIViewController, RunViewControllerDelegate, MGLMapViewDelegate {
         
         // if at least 2 points are specified, calculate and draw route. update local and delegate stats.
         handleRoute()
+        } else {
+            self.delegate?.maxPointsAlert()
+        }
         //Adds selected location to user route.
     }
     
