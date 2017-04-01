@@ -1,14 +1,14 @@
 PODS:
-  - Firebase/Auth (3.14.0):
+  - Firebase/Auth (3.15.0):
     - Firebase/Core
     - FirebaseAuth (= 3.1.1)
-  - Firebase/Core (3.14.0):
+  - Firebase/Core (3.15.0):
     - FirebaseAnalytics (= 3.7.0)
-    - FirebaseCore (= 3.5.1)
-  - Firebase/Database (3.14.0):
+    - FirebaseCore (= 3.5.2)
+  - Firebase/Database (3.15.0):
     - Firebase/Core
     - FirebaseDatabase (= 3.1.2)
-  - Firebase/Storage (3.14.0):
+  - Firebase/Storage (3.15.0):
     - Firebase/Core
     - FirebaseStorage (= 1.1.0)
   - FirebaseAnalytics (3.7.0):
@@ -19,7 +19,7 @@ PODS:
     - FirebaseAnalytics (~> 3.7)
     - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
     - GTMSessionFetcher/Core (~> 1.1)
-  - FirebaseCore (3.5.1):
+  - FirebaseCore (3.5.2):
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
   - FirebaseDatabase (3.1.2):
     - FirebaseAnalytics (~> 3.7)
@@ -37,8 +37,8 @@ PODS:
     - GoogleToolboxForMac/Defines (= 2.1.1)
     - GoogleToolboxForMac/NSString+URLArguments (= 2.1.1)
   - GoogleToolboxForMac/NSString+URLArguments (2.1.1)
-  - GTMSessionFetcher/Core (1.1.8)
-  - Mapbox-iOS-SDK (3.4.2)
+  - GTMSessionFetcher/Core (1.1.9)
+  - Mapbox-iOS-SDK (3.5.0)
   - MapboxDirections.swift (0.6.0):
     - Polyline (~> 4.0.0)
   - Polyline (4.0.0)
@@ -62,19 +62,19 @@ CHECKOUT OPTIONS:
     :git: https://github.com/mapbox/MapboxDirections.swift.git
 
 SPEC CHECKSUMS:
-  Firebase: 85a581fb04e44f63ae9f4fbc8d6dabf4a4c18653
+  Firebase: 2b1cdfba1cda8589f32904a697cc753322bff9d8
   FirebaseAnalytics: 0d1b7d81d5021155be37702a94ba1ec16d45365d
   FirebaseAuth: cc8a1824170adbd351edb7f994490a3fb5c18be6
-  FirebaseCore: 225d40532489835a034b8f4e2c9c87fbf4f615a2
+  FirebaseCore: a024587e43778508700af8c6b1209f7c4516ba02
   FirebaseDatabase: 05c96d7b43a7368dc91c07791adb49683e1738d1
   FirebaseInstanceID: 2d0518b1378fe9d685ef40cbdd63d2fdc1125339
   FirebaseStorage: a5c55b23741a49a72af8f30f95b3bb5ddbeda12d
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
-  GTMSessionFetcher: 6f8d8b28b7e345549ac471071608170b31cb4977
-  Mapbox-iOS-SDK: d2c567fee32d316044ec925c8bcfb74a92d57ec9
+  GTMSessionFetcher: 5c046c76a1f859bc9c187e918f18e4fc7bb57b5e
+  Mapbox-iOS-SDK: f0158f986ded5fd0b4034b1b8801aeeb5556a26a
   MapboxDirections.swift: 4acd753d0079bae4f2fae2b2cbda98922909de09
   Polyline: c6de7430bf6ff0bfff1f087343597b83b38fdb69
 
-PODFILE CHECKSUM: f31109c79fa2267f505a19971165afb6fb5052b8
+PODFILE CHECKSUM: 5040aeff7bd1ca81da001ebc7011691752eefa80
 
 COCOAPODS: 1.2.0

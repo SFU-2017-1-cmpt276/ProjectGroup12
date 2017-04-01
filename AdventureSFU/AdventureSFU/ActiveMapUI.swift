@@ -43,9 +43,11 @@ class ActiveMapUI: MapUI, ActiveRunControllerDelegate {
     }
   
     func appendToDrawnRoute() {
+        if GlobalVariables.sharedManager.actualWaypoints.count > 1 {
         let coords = [GlobalVariables.sharedManager.actualWaypoints[GlobalVariables.sharedManager.actualWaypoints.count-2].coordinate, GlobalVariables.sharedManager.actualWaypoints[GlobalVariables.sharedManager.actualWaypoints.count-1].coordinate]
         let line = MGLPolyline(coordinates: coords, count: 2)
         MapUI.addAnnotation(line)
+        }
         //Updates map annotations to include most recent user movement.
     }
 

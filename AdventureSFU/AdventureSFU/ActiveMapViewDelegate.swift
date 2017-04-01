@@ -14,13 +14,14 @@
 //	Known Bugs:
 //	Todo:
 //
+//why does this protocol still exist?
 
 import UIKit
 import Mapbox
 import MapboxDirections
 protocol ActiveMapViewDelegate: MapViewDelegate {
     
-    func getTime(time: Double)
-    func getDistance(distance: Double)
+ //   func getTime(time: Double)
+    func getDistanceAndTime(distance: Double, time: Double)
     
 }

@@ -10,7 +10,7 @@
 //	Shows current user location and actual path on current outing.
 //	Programmers: Karan Aujla, Carlos Abaffy, Eleanor Lewis, Chris Norris-Jones
 //
-//	Known Bugs:
+//	Known Bugs: 
 //	Todo: zoom out to show both user location and planned start point.
 // - straighten out naming/units of total time in Firebase and Global variables.
 //
@@ -27,12 +27,10 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
     var actualWaypoints: [Waypoint] = []
     let calendar = Calendar.current
     var actualTotalDistance: Double = 0
+    var tracking: Bool = true
+
     
-    override func getTime(time: Double) {
-        //prevents this inherited function from doing anything.
-    }
-    
-    override func getDistance(distance: Double) {
+    override func getDistanceAndTime(distance: Double, time: Double) {
         //prevents this inherited function from doing anything.
     }
     
@@ -46,6 +44,9 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
             self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
             self.locationManager.distanceFilter = kCLLocationAccuracyBest
             self.locationManager.startUpdatingLocation()
+            runToggle.setTitle("Stop Run", for: [])
+        } else {
+            runToggle.setTitle("Not tracking run", for: [])
         }
         // Initiate user-route updating and set start time.
     }
@@ -77,12 +78,32 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
         // Dispose of any resources that can be recreated.
     }
   
-    @IBAction func stopRun() {
-        self.locationManager.stopUpdatingLocation()
-        performSegue(withIdentifier: "stopRun", sender: self)
-    } //Discontinues user tracking and sends user back to Route Planner page.
 
-    @IBAction func activeRunHelp(_ sender: Any) {
+    @IBAction func stopRun(_ sender: UIButton) {
+        if (CLLocationManager.locationServicesEnabled()) {
+        if (self.tracking == true)  {
+            self.locationManager.stopUpdatingLocation()
+        //performSegue(withIdentifier: "stopRun", sender: self)
+            self.submitRunInfo()
+            //print("sender.title: \(sender.titleLabel)")
+           runToggle.setTitle("Start Run", for: [])
+            self.tracking = false
+            
+        } else {
+            self.tracking = true
+            runToggle.setTitle("Stop Run", for: [])
+            GlobalVariables.sharedManager.startTime = Date()
+            self.locationManager.startUpdatingLocation()
+            
+        }
+        }
+      // dismiss(animated: false, completion: nil)
+    } //Discontinues user tracking and sends user back to Route Planner page.
+ //   @IBOutlet weak var runToggleButton: UIButton!
+
+    @IBOutlet weak var runToggle: UIButton!
+    
+    @IBAction func activeRunHelp(_ sender: UIButton) {
         let infoAlert = UIAlertController(title: "Run Tracking Help", message: "On this page you can see a record of your route on this trip. Select End Run! to stop recording and go back to the Route Planning page. Your total distance and time will be updated to include the distance and time from this trip.", preferredStyle: .alert)
         let agreeAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
         infoAlert.addAction(agreeAction)
@@ -97,27 +118,73 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
             let childViewController = segue.destination as? ActiveMapUI
             childViewController?.delegate = self
         } //sets self and embedded map as delegates of each other.
-        if segue.identifier == "stopRun" {
+        }
+    
+    @IBAction func dismissActive(_ sender: AnyObject) {
+        dismiss(animated: false, completion: nil)
+    }
+   
+    func submitRunInfo() {
             GlobalVariables.sharedManager.hasRunData = true
             GlobalVariables.sharedManager.endTime = Date()
             GlobalVariables.sharedManager.elapsedTimeThisRun = GlobalVariables.sharedManager.endTime!.timeIntervalSince(GlobalVariables.sharedManager.startTime!)
+            GlobalVariables.sharedManager.startTime = nil
             GlobalVariables.sharedManager.distanceThisRun = self.actualTotalDistance
-            super.ref?.child("Users").child(super.userID!).child("totalMins").observeSingleEvent(of: .value, with: { (snapshot) in
-                let tempTotalTime = snapshot.value as? TimeInterval
-                if var totalTime = tempTotalTime {
-                    totalTime = tempTotalTime! + (GlobalVariables.sharedManager.elapsedTimeThisRun! as Double)/60
-                    super.ref?.child("Users").child(super.userID!).child("totalMins").setValue(totalTime as Double!)
-                }
-            }) //calculates and sends total time for this run to GlobalVariables and Firebase. 
-            
-            var tempTotalKm: Double?
-            super.ref?.child("Users").child(super.userID!).child("KMRun").observeSingleEvent(of: .value, with: { (snapshot) in
+        let time = GlobalVariables.sharedManager.elapsedTimeThisRun!
+        let seconds = Int(time) % 60;
+        let minutes = Int(time / 60) % 60;
+        let hours = Int(time / 3600);
+        let formattedTime = String(format: "H:M:S: %d:%.2d:%.2d", hours, minutes, seconds)
+        
+        let formattedDistance = String(format: "Kms: %.2f", GlobalVariables.sharedManager.distanceThisRun/1000)
+        
+        let infoAlert = UIAlertController(title: "Stats for this run:", message: "\(formattedDistance) \(formattedTime)", preferredStyle: .alert)
+        let agreeAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+        infoAlert.addAction(agreeAction)
+        self.present(infoAlert, animated: true, completion: nil)
+        
+        super.ref?.child("Users").child(super.userID!).child("Team").observeSingleEvent(of: .value, with: { (snapshot) in
+                let tempTeam = snapshot.value as? String
+                if let team = tempTeam {
+                super.ref?.child("Users").child(super.userID!).child("totalSeconds").observeSingleEvent(of: .value, with: { (snapshot) in
+                    let tempTotalTime = snapshot.value as? TimeInterval
+                    if var totalTime = tempTotalTime {
+                        totalTime = tempTotalTime! + (GlobalVariables.sharedManager.elapsedTimeThisRun! as Double)
+                        super.ref?.child("Users").child(super.userID!).child("totalSeconds").setValue(totalTime as Double!)
+                        super.ref?.child("Teams").child(team).child("Totaltime").observeSingleEvent(of: .value, with: { (snapshot) in
+                            let tempTotaltimeT = snapshot.value as? Double
+                            if var totaltimeT = tempTotaltimeT {
+                                totaltimeT = totaltimeT + (GlobalVariables.sharedManager.elapsedTimeThisRun! as Double)
+                                super.ref?.child("Teams").child(team).child("Totaltime").setValue(totaltimeT)
+                                GlobalVariables.sharedManager.elapsedTimeThisRun = 0
+                            }
+                        })
+                    }
+                })
+                    
+                var tempTotalKm: Double?
+                super.ref?.child("Users").child(super.userID!).child("KMRun").observeSingleEvent(of: .value, with: { (snapshot) in
                 tempTotalKm = snapshot.value as? Double
                 if var totalKm = tempTotalKm {
                     totalKm = self.actualTotalDistance/1000 + tempTotalKm!
+                    let kmUpdate = self.actualTotalDistance/1000
                     super.ref?.child("Users").child(super.userID!).child("KMRun").setValue(totalKm)
-                }
-            })
-        }
+                        super.ref?.child("Teams").child(team).child("TotalKm").observeSingleEvent(of: .value, with: { (snapshot) in
+                            let tempTotalKmT = snapshot.value as? Double
+                            if var totalKmT = tempTotalKmT {
+                                totalKmT = totalKmT + kmUpdate
+                                super.ref?.child("Teams").child(team).child("TotalKm").setValue(totalKmT)
+                            }
+                        })
+                        super.ref?.child("Users").child(super.userID!).observe(FIRDataEventType.value, with: { (snapshot) in
+                            if let data = snapshot.value as? [String : AnyObject] {
+                                super.ref?.child("Teams").child(team).child(super.userID!).setValue(data)
+                                self.actualTotalDistance = 0
+                            }
+                        })
+                    }
+                })
+            }
+        })
     }
 }
