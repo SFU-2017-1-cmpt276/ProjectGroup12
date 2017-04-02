@@ -138,7 +138,7 @@ class ViewRunController: UIViewController, MapViewDelegate {
         GlobalVariables.sharedManager.plannedWaypoints.removeAll()
         self.RunViewDelegate?.deleteAllPoints()
         distanceField.text = String(format: "Kms: %.2f", 0)
-        timeField.text = String("H:M:S: 0:0:0")
+        timeField.text = String("H:M:S: 0:00:00")
         //Resets time and distance stats to zero and prompts MapUI to delete the planned route.
     }
     
@@ -155,7 +155,7 @@ class ViewRunController: UIViewController, MapViewDelegate {
             let key = self.ref?.child("Users").child(self.userID!).child("presetRoute").childByAutoId().key
             let waypt: NSDictionary = ["lat" : wpt.coordinate.latitude,
                                        "long" : wpt.coordinate.longitude]
-            self.ref?.child("Users").child(self.userID!).child("presetRoute").updateChildValues(["/\(key)" : waypt])
+            self.ref?.child("Users").child(self.userID!).child("presetRoute").updateChildValues(["/\(String(describing: key))" : waypt])
         }
         self.submissionAlert()
         //Submits run plan to Firebase (as a list of coordinates).

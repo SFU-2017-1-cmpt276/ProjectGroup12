@@ -137,8 +137,12 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
         let formattedTime = String(format: "H:M:S: %d:%.2d:%.2d", hours, minutes, seconds)
         
         let formattedDistance = String(format: "Kms: %.2f", GlobalVariables.sharedManager.distanceThisRun/1000)
-        
-        let infoAlert = UIAlertController(title: "Stats for this run:", message: "\(formattedDistance) \(formattedTime)", preferredStyle: .alert)
+        let weight: Double = GlobalVariables.sharedManager.weight / 2.2
+
+        let calsBurned: Double = Double(0.0175 * weight * 6*(Double(time/60))) //whole thing multiplied by 10000000 for easier testing by sedentary programmers. formula source: www .hss.edu/conditions_burning-calories-with-exercise-calculating-estimated-energy-expenditure.asp
+        print("searchable calsBurned: \(calsBurned)")
+        let formattedCalsBurned = String(format: "kCals burned: %0.f", calsBurned)
+        let infoAlert = UIAlertController(title: "Stats for this run:", message: "\(formattedDistance) \(formattedTime), \(formattedCalsBurned)", preferredStyle: .alert)
         let agreeAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
         infoAlert.addAction(agreeAction)
         self.present(infoAlert, animated: true, completion: nil)
@@ -184,6 +188,16 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
                         })
                     }
                 })
+                    
+                var tempTotalCals: Double?
+            super.ref?.child("Users").child(super.userID!).child("TotalCalories").observeSingleEvent(of: .value, with: { (snapshot) in
+                        
+                    tempTotalCals = snapshot.value as? Double
+                    if var totalCals = tempTotalCals {
+                        totalCals = tempTotalCals! + calsBurned
+                        super.ref?.child("Users").child(super.userID!).child("TotalCalories").setValue(totalCals as Double!)
+                    }
+            })
             }
         })
     }

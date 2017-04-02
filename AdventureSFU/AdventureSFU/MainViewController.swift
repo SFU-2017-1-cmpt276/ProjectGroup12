@@ -63,6 +63,25 @@ class MainViewController: UIViewController {
             self.welcomeUserLabel.text = "Welcome, \(username)!"
             
         })
+
+        ref?.child("Users").child(userID!).child("weight").observeSingleEvent(of: .value, with: { (snapshot) in
+            //pull the user's weight
+            let value = snapshot.value as? Double
+            let weight = value!
+            
+            GlobalVariables.sharedManager.weight = weight
+            
+        })
+        ref?.child("Users").child(userID!).child("height").observeSingleEvent(of: .value, with: { (snapshot) in
+            //pull the user's height
+            let value = snapshot.value as? Double
+            let height = value!
+            
+            GlobalVariables.sharedManager.height = height
+            
+        })
+        
+ 
         
     }
     
