@@ -71,17 +71,7 @@ class MainViewController: UIViewController {
             
             GlobalVariables.sharedManager.weight = weight
             
-        })
-        ref?.child("Users").child(userID!).child("height").observeSingleEvent(of: .value, with: { (snapshot) in
-            //pull the user's height
-            let value = snapshot.value as? Double
-            let height = value!
-            
-            GlobalVariables.sharedManager.height = height
-            
-        })
-        
- 
+        }) //loading this variable now to reduce delay when calories burned is calculated
         
     }
     

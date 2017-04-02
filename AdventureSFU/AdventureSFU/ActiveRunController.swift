@@ -141,7 +141,7 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
 
         let calsBurned: Double = Double(0.0175 * weight * 6*(Double(time/60))) //whole thing multiplied by 10000000 for easier testing by sedentary programmers. formula source: www .hss.edu/conditions_burning-calories-with-exercise-calculating-estimated-energy-expenditure.asp
         print("searchable calsBurned: \(calsBurned)")
-        let formattedCalsBurned = String(format: "kCals burned: %0.f", calsBurned)
+        let formattedCalsBurned = String(format: "Approximate calories burned: %0.f", calsBurned)
         let infoAlert = UIAlertController(title: "Stats for this run:", message: "\(formattedDistance) \(formattedTime), \(formattedCalsBurned)", preferredStyle: .alert)
         let agreeAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
         infoAlert.addAction(agreeAction)

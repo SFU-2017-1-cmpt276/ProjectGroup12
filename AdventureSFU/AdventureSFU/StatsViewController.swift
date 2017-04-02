@@ -38,7 +38,6 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
     var totalTimeInHours: Double = 0.0
     var averageSpeed: Double = 0.0
     var totalCaloriesBurned: Double = 0.0
-    var YearOfBirth: Int = 0
 
     var canEditUserInfo: Bool = false //used to track if the user can edit their info
     var rowCount = 11
@@ -276,7 +275,6 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
             let tempTeam = value?["Team"]
             let tempTime = value?["totalSeconds"]
             let tempCalories = value?["TotalCalories"]
-            let tempYOB = value?["YearOfBirth"]
             
             
 			if let actualEmail = tempEmail {
