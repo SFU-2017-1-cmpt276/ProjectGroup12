@@ -76,7 +76,7 @@ class MainMapUI: UIViewController, CLLocationManagerDelegate, MGLMapViewDelegate
             MGLOfflineStorage.shared().addPack(for: region, withContext: context) { (pack, error) in
                 guard error == nil else {
                     // The pack couldn’t be created for some reason.
-                    print("Error: \(error?.localizedDescription)")
+                    print("Error: \(String(describing: error?.localizedDescription))")
                     return
                 }
     

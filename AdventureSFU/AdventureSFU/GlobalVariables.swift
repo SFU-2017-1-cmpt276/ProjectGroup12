@@ -42,6 +42,7 @@ class GlobalVariables {
     var hasRunData: Bool = false
     var plannedWaypoints: [Waypoint] = []
     var waypointsTest: [Waypoint] = []
+
     var ref: FIRDatabaseReference?
     var userID: String?
     

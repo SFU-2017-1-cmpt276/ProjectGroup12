@@ -26,6 +26,7 @@ class userProfile {
     var password: String
     
     
+    
 //Functions
     init(enteredPassword: String, enteredUsername: String, enteredEmail: String ) {
         if enteredEmail.isEmpty == false {
