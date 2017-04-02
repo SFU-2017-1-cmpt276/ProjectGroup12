@@ -1,9 +1,18 @@
 //
 //  ExploreViewOneController.swift
-//  AdventureSFU
 //
-//  Created by Chris Norris-Jones on 3/16/17.
-//  Copyright © 2017 Karan Aujla. All rights reserved.
+//	AdventureSFU: Make Your Path
+//	Created for SFU CMPT 276, Instructor Herbert H. Tsang, P.Eng., Ph.D.
+//	AdventureSFU was a project created by Group 12 of CMPT 276
+//
+//  Created by Group 12 on 3/12/17.
+//  Copyright © 2017 . All rights reserved.
+//
+//	ExploreViewOneController - This page takes in information from the ViewExplorer class and displays the relevant details for the specific Explore item, for the user to attempt to find
+//	Programmers: Karan Aujla, Carlos Abaffy, Eleanor Lewis, Chris Norris-Jones
+//
+//	Known Bugs: None Currently
+//	Todo:
 //
 
 import UIKit
@@ -67,7 +76,10 @@ class ExploreViewOneController: UIViewController {
         let tryAgainAlert = UIAlertController(title: "Incorrect Password", message: "Are you just guessing?", preferredStyle: .alert)
         
         let okayAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-        congratsAlert.addAction(okayAction)
+        let okayDismissAction = UIAlertAction(title: "Ok", style: .default, handler: {(action) in
+            self.dismiss(animated: true, completion: nil)
+        })
+        congratsAlert.addAction(okayDismissAction)
         tryAgainAlert.addAction(okayAction)
         
         let submitAction = UIAlertAction(title: "Submit", style: .default, handler: { (action) in

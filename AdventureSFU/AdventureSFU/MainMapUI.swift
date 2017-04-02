@@ -25,6 +25,7 @@ import Mapbox
 
 class MainMapUI: UIViewController, CLLocationManagerDelegate, MGLMapViewDelegate {
     var MainMapUI: MGLMapView!
+
     var progressView: UIProgressView!
     
     //main page's map display

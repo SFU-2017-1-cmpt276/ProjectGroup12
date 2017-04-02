@@ -88,6 +88,7 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
             //print("sender.title: \(sender.titleLabel)")
            runToggle.setTitle("Start Run", for: [])
             self.tracking = false
+            
         } else {
             self.tracking = true
             runToggle.setTitle("Stop Run", for: [])
@@ -129,8 +130,20 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
             GlobalVariables.sharedManager.elapsedTimeThisRun = GlobalVariables.sharedManager.endTime!.timeIntervalSince(GlobalVariables.sharedManager.startTime!)
             GlobalVariables.sharedManager.startTime = nil
             GlobalVariables.sharedManager.distanceThisRun = self.actualTotalDistance
-   
-            super.ref?.child("Users").child(super.userID!).child("Team").observeSingleEvent(of: .value, with: { (snapshot) in
+        let time = GlobalVariables.sharedManager.elapsedTimeThisRun!
+        let seconds = Int(time) % 60;
+        let minutes = Int(time / 60) % 60;
+        let hours = Int(time / 3600);
+        let formattedTime = String(format: "H:M:S: %d:%.2d:%.2d", hours, minutes, seconds)
+        
+        let formattedDistance = String(format: "Kms: %.2f", GlobalVariables.sharedManager.distanceThisRun/1000)
+        
+        let infoAlert = UIAlertController(title: "Stats for this run:", message: "\(formattedDistance) \(formattedTime)", preferredStyle: .alert)
+        let agreeAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+        infoAlert.addAction(agreeAction)
+        self.present(infoAlert, animated: true, completion: nil)
+        
+        super.ref?.child("Users").child(super.userID!).child("Team").observeSingleEvent(of: .value, with: { (snapshot) in
                 let tempTeam = snapshot.value as? String
                 if let team = tempTeam {
                 super.ref?.child("Users").child(super.userID!).child("totalSeconds").observeSingleEvent(of: .value, with: { (snapshot) in

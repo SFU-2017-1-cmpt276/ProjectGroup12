@@ -246,10 +246,16 @@ class signUpViewController: UIViewController, UITextFieldDelegate {
                                                         self.ref?.child("Users").child(user!.uid).child("Team").setValue("No Team")
                                                 self.ref?.child("Users").child(user!.uid).child("presetRouteCoordinateCount").setValue(0)
                                                         var count:Int = 0
-                                                        while (count < 10) {
-                                                            self.ref?.child("Users").child(user!.uid).child("ExploreItems").child(String(count)).setValue(0)
-                                                            count += 1
-                                                        }
+                                                      
+                                                        self.ref?.child("ExploreItemTotal").observeSingleEvent(of: .value, with: { (snapshot) in
+                                                            let value = snapshot.value as? Int
+                                                            while (count < value!) {
+                                                                self.ref?.child("Users").child(user!.uid).child("ExploreItems").child(String(count)).setValue(0)
+                                                                count += 1
+                                                            }
+                                                        
+                                                        })
+                                                        
 														self.dismiss(animated: true, completion: nil)
 														
 														

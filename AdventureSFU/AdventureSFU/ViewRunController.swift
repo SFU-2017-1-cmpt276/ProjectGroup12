@@ -72,7 +72,7 @@ class ViewRunController: UIViewController, MapViewDelegate {
                     let seconds = Int(time) % 60;
                     let minutes = Int(time / 60) % 60;
                     let hours = Int(time / 3600);
-                    self.timeField.text = String("H:M:S: \(hours):\(minutes):\(seconds)")
+                self.timeField.text = String(format: "H:M:S: %d:%.2d:%.2d", hours, minutes, seconds)
                     //Updates the time stat of the planned route with the user's average speed if initialized or the Mapbox time estimate.
             })
         })
@@ -140,6 +140,13 @@ class ViewRunController: UIViewController, MapViewDelegate {
         distanceField.text = String(format: "Kms: %.2f", 0)
         timeField.text = String("H:M:S: 0:0:0")
         //Resets time and distance stats to zero and prompts MapUI to delete the planned route.
+    }
+    
+    func maxPointsAlert() {
+        let infoAlert = UIAlertController(title: "Max Coordinates Entered", message: "At most 25 user-entered coordinates can included in a route.", preferredStyle: .alert)
+        let agreeAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+        infoAlert.addAction(agreeAction)
+        self.present(infoAlert, animated: true, completion: nil)
     }
     
     @IBAction func submitRunStats(_ sender: AnyObject) {

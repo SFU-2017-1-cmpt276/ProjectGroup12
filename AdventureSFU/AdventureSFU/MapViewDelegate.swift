@@ -22,6 +22,7 @@ protocol MapViewDelegate {
 	
 	//func getTime(time: Double)
     func getDistanceAndTime(distance: Double, time: Double)
+    func maxPointsAlert()
 //	func getWaypoint(waypoint: Waypoint)
 //	func getRoute(chosenRoute: Route) -> Route?
   

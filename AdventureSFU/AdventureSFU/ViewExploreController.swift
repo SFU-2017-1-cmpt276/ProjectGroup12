@@ -26,48 +26,44 @@ class ViewExploreController: UIViewController, UITableViewDelegate, UITableViewD
     
     var ref: FIRDatabaseReference?
     
-	let itemTitle = ["Procession of the Electric Giants",
-	                 "Grassy Tendrils",
-	                 "Opposite the Rhododendron",
-	                 "Entrance to the Underground",
-	                 "The Eleven-Headed Hydra",
-	                 "The Tree-King's Throne",
-	                 "Off the Beaten Path",
-	                 "Overlooking Obstacles",
-	                 "The Odd Green Tree",
-	                 "The Moss Spider's Den"]
+    //Used to take in info needed on the Explore One Page. Page makes structs for each table cell, then when cell is selected that specific instance is pushed to view_one page
+    struct ExploreItem {
+        var title : String?
+        var hint : String?
+        var lat : Double?
+        var long : Double?
+        var pass : String?
+    }
     
-    let itemText = ["Standing astride these metal Titans, Near their feet lies your password to write in.",
-                    "Tentacles tinged green, covering your prize.",
-                    "The ancient sentinel stands tall to time, overlooking what you seek to find.",
-                    "Hidden by the door to a subterrean kingdom is the magic word of which you seek.",
-                    "Its eleven heads strain gravity's bond, but clutched in its talons is where its treasure's spawned.",
-                    "The Tree king holds court over these treacherous steppes, stashed in its throne a gift has been prepped.",
-                    "You've come a distance to get here, and you're just steps to your goal.",
-                    "Holding sentry over trails of wood and nail lies your goal.",
-                    "This tree looks all wrong. Maybe it's hiding something.",
-                    "Careful searching in the moss spider's den, it sleeps for now but stirs now and then.",]
-    
-    let itemLat = [49.2686422, 49.2879845, 49.2795888, 49.2865413, 49.2862572, 49.2802203, 49.2879318, 49.2760305, 49.2825603, 49.2709056]
-    
-    let itemLong = [-122.8967410, -122.9388289, -122.9371649, -122.9186634, -122.8993354, -122.8997471, -122.9269216, -122.8955464, -122.9463260, -122.9074156]
-    
-    let itemPassword = ["Fraser", "Explorer", "Democracy", "Catcher", "Council", "Rainforest", "Horseshoe", "Softly", "Extra", "Compute"]
-    
+    var done:Int = 0
+    var exploreItemArray = [ExploreItem]()
     var selectedRow:Int = -1
-    
+    var databaseHandle:FIRDatabaseHandle?
+    var numberRows:Int = 5
+    var check:Int = 0
     @IBOutlet weak var exploreTable: UITableView!
     
 //Functions
+    
 	//Setting up the Explore Table
 	public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return(itemTitle.count)
+        
+		//return(itemTitle.count)
+        return(numberRows)
 	}
 	//Further work setting up the specific cells for the table. 
 	public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		
 		let exploreCell = tableView.dequeueReusableCell(withIdentifier: "exploreCell", for: indexPath) as! ExploreTableViewCell
-		exploreCell.cellTitle.text = itemTitle[indexPath.row]
+        
+        ref?.child("ExploreItems").child(String(indexPath.row + 1)).child("Title").observeSingleEvent(of: .value, with: { (snapshot) in
+                let tempTitle = snapshot.value as? String
+                
+                if let actualTitle = tempTitle {
+                    exploreCell.cellTitle.text = actualTitle
+                }
+                
+            })
+
         //Checking database if explore item has been found by user. If it hasn't, show red image, if it has, show green
         let userID = FIRAuth.auth()?.currentUser?.uid
         ref?.child("Users").child(userID!).child("ExploreItems").child(String(indexPath.row)).observeSingleEvent(of: .value, with: { (snapshot) in
@@ -78,7 +74,7 @@ class ViewExploreController: UIViewController, UITableViewDelegate, UITableViewD
                 exploreCell.colourLight.image = UIImage(named: "red")
             }
         })
-
+        
 		return(exploreCell)
 	}
 	
@@ -86,6 +82,8 @@ class ViewExploreController: UIViewController, UITableViewDelegate, UITableViewD
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
         selectedRow = indexPath.row
+        print("Row selected is \(selectedRow)")
+        print("Struct title from selected row is \(exploreItemArray[selectedRow].title!)")
 		self.performSegue(withIdentifier: "exploreDetail", sender: nil)
 		
 	}
@@ -93,11 +91,12 @@ class ViewExploreController: UIViewController, UITableViewDelegate, UITableViewD
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "exploreDetail" {
             let detailView:ExploreViewOneController = segue.destination as! ExploreViewOneController
-            detailView.exploreTitle = itemTitle[selectedRow]
-            detailView.exploreText = itemText[selectedRow]
-            detailView.mapLat = itemLat[selectedRow]
-            detailView.mapLong = itemLong[selectedRow]
-            detailView.password = itemPassword[selectedRow]
+            
+            detailView.exploreTitle = exploreItemArray[selectedRow].title!
+            detailView.exploreText = exploreItemArray[selectedRow].hint!
+            detailView.mapLat = exploreItemArray[selectedRow].lat!
+            detailView.mapLong = exploreItemArray[selectedRow].long!
+            detailView.password = exploreItemArray[selectedRow].pass!
             detailView.row = selectedRow
         }
 
@@ -108,18 +107,91 @@ class ViewExploreController: UIViewController, UITableViewDelegate, UITableViewD
 //Load Actions
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         ref = FIRDatabase.database().reference()
         
+        //Call the database to reset the number of rows in the table to proper amount in database
+        
+        ref?.child("ExploreItemTotal").observeSingleEvent(of: .value, with: {(snapshot) in
+        
+            let tempVal = snapshot.value as? Int
+            
+            if let actualVal = tempVal {
+                self.numberRows = actualVal
+            }
+            self.exploreTable.reloadData()
+            /*
+            var count:Int = 0
+            while (count < tempVal!) {
+                self.ref?.child("ExploreItems").child(String(count+1)).observeSingleEvent(of: .value, with: { (snapshot) in
+                    let value = snapshot.value as? NSDictionary
+                    
+                    let tempTitle = value?["Title"] as! String
+                    let tempLat = value?["Latitude"] as! Double
+                    let tempLong = value?["Longitude"] as! Double
+                    let tempHint = value?["Hint"] as! String
+                    let tempPass = value?["Password"] as! String
+                    
+                    let eItem = ExploreItem(title: tempTitle, hint: tempHint, lat: tempLat, long: tempLong, pass: tempPass)
+                    
+                    self.exploreItemArray.append(eItem)
+                })
+                count += 1
+            }
+        */
+        })
+        
+        done = 1
+ 
+
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        ref?.child("ExploreItemTotal").observeSingleEvent(of: .value, with: {(snapshot) in
+            
+            let tempVal = snapshot.value as? Int
+            
+            if let actualVal = tempVal {
+                self.numberRows = actualVal
+            }
+            self.exploreTable.reloadData()
+            
+            var count:Int = 0
+            self.exploreItemArray = []
+            while (count < tempVal!) {
+                self.ref?.child("ExploreItems").child(String(count+1)).observeSingleEvent(of: .value, with: { (snapshot) in
+                    let value = snapshot.value as? NSDictionary
+                    
+                    let tempTitle = value?["Title"] as! String
+                    let tempLat = value?["Latitude"] as! Double
+                    let tempLong = value?["Longitude"] as! Double
+                    let tempHint = value?["Hint"] as! String
+                    let tempPass = value?["Password"] as! String
+                    
+                    let eItem = ExploreItem(title: tempTitle, hint: tempHint, lat: tempLat, long: tempLong, pass: tempPass)
+                    print("Explore Item Title: \(eItem.title)")
+                    self.exploreItemArray.append(eItem)
+                    print("If array loaded, then total is: \(self.exploreItemArray.count)")
+                })
+                count += 1
+            }
+        })
+        //exploreTable.reloadData()
     }
 	
 //Actions
 	@IBAction func toMainControllerPage() {
         dismiss(animated: true, completion: nil)
 	}
+	
+	@IBAction func toCreateExplorePage() {
+		performSegue(withIdentifier: "createNewExplore", sender: self)
+	}
+	
     //Gives high level details for the page
     @IBAction func InfoButton(){
         let infoAlert = UIAlertController(title: "Explore Listing Details", message: "Welcome to the Explore Module! There are numerous treasures and artifacts hidden throughout the forests and trails of the Burnaby Mountains, and on this page you can begin your journey to find them!\n\n Select one of the possible items above to begin the exploration, though if the light next to it is green that means you've already found it!", preferredStyle: .alert)
