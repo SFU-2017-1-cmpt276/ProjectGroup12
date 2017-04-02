@@ -19,18 +19,38 @@
 import XCTest
 
 class AdventureSFUUITests: XCTestCase {
-    var ASFU: XCUIApplication!
+    var app: XCUIApplication!
     override func setUp() {
         super.setUp()
 		
         continueAfterFailure = false
-        ASFU = XCUIApplication()
-        ASFU.launch()
+        app = XCUIApplication()
+        app.launch()
 
     }
     
     override func tearDown() {
         super.tearDown()
     }
+    
+    func testLogin(){
+        let app = XCUIApplication()
+        
+        let addressComTextField = XCUIApplication().textFields["@address.com"]
+        addressComTextField.tap()
+        addressComTextField.typeText("k@t.ca")
+        
 
+        let passwordSecureTextField = app.secureTextFields["Password"]
+        passwordSecureTextField.tap()
+        passwordSecureTextField.typeText("T123456")
+        app.buttons["Sign In"].tap()
+        
+        let loginFail = app.alerts["Fields Missing!"]
+        //then 
+        XCTAssertFalse(loginFail.exists)
+        
+        
+        
+    }
 }

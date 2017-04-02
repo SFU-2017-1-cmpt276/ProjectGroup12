@@ -91,9 +91,11 @@ class MainViewController: UIViewController {
         performSegue(withIdentifier: "mainToExplore", sender: self)
     }
     
-    @IBAction func goToTeamsPage() {
-        performSegue(withIdentifier: "goToTeams", sender: self)
+    @IBAction func toTeamsPage() {
+        print("about to perform segue to teams")
+        performSegue(withIdentifier: "toTeams", sender: self)
     }
+   
 
     
     
