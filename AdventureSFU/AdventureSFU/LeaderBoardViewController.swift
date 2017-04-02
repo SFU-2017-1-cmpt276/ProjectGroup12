@@ -29,7 +29,6 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
         var username: String
         var userID: String
         
-        
     }
     struct  userLeaderboard {
         var userArray = [userStats]()
@@ -40,7 +39,7 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
             }
             for index in 0...userArray.count - 2 {
                 for innerIndex in index + 1...userArray.count - 1{
-                    if userArray[innerIndex].timeRun   > userArray[index].timeRun {
+                    if userArray[innerIndex].timeRun  > userArray[index].timeRun {
                         let tempUserStat = userArray[innerIndex]
                         userArray[innerIndex] = userArray[index]
                         userArray[index] = tempUserStat
@@ -85,7 +84,6 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
         super.viewDidLoad()
         let userID = FIRAuth.auth()?.currentUser?.uid
         ref = FIRDatabase.database().reference()
-        print("THIS IS LOAD PAGE")
         
         ref?.child("Users").child(userID!).child("Team").observeSingleEvent(of: .value, with: { (snapshot) in
             //get what team the user is part of so we can get the correct data from firbase
@@ -99,10 +97,8 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
             print("pulling users for team: \(self.team)")
             
             self.ref?.child("Teams").child(self.team).observeSingleEvent(of: .value, with: { snapshot in
-                //print("calling database in viewLoader")
                 let enumerator = snapshot.children
                 while let rest = enumerator.nextObject() as? FIRDataSnapshot {
-                    print("rest is \(rest)")
                     if rest.hasChildren(){
                         self.userKeys.append(rest.key)
                         //if a user was added update usercount
@@ -116,7 +112,6 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
                         var newUser = userStats(kmRun: -1, timeRun: -1, username: "empty", userID: user)
                 
                         self.ref?.child("Users").child(user).observeSingleEvent(of: .value, with: { snapshot in
-                           // print("calling database in viewLoader")
                             let info = snapshot.value as? NSDictionary
                             print("\(info)")
                             let tempUsername = info?["username"]
@@ -180,8 +175,6 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
         
         ref = FIRDatabase.database().reference()
         
-        print("THIS IS IT \(userKeys.count)")
-        
        
         if usersPopulated{
             
@@ -198,7 +191,7 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
                 cellToBeReturned.textLabel?.text = teamLeaderboard.userArray[indexPath.row].username
                 let time: Int = Int(teamLeaderboard.userArray[indexPath.row].timeRun)
                 let Minutes: Int = time / 60
-                cellToBeReturned.detailTextLabel?.text =  "\(Minutes) : \(time%60)"
+                cellToBeReturned.detailTextLabel?.text =  "\(Minutes) min, \(time%60) sec"
 
 
 
