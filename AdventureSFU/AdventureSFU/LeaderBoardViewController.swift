@@ -93,12 +93,7 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
             print("value is \(String(describing: value))")
             
             self.team = value!
-//            self.ref?.child("Teams").child(self.team).child("UserCount").observeSingleEvent(of: .value, with: { (snapshot) in
-//                print("calling database in viewLoader")
-//                let value = snapshot.value as? Int
-//                self.userCount = value!
-//            })
-            
+
             //display the team name on the page
             self.TeamTitle.text = "Team " + self.team
             print("pulling users for team: \(self.team)")
@@ -123,7 +118,7 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
                         self.ref?.child("Users").child(user).observeSingleEvent(of: .value, with: { snapshot in
                            // print("calling database in viewLoader")
                             let info = snapshot.value as? NSDictionary
-                        
+                            print("\(info)")
                             let tempUsername = info?["username"]
                             let tempKM = info?["KMRun"]
                             let tempTime = info?["totalSeconds"]

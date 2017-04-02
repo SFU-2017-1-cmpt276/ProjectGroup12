@@ -59,17 +59,17 @@ class TeamSelect2: UIViewController {
         
         
     }
-    func updateUserCount(team: String){
-        self.ref?.child("Teams").child(team).child("UserCount").observeSingleEvent(of: .value, with: { (snapshot) in
-            let tempUserC = snapshot.value as? Int
-            if var userC = tempUserC {
-                
-                userC += 1
-                self.ref?.child("Teams").child(team).child("UserCount").setValue(userC)
-            }
-            
-        })
-    }
+//    func updateUserCount(team: String){
+//        self.ref?.child("Teams").child(team).child("UserCount").observeSingleEvent(of: .value, with: { (snapshot) in
+//            let tempUserC = snapshot.value as? Int
+//            if var userC = tempUserC {
+//                
+//                userC += 1
+//                self.ref?.child("Teams").child(team).child("UserCount").setValue(userC)
+//            }
+//            
+//        })
+//    }
     
     //sends user back to previous page
     @IBAction func backtoMain(){
@@ -101,7 +101,7 @@ class TeamSelect2: UIViewController {
                 
             }
         })
-        updateUserCount(team: "Eagles")
+       // updateUserCount(team: "Eagles")
 
         dismiss(animated: true, completion: nil)
      
@@ -124,7 +124,7 @@ class TeamSelect2: UIViewController {
             }
         })
         
-        updateUserCount(team: "Bobcats")
+        //updateUserCount(team: "Bobcats")
 
      
         dismiss(animated: true, completion: nil)
@@ -149,7 +149,7 @@ class TeamSelect2: UIViewController {
             }
         })
         
-        updateUserCount(team: "Bears")
+       // updateUserCount(team: "Bears")
      
         dismiss(animated: true, completion: nil)
      
