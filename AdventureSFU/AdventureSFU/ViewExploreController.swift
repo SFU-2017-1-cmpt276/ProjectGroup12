@@ -161,7 +161,6 @@ class ViewExploreController: UIViewController, UITableViewDelegate, UITableViewD
                     let eItem = ExploreItem(id: count, title: tempTitle, hint: tempHint, lat: tempLat, long: tempLong, pass: tempPass)
                     
                     self.exploreItemArray.append(eItem)
-                    print("Item appended!")
                 })
                 count += 1
             }
@@ -174,6 +173,10 @@ class ViewExploreController: UIViewController, UITableViewDelegate, UITableViewD
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        exploreTable.reloadData()
     }
 	
 //Actions
