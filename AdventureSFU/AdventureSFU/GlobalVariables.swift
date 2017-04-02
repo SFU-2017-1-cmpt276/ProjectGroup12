@@ -33,7 +33,7 @@ class GlobalVariables {
     var hasRunData: Bool = false
     var plannedWaypoints: [Waypoint] = []
     var waypointsTest: [Waypoint] = []
-    
+   
     class var sharedManager: GlobalVariables {
         struct Static {
             static let instance = GlobalVariables()

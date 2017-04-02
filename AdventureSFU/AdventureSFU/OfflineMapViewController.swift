@@ -84,10 +84,10 @@ class OfflineViewController: UIViewController, MGLMapViewDelegate {
             // If this pack has finished, print its size and resource count.
             if completedResources == expectedResources {
                 let byteCount = ByteCountFormatter.string(fromByteCount: Int64(pack.progress.countOfBytesCompleted), countStyle: ByteCountFormatter.CountStyle.memory)
-                print("Offline pack “\(userInfo["name"])” completed: \(byteCount), \(completedResources) resources")
+                //print("Offline pack “\(userInfo["name"])” completed: \(byteCount), \(completedResources) resources")
             } else {
                 // Otherwise, print download/verification progress.
-                print("Offline pack “\(userInfo["name"])” has \(completedResources) of \(expectedResources) resources — \(progressPercentage * 100)%.")
+                //print("Offline pack “\(userInfo["name"])” has \(completedResources) of \(expectedResources) resources — \(progressPercentage * 100)%.")
             }
         }
     }

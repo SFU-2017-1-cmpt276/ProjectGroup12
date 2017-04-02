@@ -16,12 +16,56 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
     
     var ref: FIRDatabaseReference?
     var team = "No Team"
-    var  userCount = 1
+    var  userCount = 0
     var userKeys = [String]()
     var kmValues = [Double]()
     var timeValues = [Double]()
     var usersPopulated = false
     var sortByDistance = true
+    //create a struct to contain the users
+    struct userStats {
+        var kmRun: Double
+        var timeRun: Double
+        var username: String
+        var userID: String
+        
+        
+    }
+    struct  userLeaderboard {
+        var userArray = [userStats]()
+        
+        mutating func sortByTime(){
+            if userArray.count <= 1{
+                return
+            }
+            for index in 0...userArray.count - 2 {
+                for innerIndex in index + 1...userArray.count - 1{
+                    if userArray[innerIndex].timeRun   > userArray[index].timeRun {
+                        let tempUserStat = userArray[innerIndex]
+                        userArray[innerIndex] = userArray[index]
+                        userArray[index] = tempUserStat
+                    }
+                }
+            }
+
+            
+        }
+        mutating func sortbyDistance(){
+            if userArray.count <= 1{
+                return
+            }
+            for index in 0...userArray.count - 2 {
+                for innerIndex in index + 1...userArray.count - 1{
+                    if userArray[innerIndex].kmRun   > userArray[index].kmRun {
+                        let tempUserStat = userArray[innerIndex]
+                        userArray[innerIndex] = userArray[index]
+                        userArray[index] = tempUserStat
+                    }
+                }
+            }
+        }
+    }
+    var teamLeaderboard = userLeaderboard(userArray: [])
     @IBOutlet weak var users: UITableView!
     @IBOutlet weak var TeamTitle: UITextField!
     
@@ -30,7 +74,7 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
-        self.sortByKm()
+        teamLeaderboard.sortbyDistance()
 
         self.users.reloadData()
 
@@ -42,42 +86,80 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
         let userID = FIRAuth.auth()?.currentUser?.uid
         ref = FIRDatabase.database().reference()
         print("THIS IS LOAD PAGE")
+        
         ref?.child("Users").child(userID!).child("Team").observeSingleEvent(of: .value, with: { (snapshot) in
+            //get what team the user is part of so we can get the correct data from firbase
             let value = snapshot.value as? String
-            self.team = value!
-            self.ref?.child("Teams").child(self.team).child("UserCount").observeSingleEvent(of: .value, with: { (snapshot) in
-                let value = snapshot.value as? Int
-                self.userCount = value!
-            })
+            print("value is \(String(describing: value))")
             
+            self.team = value!
+//            self.ref?.child("Teams").child(self.team).child("UserCount").observeSingleEvent(of: .value, with: { (snapshot) in
+//                print("calling database in viewLoader")
+//                let value = snapshot.value as? Int
+//                self.userCount = value!
+//            })
+            
+            //display the team name on the page
             self.TeamTitle.text = "Team " + self.team
+            print("pulling users for team: \(self.team)")
+            
             self.ref?.child("Teams").child(self.team).observeSingleEvent(of: .value, with: { snapshot in
+                //print("calling database in viewLoader")
                 let enumerator = snapshot.children
                 while let rest = enumerator.nextObject() as? FIRDataSnapshot {
-            
+                    print("rest is \(rest)")
                     if rest.hasChildren(){
                         self.userKeys.append(rest.key)
+                        //if a user was added update usercount
+                        self.userCount += 1
                     }
 
                 }
                 
                 for user in self.userKeys {
-                    self.ref?.child("Users").child(user).child("KMRun").observeSingleEvent(of: .value, with: { snapshot in
-                        let value = snapshot.value as? Double
-                        let kmRun = value!
-                        self.kmValues.append(kmRun)
+                        //create the userStats struct to store data
+                        var newUser = userStats(kmRun: -1, timeRun: -1, username: "empty", userID: user)
+                
+                        self.ref?.child("Users").child(user).observeSingleEvent(of: .value, with: { snapshot in
+                           // print("calling database in viewLoader")
+                            let info = snapshot.value as? NSDictionary
                         
-                        self.ref?.child("Users").child(user).child("totalSeconds").observeSingleEvent(of: .value, with: { snapshot in
-                            let value = snapshot.value as? Double
-                            let time = value!
-                            self.timeValues.append(time)
-                        })
+                            let tempUsername = info?["username"]
+                            let tempKM = info?["KMRun"]
+                            let tempTime = info?["totalSeconds"]
+                            print("filling user : \(newUser.userID)")
+                            if tempUsername != nil{
+                                
+                                newUser.username = tempUsername as! String
+                            } else{
+                                print("couldn't find username")
+                                print("tempUsername = \(tempUsername)")
+                            }
+                            if tempKM != nil{
+                                newUser.kmRun = tempKM as! Double
+                            }else{
+                                print("couldn't find kmrun")
+                                print("tempKM = \(tempKM)")
+                            }
+                            if tempTime != nil{
+                                newUser.timeRun = tempTime as! Double
+                            }else{
+                                 print("couldn't find time")
+                                print("tempTime = \(tempTime)")
+                            }
+                            print("--------")
+                            print("adding user to table")
+                            print("userID: \(newUser.userID)")
+                            print("username: \(newUser.username)")
+                            print("KmRun: \(newUser.kmRun)")
+                            print("timeRun: \(newUser.timeRun)")
+                            print("---------")
+                            //once the user is filled out, add it to the teamleaderboard
+                            self.teamLeaderboard.userArray.append(newUser)
+                            
+
                     })
-//                    self.ref?.child("Users").child(user).child("totalSeconds").observeSingleEvent(of: .value, with: { snapshot in
-//                        let value = snapshot.value as? Double
-//                        let time = value!
-//                        self.timeValues.append(time)
-//                    })
+
                 }
                 
                 self.usersPopulated = true
@@ -109,38 +191,22 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
         if usersPopulated{
             
             if sortByDistance {
-                sortByKm()
-                ref?.child("Users").child(userKeys[indexPath.row]).child("username").observeSingleEvent(of: .value, with: { snapshot in
-                    let value = snapshot.value as? String
-                    cellToBeReturned.textLabel?.text = value
-            
-            
-                })
-        
-                ref?.child("Users").child(userKeys[indexPath.row]).child("KMRun").observeSingleEvent(of: .value, with: { snapshot in
-                    let value = snapshot.value as? Double
-                    let kmRun = value!
-                    cellToBeReturned.detailTextLabel?.text =  "\(String(format: "%.2f", kmRun )) Km"
-            
-                })
-            }
-            
-            else {
-                sortByTime()
-                ref?.child("Users").child(userKeys[indexPath.row]).child("username").observeSingleEvent(of: .value, with: { snapshot in
-                    let value = snapshot.value as? String
-                    cellToBeReturned.textLabel?.text = value
-                    
-                    
-                })
+                teamLeaderboard.sortbyDistance()
                 
-                ref?.child("Users").child(userKeys[indexPath.row]).child("totalSeconds").observeSingleEvent(of: .value, with: { snapshot in
-                    let value = snapshot.value as? Int
-                    let time = value!
-                    let Minutes : Int = time / 60
-                    cellToBeReturned.detailTextLabel?.text =  "\(Minutes) : \(time%60)"
-                    
-                })
+                cellToBeReturned.textLabel?.text = teamLeaderboard.userArray[indexPath.row].username
+                cellToBeReturned.detailTextLabel?.text = "\(String(format: "%.2f", teamLeaderboard.userArray[indexPath.row].kmRun )) Km"
+            }
+
+            else {
+                
+                teamLeaderboard.sortByTime()
+                cellToBeReturned.textLabel?.text = teamLeaderboard.userArray[indexPath.row].username
+                let time: Int = Int(teamLeaderboard.userArray[indexPath.row].timeRun)
+                let Minutes: Int = time / 60
+                cellToBeReturned.detailTextLabel?.text =  "\(Minutes) : \(time%60)"
+
+
+
                 
             }
         }
@@ -153,37 +219,6 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
         return userCount
     }
     
-    func sortByKm () -> Void {
-        if userKeys.count == 1 {
-            return
-        }
-
-        for index in 0...userKeys.count - 2 {
-            for innerIndex in index + 1...userKeys.count - 1{
-                if kmValues[innerIndex]  < kmValues[index] {
-                    (kmValues[index],kmValues[innerIndex]) = (kmValues[innerIndex],kmValues[index])
-                    (userKeys[index],userKeys[innerIndex]) = (userKeys[innerIndex],userKeys[index])
-                }
-            }
-        }
-        
-    }
-    
-    func sortByTime () -> Void {
-        if userKeys.count == 1 {
-            return
-        }
-        
-        for index in 0...userKeys.count - 2 {
-            for innerIndex in index + 1...userKeys.count - 1{
-                if timeValues[innerIndex] > timeValues[index] {
-                    (timeValues[index],timeValues[innerIndex]) = (timeValues[innerIndex],timeValues[index])
-                    (userKeys[index],userKeys[innerIndex]) = (userKeys[innerIndex],userKeys[index])
-                }
-            }
-        }
-        
-    }
 
     
     //Actions
@@ -195,12 +230,12 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
     @IBAction func SwitchOrder(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 1 {
             sortByDistance = false
-            sortByTime()
+            teamLeaderboard.sortByTime()
             self.users.reloadData()
         }
         else{
             sortByDistance = true
-            sortByKm()
+            teamLeaderboard.sortbyDistance()
             self.users.reloadData()
         }
         
