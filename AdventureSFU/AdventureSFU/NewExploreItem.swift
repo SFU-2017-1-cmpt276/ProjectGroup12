@@ -58,7 +58,7 @@ class NewExploreItem: UIViewController, CLLocationManagerDelegate {
 
 	@IBAction func toExplorePage() {
 		self.locationManager.stopUpdatingLocation()
-		performSegue(withIdentifier: "createToExploreMain", sender: self)
+		dismiss(animated: true, completion: nil)
 	}
 	
 	//Gives high level details for the page
@@ -101,7 +101,9 @@ class NewExploreItem: UIViewController, CLLocationManagerDelegate {
 			self.ref?.child("ExploreItems").child("InUse").setValue(0)
             //Alert user they've created a new explore item
 			let exploreCreateAlert = UIAlertController(title: "Congratulations!", message: "You created an Explore Item! It should be visible on the Explore View screen!", preferredStyle: .alert)
-			let finishAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            let finishAction = UIAlertAction(title: "Ok", style: .default, handler: {(action) in
+                self.dismiss(animated: true, completion: nil)
+            })
 			exploreCreateAlert.addAction(finishAction)
 			self.present(exploreCreateAlert, animated: true, completion: nil)
 		}

@@ -76,7 +76,10 @@ class ExploreViewOneController: UIViewController {
         let tryAgainAlert = UIAlertController(title: "Incorrect Password", message: "Are you just guessing?", preferredStyle: .alert)
         
         let okayAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-        congratsAlert.addAction(okayAction)
+        let okayDismissAction = UIAlertAction(title: "Ok", style: .default, handler: {(action) in
+            self.dismiss(animated: true, completion: nil)
+        })
+        congratsAlert.addAction(okayDismissAction)
         tryAgainAlert.addAction(okayAction)
         
         let submitAction = UIAlertAction(title: "Submit", style: .default, handler: { (action) in
