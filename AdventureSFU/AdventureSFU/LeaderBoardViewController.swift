@@ -16,7 +16,7 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
     
     var ref: FIRDatabaseReference?
     var team = "No Team"
-    var  userCount = 0
+    var userCount = 0
     var userKeys = [String]()
     var kmValues = [Double]()
     var timeValues = [Double]()
@@ -213,6 +213,9 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
     
     @IBAction func BackButton(){
         dismiss(animated: true, completion: nil)
+    }
+    @IBAction func ToAllTeams(_ sender: UIButton) {
+        performSegue(withIdentifier: "toAllTeams", sender: self )
     }
     
     @IBAction func SwitchOrder(_ sender: UISegmentedControl) {
