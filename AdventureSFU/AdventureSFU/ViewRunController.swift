@@ -52,7 +52,7 @@ class ViewRunController: UIViewController, MapViewDelegate {
         self.distance = distance/1000
         distanceField.text = String(format: "Kms: %.2f", distance/1000)
         //Updates the distance stat of the planned route.
-        var tempSpeed = GlobalVariables.sharedManager.avgSpeed
+        let tempSpeed = GlobalVariables.sharedManager.avgSpeed
         self.time = time
         if (tempSpeed! > 0.0) {
             self.time = Double((self.distance / tempSpeed!)*3600)
