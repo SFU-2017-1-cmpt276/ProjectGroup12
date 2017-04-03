@@ -33,24 +33,40 @@ class AdventureSFUUITests: XCTestCase {
         super.tearDown()
     }
     
-    func testLogin(){
+    func testLoginSuccess(){
         let app = XCUIApplication()
         
         let addressComTextField = XCUIApplication().textFields["@address.com"]
         addressComTextField.tap()
-        addressComTextField.typeText("k@t.ca")
+        addressComTextField.typeText("k@s.ca")
         
 
         let passwordSecureTextField = app.secureTextFields["Password"]
         passwordSecureTextField.tap()
-        passwordSecureTextField.typeText("T123456")
+        passwordSecureTextField.typeText("A123456")
         app.buttons["Sign In"].tap()
         
-        let loginFail = app.alerts["Fields Missing!"]
-        //then 
+        
+        
+        //app.alerts["Login Failed!"].buttons["Ok"].tap()
+        let loginFail = app.alerts["Login Failed!"]
+        //then
         XCTAssertFalse(loginFail.exists)
         
         
         
+    }
+    func testLoginWrongPassword() {
+        let app = XCUIApplication()
+        let addressComTextField = app.textFields["@address.com"]
+        addressComTextField.tap()
+        addressComTextField.typeText("k@s.ca")
+    
+        let passwordSecureTextField = app.secureTextFields["Password"]
+        passwordSecureTextField.tap()
+        passwordSecureTextField.typeText("hi")
+        app.buttons["Sign In"].tap()
+        let loginFail = app.alerts["Login Failed!"]
+        XCTAssertTrue(loginFail.exists)
     }
 }

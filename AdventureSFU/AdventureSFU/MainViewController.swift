@@ -105,7 +105,7 @@ class MainViewController: UIViewController {
     @IBAction func logoutAction(){
         //Call to firebase to logout, then move back to ViewController
         try! FIRAuth.auth()?.signOut()
-        performSegue(withIdentifier: "logOut", sender: self)
+        dismiss(animated: true, completion: nil)
         
     }
     
