@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import CoreLocation
 
-class NewExploreItem: UIViewController, CLLocationManagerDelegate {
+class NewExploreItem: UIViewController, CLLocationManagerDelegate, UITextFieldDelegate {
 
 //Variables
 	
@@ -21,7 +21,7 @@ class NewExploreItem: UIViewController, CLLocationManagerDelegate {
 	var longitude:Double = 0.0
 	@IBOutlet weak var exploreTitle: UITextField!
 	@IBOutlet weak var explorePassword: UITextField!
-	@IBOutlet weak var exploreHintField: UITextView!
+	@IBOutlet weak var exploreHint: UITextField!
 	
 //Functions
 	
@@ -31,9 +31,20 @@ class NewExploreItem: UIViewController, CLLocationManagerDelegate {
 		longitude = locValue.longitude
 	}
 	
+	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+		textField.resignFirstResponder()
+		return false
+	}
+	
+	
 //Load Actions
     override func viewDidLoad() {
         super.viewDidLoad()
+		self.exploreTitle.delegate = self
+		self.explorePassword.delegate = self
+		self.exploreHint.delegate = self
+		self.exploreHint.delegate = self
+		
 		
 		ref = FIRDatabase.database().reference()
 		self.locationManager = CLLocationManager()
@@ -71,7 +82,7 @@ class NewExploreItem: UIViewController, CLLocationManagerDelegate {
 	//Creates a New Explore Item, it will be loaded into the database and subsequently displayed on the ViewExploreController page
 	@IBAction func CreateExplore() {
 		//First make sure fields aren't empty
-		if self.exploreTitle.text == "" || self.explorePassword.text == "" || self.exploreHintField.text == "" {
+		if self.exploreTitle.text == "" || self.explorePassword.text == "" || self.exploreHint.text == "" {
 			let alertController = UIAlertController(title: "Fields Missing!", message: "Please fill in a Title, Password, and Hint for your Explore Item!", preferredStyle: .alert)
 			let defaultAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
 			alertController.addAction(defaultAction)
@@ -90,7 +101,7 @@ class NewExploreItem: UIViewController, CLLocationManagerDelegate {
 				let exploreID:Int = tempVal! + 1
 				let exploreItemTitle:String = self.exploreTitle.text!
 				let exploreItemPassword:String = self.explorePassword.text!
-				let exploreItemHint:String = self.exploreHintField.text!
+				let exploreItemHint:String = self.exploreHint.text!
 				
 				self.ref?.child("ExploreItems").child(String(exploreID)).child("Title").setValue(exploreItemTitle)
 				self.ref?.child("ExploreItems").child(String(exploreID)).child("Password").setValue(exploreItemPassword)
