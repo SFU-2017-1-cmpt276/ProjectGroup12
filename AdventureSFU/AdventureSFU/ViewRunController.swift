@@ -43,6 +43,7 @@ class ViewRunController: UIViewController, MapViewDelegate {
 
     
     @IBAction func dismissRunView(_ sender: AnyObject) {
+        self.RunViewDelegate?.dismissMapView()
         dismiss(animated: false, completion: nil)
     }
     //Functions
@@ -105,13 +106,7 @@ class ViewRunController: UIViewController, MapViewDelegate {
        // one by one, get the coordinates from the preset Route, if any, load them into GlobalVariables 
         //and call the MapUI method to add them to the map
     }
-  
-    //Actions
-    @IBAction func runToMain() {
-        performSegue(withIdentifier: "runControllerToMain", sender: self)
-        //Returns user to main page.
-    }
-    
+
     @IBAction func helpPopup(_ sender: Any) {
         let infoAlert = UIAlertController(title: "Route Plan Help", message: "On this page you can plan your route. Select a starting point and subsequent points by single tap to generate a route and get its distance and estimated travel time. Select CLEAR to start over. Select SAVE to keep this route available for when you next log in. Select RESTORE to load a saved route. Select Run! to start tracking your run!", preferredStyle: .alert)
         let agreeAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)

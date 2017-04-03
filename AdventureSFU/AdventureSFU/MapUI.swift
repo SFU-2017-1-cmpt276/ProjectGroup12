@@ -234,6 +234,11 @@ class MapUI: UIViewController, RunViewControllerDelegate, MGLMapViewDelegate {
         //redraw route
     }
     
+    
+    func dismissMapView() {
+        dismiss(animated: false, completion: nil)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
