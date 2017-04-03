@@ -34,7 +34,7 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
     var weight: Double = 0.0
     var personalMessage: String = ""
     var team: String = "No Team"
-    
+    var timeRun: Double = 0.0
     var canEditUserInfo: Bool = false //used to track if the user can edit their info
     var rowCount = 8
     
