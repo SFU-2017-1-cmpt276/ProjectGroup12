@@ -125,10 +125,11 @@ class MainViewController: UIViewController {
         let userID = FIRAuth.auth()?.currentUser?.uid
         
         ref?.child("Users").child(userID!).child("Team").observeSingleEvent(of: .value, with: { (snapshot) in
-            //pull the user's name and display a welcome message
+
             let value = snapshot.value as? String
             let team = value!
             
+            //displays alert if user has no team
             if team == "No Team" {
                 let alert = UIAlertController(title: "You are not in a Team",
                                               message: "Team Stats are only available for those who are in a team. If you wish access Team Stats, select a team from the Stats page.",
@@ -140,6 +141,7 @@ class MainViewController: UIViewController {
                 self.present(alert, animated: true, completion: nil)
             }
             
+            //goes to Team page 
             else {
                 self.performSegue(withIdentifier: "toTeams", sender: self)
             }
