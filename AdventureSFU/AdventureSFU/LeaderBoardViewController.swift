@@ -28,6 +28,9 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
         var timeRun: Double
         var username: String
         var userID: String
+
+        var personalMessage: String
+
         
     }
     struct  userLeaderboard {
@@ -109,7 +112,7 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
                 
                 for user in self.userKeys {
                         //create the userStats struct to store data
-                        var newUser = userStats(kmRun: -1, timeRun: -1, username: "empty", userID: user)
+                    var newUser = userStats(kmRun: -1, timeRun: -1, username: "empty", userID: user, personalMessage: "")
                 
                         self.ref?.child("Users").child(user).observeSingleEvent(of: .value, with: { snapshot in
                             let info = snapshot.value as? NSDictionary
@@ -117,6 +120,8 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
                             let tempUsername = info?["username"]
                             let tempKM = info?["KMRun"]
                             let tempTime = info?["totalSeconds"]
+                            let tempMessage = info?["personalMessage"]
+                            
                             print("filling user : \(newUser.userID)")
                             if tempUsername != nil{
                                 
@@ -131,12 +136,20 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
                                 print("couldn't find kmrun")
                                 print("tempKM = \(tempKM)")
                             }
+                            
                             if tempTime != nil{
                                 newUser.timeRun = tempTime as! Double
                             }else{
                                  print("couldn't find time")
                                 print("tempTime = \(tempTime)")
                             }
+                            
+                            if tempMessage != nil{
+                                newUser.personalMessage = tempMessage as! String
+                            }else{
+                                
+                            }
+                            
                             print("--------")
                             print("adding user to table")
                             print("userID: \(newUser.userID)")
@@ -189,9 +202,16 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
                 
                 teamLeaderboard.sortByTime()
                 cellToBeReturned.textLabel?.text = teamLeaderboard.userArray[indexPath.row].username
-                let time: Int = Int(teamLeaderboard.userArray[indexPath.row].timeRun)
-                let Minutes: Int = time / 60
-                cellToBeReturned.detailTextLabel?.text =  "\(Minutes) min, \(time%60) sec"
+
+                var seconds: Int = Int(teamLeaderboard.userArray[indexPath.row].timeRun)
+                
+                var minutes: Int = seconds / 60
+                
+                let hours: Int = minutes / 60
+                seconds -= minutes * 60
+                minutes -= hours * 60
+                cellToBeReturned.detailTextLabel?.text =  "\(hours)hr:\(minutes)min:\(seconds)sec"
+
 
 
 
@@ -207,7 +227,15 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
         return userCount
     }
     
-
+    //when the user selects a cell, display that users personal message
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let selectedUser = teamLeaderboard.userArray[indexPath.row]
+        let messageAlert = UIAlertController(title: "\(selectedUser.username) says:", message: selectedUser.personalMessage, preferredStyle: .alert)
+        let confirmMessage = UIAlertAction(title: "ok", style: .default, handler: nil)
+        messageAlert.addAction(confirmMessage)
+        present(messageAlert, animated: true, completion: nil)
+    }
     
     //Actions
     
