@@ -196,9 +196,14 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
                 
                 teamLeaderboard.sortByTime()
                 cellToBeReturned.textLabel?.text = teamLeaderboard.userArray[indexPath.row].username
-                let time: Int = Int(teamLeaderboard.userArray[indexPath.row].timeRun)
-                let Minutes: Int = time / 60
-                cellToBeReturned.detailTextLabel?.text =  "\(Minutes) : \(time%60)"
+                var seconds: Int = Int(teamLeaderboard.userArray[indexPath.row].timeRun)
+                
+                var minutes: Int = seconds / 60
+                
+                var hours: Int = minutes / 60
+                seconds -= minutes * 60
+                minutes -= hours * 60
+                cellToBeReturned.detailTextLabel?.text =  "\(hours)hr:\(minutes)min:\(seconds)sec"
 
 
 
