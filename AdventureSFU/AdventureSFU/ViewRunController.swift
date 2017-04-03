@@ -39,7 +39,6 @@ class ViewRunController: UIViewController, MapViewDelegate {
     var ref: FIRDatabaseReference?
     let userID = FIRAuth.auth()?.currentUser?.uid
     var RunViewDelegate: RunViewControllerDelegate?
-  //  var keys: [String] = []
     var wpts: [Waypoint] = []
 
     
@@ -54,26 +53,14 @@ class ViewRunController: UIViewController, MapViewDelegate {
         //Updates the distance stat of the planned route.
         var tempSpeed = GlobalVariables.sharedManager.avgSpeed
         self.time = time
-        print("initial proposed time: \(self.time)")
         if (tempSpeed! > 0.0) {
-            print("made it into tempSpeed evaluation loop")
             self.time = Double((self.distance / tempSpeed!)*3600)
-            print("updated proposed time: \(self.time)")
-            let seconds = Int(time) % 60;
-            let minutes = Int(time / 60) % 60;
-            let hours = Int(time / 3600);
-            self.timeField.text = String("proposed time test")
-                //format: "H:M:S: %d:%.2d:%.2d", hours, minutes, seconds)
         }
-        else {
-                    let seconds = Int(time) % 60;
-                    let minutes = Int(time / 60) % 60;
-                    let hours = Int(time / 3600);
-            self.timeField.text = String("initial time test")
-        }
-        
-             //   format: "H:M:S: %d:%.2d:%.2d", hours, minutes, seconds)}
-                    //Updates the time stat of the planned route with the user's average speed if initialized or the Mapbox time estimate.
+        let seconds = Int(self.time) % 60;
+        let minutes = Int(self.time / 60) % 60;
+        let hours = Int(self.time / 3600);
+        self.timeField.text = String(format: "H:M:S: %d:%.2d:%.2d", hours, minutes, seconds)
+        //Updates the time stat of the planned route with the user's average speed if initialized or the Mapbox time estimate.
     
     }
     
