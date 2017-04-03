@@ -28,6 +28,7 @@
 import Foundation
 
 protocol RunViewControllerDelegate {
+    func dismissMapView()
     func deleteAllPoints()
     func handleRoute()
 }

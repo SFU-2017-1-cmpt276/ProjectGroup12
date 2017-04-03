@@ -39,13 +39,11 @@ class ViewRunController: UIViewController, MapViewDelegate {
     var ref: FIRDatabaseReference?
     let userID = FIRAuth.auth()?.currentUser?.uid
     var RunViewDelegate: RunViewControllerDelegate?
-  //  var keys: [String] = []
     var wpts: [Waypoint] = []
-    var userSpeed: Double?
-    var userTime: Double = 0.0
-    var userDistance: Double = 0.0
+
     
     @IBAction func dismissRunView(_ sender: AnyObject) {
+        self.RunViewDelegate?.dismissMapView()
         dismiss(animated: false, completion: nil)
     }
     //Functions
@@ -54,28 +52,17 @@ class ViewRunController: UIViewController, MapViewDelegate {
         self.distance = distance/1000
         distanceField.text = String(format: "Kms: %.2f", distance/1000)
         //Updates the distance stat of the planned route.
-        ref?.child("Users").child(userID!).child("totalSeconds").observeSingleEvent(of: .value, with: { (snapshot) in
-            //pull the user's name and display a welcome message
-            let timevalue = snapshot.value as? Double
-            self.userTime = timevalue!
-            self.ref?.child("Users").child(self.userID!).child("KMRun").observeSingleEvent(of: .value, with: { (snapshot) in
-                //pull the user's name and display a welcome message
-                let distancevalue = snapshot.value as? Double
-                self.userDistance = distancevalue!
-                if self.userDistance != 0 && self.userTime != 0 {
-                    self.userSpeed = self.userDistance/self.userTime
-                    self.time = self.distance * self.userSpeed!
-                } else {
-                    self.time = time
-                }
-                print("userDistance, userTime: \(self.userDistance), \(self.userTime)")
-                    let seconds = Int(time) % 60;
-                    let minutes = Int(time / 60) % 60;
-                    let hours = Int(time / 3600);
-                self.timeField.text = String(format: "H:M:S: %d:%.2d:%.2d", hours, minutes, seconds)
-                    //Updates the time stat of the planned route with the user's average speed if initialized or the Mapbox time estimate.
-            })
-        })
+        let tempSpeed = GlobalVariables.sharedManager.avgSpeed
+        self.time = time
+        if (tempSpeed! > 0.0) {
+            self.time = Double((self.distance / tempSpeed!)*3600)
+        }
+        let seconds = Int(self.time) % 60;
+        let minutes = Int(self.time / 60) % 60;
+        let hours = Int(self.time / 3600);
+        self.timeField.text = String(format: "H:M:S: %d:%.2d:%.2d", hours, minutes, seconds)
+        //Updates the time stat of the planned route with the user's average speed if initialized or the Mapbox time estimate.
+    
     }
     
     @IBAction func restoreRoute(_ sender: AnyObject) {
@@ -119,13 +106,7 @@ class ViewRunController: UIViewController, MapViewDelegate {
        // one by one, get the coordinates from the preset Route, if any, load them into GlobalVariables 
         //and call the MapUI method to add them to the map
     }
-  
-    //Actions
-    @IBAction func runToMain() {
-        performSegue(withIdentifier: "runControllerToMain", sender: self)
-        //Returns user to main page.
-    }
-    
+
     @IBAction func helpPopup(_ sender: Any) {
         let infoAlert = UIAlertController(title: "Route Plan Help", message: "On this page you can plan your route. Select a starting point and subsequent points by single tap to generate a route and get its distance and estimated travel time. Select CLEAR to start over. Select SAVE to keep this route available for when you next log in. Select RESTORE to load a saved route. Select Run! to start tracking your run!", preferredStyle: .alert)
         let agreeAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
@@ -138,7 +119,7 @@ class ViewRunController: UIViewController, MapViewDelegate {
         GlobalVariables.sharedManager.plannedWaypoints.removeAll()
         self.RunViewDelegate?.deleteAllPoints()
         distanceField.text = String(format: "Kms: %.2f", 0)
-        timeField.text = String("H:M:S: 0:0:0")
+        timeField.text = String("H:M:S: 0:00:00")
         //Resets time and distance stats to zero and prompts MapUI to delete the planned route.
     }
     
@@ -155,7 +136,7 @@ class ViewRunController: UIViewController, MapViewDelegate {
             let key = self.ref?.child("Users").child(self.userID!).child("presetRoute").childByAutoId().key
             let waypt: NSDictionary = ["lat" : wpt.coordinate.latitude,
                                        "long" : wpt.coordinate.longitude]
-            self.ref?.child("Users").child(self.userID!).child("presetRoute").updateChildValues(["/\(key)" : waypt])
+            self.ref?.child("Users").child(self.userID!).child("presetRoute").updateChildValues(["/\(String(describing: key))" : waypt])
         }
         self.submissionAlert()
         //Submits run plan to Firebase (as a list of coordinates).

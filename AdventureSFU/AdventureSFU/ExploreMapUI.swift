@@ -26,7 +26,7 @@ class ExploreMapUI: MapUI {
         target.title = exploreTitle
         MapUI.addAnnotation(target)
         MapUI.userTrackingMode = .follow
-        //Add target coordinate and user location to map.
+        MapUI.setCenter(CLLocationCoordinate2D(latitude: 49.276869, longitude: -122.919371), zoomLevel: 12, animated: false)        //Add target coordinate and user location to map.
     }
     
     override func handleSingleTap(tap: UITapGestureRecognizer) {

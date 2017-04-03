@@ -34,9 +34,15 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
     var weight: Double = 0.0
     var personalMessage: String = ""
     var team: String = "No Team"
+
+    var totalTimeInSeconds: Double = 0.0
+    var totalTimeInHours: Double = 0.0
+    var averageSpeed: Double = 0.0
+    var totalCaloriesBurned: Double = 0.0
     var timeRun: Double = 0.0
+
     var canEditUserInfo: Bool = false //used to track if the user can edit their info
-    var rowCount = 8
+    var rowCount = 11
     
   //Functions
 	
@@ -59,7 +65,7 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
         
 		}else if indexPath.row == 2{
 			celltoBeReturned.textLabel?.text = "Kilometres Run"
-			celltoBeReturned.detailTextLabel?.text = String(kilometres)
+            celltoBeReturned.detailTextLabel?.text = String(format: "%.2f", kilometres)
             
 		}else if indexPath.row == 3{
             celltoBeReturned.textLabel?.text = "height"
@@ -81,7 +87,32 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
         }else if indexPath.row == 6{
             celltoBeReturned.textLabel?.text = "team"
             celltoBeReturned.detailTextLabel?.text = team
-        } else{
+        }
+        else if indexPath.row == 7{
+            celltoBeReturned.textLabel?.text = "Total time run (H:M:S)"
+            
+            let seconds: Int = Int(totalTimeInSeconds) % 60;
+            let minutes: Int = Int(totalTimeInSeconds / 60) % 60;
+            let hours: Int = Int(totalTimeInSeconds / 3600);
+            celltoBeReturned.detailTextLabel?.text = String(format: "H:M:S: %d:%.2d:%.2d", hours, minutes, seconds)
+
+        }else if indexPath.row == 8{
+            celltoBeReturned.textLabel?.text = "Average Speed"
+            var averageSpeed: Double = 0.0
+            if (kilometres > 0) {
+                averageSpeed = kilometres / totalTimeInHours
+            } else {
+                averageSpeed = 0.0
+            }
+            celltoBeReturned.detailTextLabel?.text = String(format: "%.2f km/h", averageSpeed)
+        }else if indexPath.row == 9{
+            celltoBeReturned.textLabel?.text = "Total calories burned"
+            if (self.height>0 && self.weight>0) {
+                celltoBeReturned.detailTextLabel?.text = String(format: "%.2f", totalCaloriesBurned)
+            }else {
+                celltoBeReturned.detailTextLabel?.text = "0 counted"
+            }
+        }else{
             celltoBeReturned.textLabel?.text = ""
             celltoBeReturned.detailTextLabel?.text = ""
 
@@ -244,6 +275,8 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
             let tempWeight = value?["weight"]
             let tempPersonalMessage = value?["personalMessage"]
             let tempTeam = value?["Team"]
+            let tempTime = value?["totalSeconds"]
+            let tempCalories = value?["TotalCalories"]
             
             
 			if let actualEmail = tempEmail {
@@ -272,7 +305,13 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
             if let actualTeam = tempTeam {
                 self.team = actualTeam as! String
             }
-            
+            if let actualTime = tempTime {
+                self.totalTimeInSeconds = actualTime as! Double
+                self.totalTimeInHours = self.totalTimeInSeconds / 3600
+            }
+            if let actualCalories = tempCalories {
+                self.totalCaloriesBurned = actualCalories as! Double
+            }
 			self.userInfo.reloadData()
 			
 		})
@@ -295,7 +334,8 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     //presents a button with a explanation on how to use stats page
     @IBAction func infoButton() {
-        let infoAlert = UIAlertController(title: "Information", message: "this page displays all tracked stats. You can edit your info such as height, weight, username, and personal message by tapping the edit button and then the info you would like to edit. tap done to finish editing. You can also choose a team if you did not early. Simple tap edit and then tap the team row. this will take you the team sign up page", preferredStyle: .alert)
+        let msg = "This page displays all tracked stats. You can edit info such as height, weight, username, and personal message by tapping the edit button and then the info you would like to edit. Tap done to finish editing. You can also choose a team if you did not do so earlier. Simply tap edit and then tap the team row. This will take you the team sign up page. \n" + "\n" + "To track calories burned, weight must be entered. The formula used is cals = 0.0175 x weight in kilos x M.E.T. x minutes of activity. An M.E.T. of 6 is assumed. Actual calories burned may vary widely. Formula and M.E.T. source: https://www.hss.edu/conditions_burning-calories-with-exercise-calculating-estimated-energy-expenditure.asp"
+        let infoAlert = UIAlertController(title: "Information", message: msg, preferredStyle: .alert)
         let infoConfirm = UIAlertAction(title: "ok", style: .default, handler: nil)
         infoAlert.addAction(infoConfirm)
         present(infoAlert, animated: true, completion: nil)

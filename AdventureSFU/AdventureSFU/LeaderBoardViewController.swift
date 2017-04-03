@@ -116,7 +116,7 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
                 
                         self.ref?.child("Users").child(user).observeSingleEvent(of: .value, with: { snapshot in
                             let info = snapshot.value as? NSDictionary
-                            print("\(info)")
+                            print("\(String(describing: info))")
                             let tempUsername = info?["username"]
                             let tempKM = info?["KMRun"]
                             let tempTime = info?["totalSeconds"]
@@ -128,20 +128,20 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
                                 newUser.username = tempUsername as! String
                             } else{
                                 print("couldn't find username")
-                                print("tempUsername = \(tempUsername)")
+                                print("tempUsername = \(String(describing: tempUsername))")
                             }
                             if tempKM != nil{
                                 newUser.kmRun = tempKM as! Double
                             }else{
                                 print("couldn't find kmrun")
-                                print("tempKM = \(tempKM)")
+                                print("tempKM = \(String(describing: tempKM))")
                             }
                             
                             if tempTime != nil{
                                 newUser.timeRun = tempTime as! Double
                             }else{
                                  print("couldn't find time")
-                                print("tempTime = \(tempTime)")
+                                print("tempTime = \(String(describing: tempTime))")
                             }
                             
                             if tempMessage != nil{

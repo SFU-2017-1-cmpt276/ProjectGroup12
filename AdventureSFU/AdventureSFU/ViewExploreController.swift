@@ -173,7 +173,7 @@ class ViewExploreController: UIViewController, UITableViewDelegate, UITableViewD
                     let tempPass = value?["Password"] as! String
                     
                     let eItem = ExploreItem(title: tempTitle, hint: tempHint, lat: tempLat, long: tempLong, pass: tempPass)
-                    print("Explore Item Title: \(eItem.title)")
+                    print("Explore Item Title: \(String(describing: eItem.title))")
                     self.exploreItemArray.append(eItem)
                     print("If array loaded, then total is: \(self.exploreItemArray.count)")
                 })
