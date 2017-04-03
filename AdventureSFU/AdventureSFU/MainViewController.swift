@@ -122,11 +122,30 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func toTeamsPage() {
-        print("about to perform segue to teams")
-        performSegue(withIdentifier: "toTeams", sender: self)
+        let userID = FIRAuth.auth()?.currentUser?.uid
+        
+        ref?.child("Users").child(userID!).child("Team").observeSingleEvent(of: .value, with: { (snapshot) in
+            //pull the user's name and display a welcome message
+            let value = snapshot.value as? String
+            let team = value!
+            
+            if team == "No Team" {
+                let alert = UIAlertController(title: "You are not in a Team",
+                                              message: "Team Stats are only available for those who are in a team. If you wish access Team Stats, select a team from the Stats page.",
+                                              preferredStyle: .alert)
+                
+                let alertConfirmation = UIAlertAction(title: "ok", style: .default, handler: nil)
+                
+                alert.addAction(alertConfirmation)
+                self.present(alert, animated: true, completion: nil)
+            }
+            
+            else {
+                self.performSegue(withIdentifier: "toTeams", sender: self)
+            }
+            
+        })
     }
-   
-
     
     
 }
