@@ -70,31 +70,36 @@ class ExploreViewOneController: UIViewController {
     will receive a congratulations message. If the string is incorrect then they will receive an incorrect message */
     @IBAction func FoundButton() {
         let passwordAlert = UIAlertController(title: "But Did You Really?", message: "If you did find the explore item, it should have a password within it. Please enter that password", preferredStyle: .alert)
-        
         let congratsAlert = UIAlertController(title: "Congratulations!", message: "You really did find it!", preferredStyle: .alert)
-        
         let tryAgainAlert = UIAlertController(title: "Incorrect Password", message: "Are you just guessing?", preferredStyle: .alert)
         
-        let okayAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+        let okayTryAgainAction = UIAlertAction(title: "Ok", style: .cancel, handler: {(action) in
+            tryAgainAlert.dismiss(animated: true, completion: nil)
+        })
         let okayDismissAction = UIAlertAction(title: "Ok", style: .default, handler: {(action) in
+            congratsAlert.dismiss(animated: true, completion: nil)
             self.dismiss(animated: true, completion: nil)
         })
         congratsAlert.addAction(okayDismissAction)
-        tryAgainAlert.addAction(okayAction)
+        tryAgainAlert.addAction(okayTryAgainAction)
         
         let submitAction = UIAlertAction(title: "Submit", style: .default, handler: { (action) in
             let testField = passwordAlert.textFields![0]
             
             if testField.text == self.password {
+                passwordAlert.dismiss(animated: true, completion: nil)
                 self.present(congratsAlert, animated: true, completion: nil)
                 self.ref?.child("Users").child(self.userID!).child("ExploreItems").child(String(self.row)).setValue(1)
-                passwordAlert.dismiss(animated: true, completion: nil)
+                
             } else {
+                passwordAlert.dismiss(animated: true, completion: nil)
                 self.present(tryAgainAlert, animated: true, completion: nil)
             }
         })
         let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: { (cancel) in
             passwordAlert.dismiss(animated: true, completion: nil)
+            congratsAlert.dismiss(animated: true, completion: nil)
+            tryAgainAlert.dismiss(animated: true, completion: nil)
         })
         passwordAlert.addTextField(configurationHandler: {(passwordTextField) in
             passwordTextField.placeholder = "Enter Password Here"
