@@ -18,7 +18,7 @@
 import UIKit
 import Firebase
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, UITextFieldDelegate {
     
     //Variables
     
