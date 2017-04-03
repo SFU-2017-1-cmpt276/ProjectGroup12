@@ -16,7 +16,7 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
     
     var ref: FIRDatabaseReference?
     var team = "No Team"
-    var  userCount = 0
+    var userCount = 0
     var userKeys = [String]()
     var kmValues = [Double]()
     var timeValues = [Double]()
@@ -28,7 +28,9 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
         var timeRun: Double
         var username: String
         var userID: String
+
         var personalMessage: String
+
         
     }
     struct  userLeaderboard {
@@ -40,7 +42,7 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
             }
             for index in 0...userArray.count - 2 {
                 for innerIndex in index + 1...userArray.count - 1{
-                    if userArray[innerIndex].timeRun   > userArray[index].timeRun {
+                    if userArray[innerIndex].timeRun  > userArray[index].timeRun {
                         let tempUserStat = userArray[innerIndex]
                         userArray[innerIndex] = userArray[index]
                         userArray[index] = tempUserStat
@@ -85,7 +87,6 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
         super.viewDidLoad()
         let userID = FIRAuth.auth()?.currentUser?.uid
         ref = FIRDatabase.database().reference()
-        print("THIS IS LOAD PAGE")
         
         ref?.child("Users").child(userID!).child("Team").observeSingleEvent(of: .value, with: { (snapshot) in
             //get what team the user is part of so we can get the correct data from firbase
@@ -99,10 +100,8 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
             print("pulling users for team: \(self.team)")
             
             self.ref?.child("Teams").child(self.team).observeSingleEvent(of: .value, with: { snapshot in
-                //print("calling database in viewLoader")
                 let enumerator = snapshot.children
                 while let rest = enumerator.nextObject() as? FIRDataSnapshot {
-                    print("rest is \(rest)")
                     if rest.hasChildren(){
                         self.userKeys.append(rest.key)
                         //if a user was added update usercount
@@ -116,7 +115,6 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
                     var newUser = userStats(kmRun: -1, timeRun: -1, username: "empty", userID: user, personalMessage: "")
                 
                         self.ref?.child("Users").child(user).observeSingleEvent(of: .value, with: { snapshot in
-                           // print("calling database in viewLoader")
                             let info = snapshot.value as? NSDictionary
                             print("\(info)")
                             let tempUsername = info?["username"]
@@ -190,8 +188,6 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
         
         ref = FIRDatabase.database().reference()
         
-        print("THIS IS IT \(userKeys.count)")
-        
        
         if usersPopulated{
             
@@ -206,6 +202,7 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
                 
                 teamLeaderboard.sortByTime()
                 cellToBeReturned.textLabel?.text = teamLeaderboard.userArray[indexPath.row].username
+
                 var seconds: Int = Int(teamLeaderboard.userArray[indexPath.row].timeRun)
                 
                 var minutes: Int = seconds / 60
@@ -214,6 +211,7 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
                 seconds -= minutes * 60
                 minutes -= hours * 60
                 cellToBeReturned.detailTextLabel?.text =  "\(hours)hr:\(minutes)min:\(seconds)sec"
+
 
 
 
@@ -243,6 +241,9 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
     
     @IBAction func BackButton(){
         dismiss(animated: true, completion: nil)
+    }
+    @IBAction func ToAllTeams(_ sender: UIButton) {
+        performSegue(withIdentifier: "toAllTeams", sender: self )
     }
     
     @IBAction func SwitchOrder(_ sender: UISegmentedControl) {
