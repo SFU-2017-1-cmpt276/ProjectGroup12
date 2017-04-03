@@ -72,6 +72,27 @@ class MainViewController: UIViewController {
             GlobalVariables.sharedManager.weight = weight
             
         }) //loading this variable now to reduce delay when calories burned is calculated
+     
+        ref?.child("Users").child(userID!).child("totalSeconds").observeSingleEvent(of: .value, with: { (snapshot) in
+            //pull the user's name and display a welcome message
+            let timevalue = snapshot.value as? Double
+            let time = timevalue!
+            self.ref?.child("Users").child(userID!).child("KMRun").observeSingleEvent(of: .value, with: { (snapshot) in
+                //pull the user's name and display a welcome message
+                let distancevalue = snapshot.value as? Double
+                let distance = distancevalue!
+            
+                if (distance > 0.0 && time > 0.0) {
+                    let avgSpeed = distance / (Double(time / 3600.0))
+                    if (avgSpeed > 0.0) {
+                        GlobalVariables.sharedManager.avgSpeed = avgSpeed
+                    }
+                }
+
+                //Updates the time stat of the planned route with the user's average speed if initialized or the Mapbox time estimate.
+            })
+        })//loading to prevent conflicts due to asynchronicity in firebase methods in planned route time estimation
+        
         
     }
     

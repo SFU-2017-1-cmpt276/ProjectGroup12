@@ -41,9 +41,7 @@ class ViewRunController: UIViewController, MapViewDelegate {
     var RunViewDelegate: RunViewControllerDelegate?
   //  var keys: [String] = []
     var wpts: [Waypoint] = []
-    var userSpeed: Double?
-    var userTime: Double = 0.0
-    var userDistance: Double = 0.0
+
     
     @IBAction func dismissRunView(_ sender: AnyObject) {
         dismiss(animated: false, completion: nil)
@@ -54,28 +52,29 @@ class ViewRunController: UIViewController, MapViewDelegate {
         self.distance = distance/1000
         distanceField.text = String(format: "Kms: %.2f", distance/1000)
         //Updates the distance stat of the planned route.
-        ref?.child("Users").child(userID!).child("totalSeconds").observeSingleEvent(of: .value, with: { (snapshot) in
-            //pull the user's name and display a welcome message
-            let timevalue = snapshot.value as? Double
-            self.userTime = timevalue!
-            self.ref?.child("Users").child(self.userID!).child("KMRun").observeSingleEvent(of: .value, with: { (snapshot) in
-                //pull the user's name and display a welcome message
-                let distancevalue = snapshot.value as? Double
-                self.userDistance = distancevalue!
-                if self.userDistance != 0 && self.userTime != 0 {
-                    self.userSpeed = self.userDistance/self.userTime
-                    self.time = self.distance * self.userSpeed!
-                } else {
-                    self.time = time
-                }
-                print("userDistance, userTime: \(self.userDistance), \(self.userTime)")
+        var tempSpeed = GlobalVariables.sharedManager.avgSpeed
+        self.time = time
+        print("initial proposed time: \(self.time)")
+        if (tempSpeed! > 0.0) {
+            print("made it into tempSpeed evaluation loop")
+            self.time = Double((self.distance / tempSpeed!)*3600)
+            print("updated proposed time: \(self.time)")
+            let seconds = Int(time) % 60;
+            let minutes = Int(time / 60) % 60;
+            let hours = Int(time / 3600);
+            self.timeField.text = String("proposed time test")
+                //format: "H:M:S: %d:%.2d:%.2d", hours, minutes, seconds)
+        }
+        else {
                     let seconds = Int(time) % 60;
                     let minutes = Int(time / 60) % 60;
                     let hours = Int(time / 3600);
-                self.timeField.text = String(format: "H:M:S: %d:%.2d:%.2d", hours, minutes, seconds)
+            self.timeField.text = String("initial time test")
+        }
+        
+             //   format: "H:M:S: %d:%.2d:%.2d", hours, minutes, seconds)}
                     //Updates the time stat of the planned route with the user's average speed if initialized or the Mapbox time estimate.
-            })
-        })
+    
     }
     
     @IBAction func restoreRoute(_ sender: AnyObject) {
