@@ -27,7 +27,7 @@
 
 import Foundation
 
-protocol RunViewControllerDelegate {
+protocol RunViewControllerDelegate: NSObjectProtocol {
     func dismissMapView()
     func deleteAllPoints()
     func handleRoute()

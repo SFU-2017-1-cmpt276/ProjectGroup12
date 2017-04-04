@@ -38,7 +38,7 @@ class ViewRunController: UIViewController, MapViewDelegate {
     var distance: Double = 0
     var ref: FIRDatabaseReference?
     let userID = FIRAuth.auth()?.currentUser?.uid
-    var RunViewDelegate: RunViewControllerDelegate?
+    weak var RunViewDelegate: RunViewControllerDelegate?
     var wpts: [Waypoint] = []
 
     

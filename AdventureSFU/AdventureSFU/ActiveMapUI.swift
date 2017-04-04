@@ -22,7 +22,7 @@ import Firebase
 
 class ActiveMapUI: MapUI, ActiveRunControllerDelegate {
 
-    var activeDelegate: ActiveMapViewDelegate?
+    weak var activeDelegate: ActiveMapViewDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
