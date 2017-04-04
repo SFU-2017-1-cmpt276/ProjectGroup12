@@ -17,6 +17,7 @@
 //
 import UIKit
 import Firebase
+import Mapbox
 
 class MainViewController: UIViewController, UITextFieldDelegate {
     
@@ -27,7 +28,6 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var welcomeUserLabel: UILabel!
     let defaultWIPMessage = "This module is still in development!"
-    
     
     //Functions
     //Load Actions
@@ -42,6 +42,8 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         // get the uid for the logged in user
         let userID = FIRAuth.auth()?.currentUser?.uid
         GlobalVariables.sharedManager.userID = userID
+        GlobalVariables.sharedManager.mapView = MGLMapView(frame: view.bounds, styleURL: MGLStyle.outdoorsStyleURL(withVersion: 9))
+
         //and get a reference to the database
         ref = FIRDatabase.database().reference()
         GlobalVariables.sharedManager.ref = ref
