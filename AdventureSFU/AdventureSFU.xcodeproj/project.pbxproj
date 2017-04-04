@@ -22,6 +22,7 @@
 		9E1B86B01E691C08006C0E61 /* AdventureSFUUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1B86AF1E691C08006C0E61 /* AdventureSFUUITests.swift */; };
 		9E1B86C01E691C39006C0E61 /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1B86BE1E691C39006C0E61 /* test.swift */; };
 		9E24DA001E6B8E290093D4D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E24D9FE1E6B8E290093D4D1 /* Main.storyboard */; };
+		9E7B73411E933E0C0026342A /* SignUpUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7B73401E933E0C0026342A /* SignUpUITest.swift */; };
 		9E7F20C31E8DFDE100B7E5ED /* LeaderBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7F20C21E8DFDE100B7E5ED /* LeaderBoardViewController.swift */; };
 		9E8C65F21E6B77BC0090CEDA /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8C65F11E6B77BC0090CEDA /* StatsViewController.swift */; };
 		9E9CFCC51E6A1571006A4E1D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9CFCC41E6A1571006A4E1D /* MainViewController.swift */; };
@@ -106,6 +107,7 @@
 		9E1B86B11E691C08006C0E61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E1B86BE1E691C39006C0E61 /* test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 		9E24D9FF1E6B8E290093D4D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		9E7B73401E933E0C0026342A /* SignUpUITest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpUITest.swift; sourceTree = "<group>"; };
 		9E7F20C21E8DFDE100B7E5ED /* LeaderBoardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderBoardViewController.swift; sourceTree = "<group>"; };
 		9E8C65F11E6B77BC0090CEDA /* StatsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		9E9CFCC41E6A1571006A4E1D /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 		9E1B86AE1E691C08006C0E61 /* AdventureSFUUITests */ = {
 			isa = PBXGroup;
 			children = (
+				9E7B73401E933E0C0026342A /* SignUpUITest.swift */,
 				9E1B86AF1E691C08006C0E61 /* AdventureSFUUITests.swift */,
 				9E1B86B11E691C08006C0E61 /* Info.plist */,
 			);
@@ -597,6 +600,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E1B86B01E691C08006C0E61 /* AdventureSFUUITests.swift in Sources */,
+				9E7B73411E933E0C0026342A /* SignUpUITest.swift in Sources */,
 				C9181C1D1E8DBB28007C3732 /* AdventureSFUDataModel.xcdatamodeld in Sources */,
 				C9181C181E8DBAE1007C3732 /* DataController.swift in Sources */,
 			);

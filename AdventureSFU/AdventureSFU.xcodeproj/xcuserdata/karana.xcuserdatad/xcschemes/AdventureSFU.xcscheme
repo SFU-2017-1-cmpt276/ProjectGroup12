@@ -47,6 +47,11 @@
                BlueprintName = "AdventureSFUUITests"
                ReferencedContainer = "container:AdventureSFU.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "SignUpUITests">
+               </Test>
+            </SkippedTests>
          </TestableReference>
          <TestableReference
             skipped = "NO">
