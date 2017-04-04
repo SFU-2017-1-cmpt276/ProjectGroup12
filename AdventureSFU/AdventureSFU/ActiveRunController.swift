@@ -23,7 +23,7 @@ import CoreLocation
 class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationManagerDelegate {
     var locationManager:CLLocationManager!
     var actualWaypointNumber: Int = 0
-    var activeDelegate: ActiveRunControllerDelegate?
+    weak var activeDelegate: ActiveRunControllerDelegate?
     var actualWaypoints: [Waypoint] = []
     let calendar = Calendar.current
     var actualTotalDistance: Double = 0

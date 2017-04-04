@@ -18,7 +18,7 @@
 
 import Foundation
 
-protocol ActiveRunControllerDelegate {
+protocol ActiveRunControllerDelegate: NSObjectProtocol {
     
     func appendToDrawnRoute() //updates user-route polyline.
     

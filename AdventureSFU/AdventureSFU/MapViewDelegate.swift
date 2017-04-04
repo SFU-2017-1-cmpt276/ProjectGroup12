@@ -16,9 +16,9 @@
 //
 
 import UIKit
-import Mapbox
-import MapboxDirections
-protocol MapViewDelegate {
+//import Mapbox
+//import MapboxDirections
+protocol MapViewDelegate: NSObjectProtocol {
 	
 	//func getTime(time: Double)
     func getDistanceAndTime(distance: Double, time: Double)
