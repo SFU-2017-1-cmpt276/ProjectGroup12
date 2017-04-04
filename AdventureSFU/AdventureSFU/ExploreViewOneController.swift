@@ -31,7 +31,7 @@ class ExploreViewOneController: UIViewController {
     var mapLong:Double = 0.0
     var password:String = ""
     var row:Int = 0
-    weak var ref: FIRDatabaseReference?
+    var ref: FIRDatabaseReference?
     var userID = FIRAuth.auth()?.currentUser?.uid
     
 //Functions
@@ -76,9 +76,10 @@ class ExploreViewOneController: UIViewController {
         let okayTryAgainAction = UIAlertAction(title: "Ok", style: .cancel, handler: {(action) in
             tryAgainAlert.dismiss(animated: true, completion: nil)
         })
-        let okayDismissAction = UIAlertAction(title: "Ok", style: .default, handler: {(action) in
-            congratsAlert.dismiss(animated: true, completion: nil)
-            //self.dismiss(animated: true, completion: nil)
+        let okayDismissAction = UIAlertAction(title: "Ok", style: .default, handler: { [unowned self] (action) in
+			
+			congratsAlert.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
         })
         congratsAlert.addAction(okayDismissAction)
         tryAgainAlert.addAction(okayTryAgainAction)
