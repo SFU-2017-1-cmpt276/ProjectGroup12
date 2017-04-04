@@ -31,8 +31,8 @@ class ExploreViewOneController: UIViewController {
     var mapLong:Double = 0.0
     var password:String = ""
     var row:Int = 0
-    var ref: FIRDatabaseReference?
-    let userID = FIRAuth.auth()?.currentUser?.uid
+    weak var ref: FIRDatabaseReference?
+    var userID = FIRAuth.auth()?.currentUser?.uid
     
 //Functions
     
@@ -78,15 +78,16 @@ class ExploreViewOneController: UIViewController {
         })
         let okayDismissAction = UIAlertAction(title: "Ok", style: .default, handler: {(action) in
             congratsAlert.dismiss(animated: true, completion: nil)
-            self.dismiss(animated: true, completion: nil)
+            //self.dismiss(animated: true, completion: nil)
         })
         congratsAlert.addAction(okayDismissAction)
         tryAgainAlert.addAction(okayTryAgainAction)
         
-        let submitAction = UIAlertAction(title: "Submit", style: .default, handler: { (action) in
-            let testField = passwordAlert.textFields![0]
+        let submitAction = UIAlertAction(title: "Submit", style: .default, handler: { [unowned self] (action) in
+        
+            let textField = passwordAlert.textFields![0]
             
-            if testField.text == self.password {
+            if textField.text == self.password {
                 passwordAlert.dismiss(animated: true, completion: nil)
                 self.present(congratsAlert, animated: true, completion: nil)
                 self.ref?.child("Users").child(self.userID!).child("ExploreItems").child(String(self.row)).setValue(1)
@@ -96,6 +97,8 @@ class ExploreViewOneController: UIViewController {
                 self.present(tryAgainAlert, animated: true, completion: nil)
             }
         })
+        
+      
         let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: { (cancel) in
             passwordAlert.dismiss(animated: true, completion: nil)
             congratsAlert.dismiss(animated: true, completion: nil)
@@ -108,7 +111,8 @@ class ExploreViewOneController: UIViewController {
         passwordAlert.addAction(cancelAction)
             
         self.present(passwordAlert, animated: true, completion: nil)
-    }
+        }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "embeddedExploreMap" {
@@ -119,11 +123,11 @@ class ExploreViewOneController: UIViewController {
             childViewController?.exploreTitle = self.exploreTitle
 
             
-            //Define self as delegate for embedded ActiveMapUI.
-            //Define embedded ActiveMapUI as delegate for self.
-            
         }
         
+    }
+    deinit {
+        print("searchable deinitializing exploreviewonecontroller")
     }
 
 }
