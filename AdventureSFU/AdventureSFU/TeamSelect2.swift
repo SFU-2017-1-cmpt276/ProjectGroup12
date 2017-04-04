@@ -135,7 +135,7 @@ class TeamSelect2: UIViewController {
       //Selects team Bear
         
         
-    let userID = FIRAuth.auth()?.currentUser?.uid
+        let userID = FIRAuth.auth()?.currentUser?.uid
      
      
         self.ref?.child("Users").child(userID!).child("Team").setValue("Bears")

@@ -31,6 +31,7 @@ class AdventureSFUUITests: XCTestCase {
     
     override func tearDown() {
         super.tearDown()
+        app = nil
     }
     
     func testLoginSuccess(){
@@ -68,5 +69,23 @@ class AdventureSFUUITests: XCTestCase {
         app.buttons["Sign In"].tap()
         let loginFail = app.alerts["Login Failed!"]
         XCTAssertTrue(loginFail.exists)
+    }
+    
+    func testLoginNonExistantEmail(){
+        
+        let app = XCUIApplication()
+        let addressComTextField = app.textFields["@address.com"]
+        addressComTextField.tap()
+        addressComTextField.typeText("sdkjlf@sas")
+        
+        let passwordSecureTextField = app.secureTextFields["Password"]
+        passwordSecureTextField.tap()
+        passwordSecureTextField.typeText("a123456")
+        app.buttons["Sign In"].tap()
+        
+        let loginFailedAlert = app.alerts["Login Failed!"]
+        let noUser = loginFailedAlert.staticTexts["There is no user record corresponding to this identifier. The user may have been deleted."]
+        //loginFailedAlert.buttons["Ok"].tap()
+        XCTAssertTrue(noUser.exists)
     }
 }
