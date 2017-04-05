@@ -12,7 +12,7 @@
 //	Programmers: Karan Aujla, Carlos Abaffy, Eleanor Lewis, Chris Norris-Jones
 //
 //	Known Bugs:
-//	Todo: - remove unused vars
+//	Todo:
 //
 
 
@@ -23,6 +23,7 @@ import MapboxDirections
 
 class GlobalVariables {
     
+    //struct describing single explore item
     struct ExploreItem {
         var id : Int?
         var title : String?
@@ -32,6 +33,7 @@ class GlobalVariables {
         var pass : String?
     }
     
+    //Variables
     var exploreItemArray = [ExploreItem]()
     var actualWaypoints: [Waypoint] = []
     var waypoints: [Waypoint] = []
@@ -42,7 +44,6 @@ class GlobalVariables {
     var plannedWaypoints: [Waypoint] = []
     var avgSpeed: Double? //use only for calculating speed in planned routes
     var weight: Double = 0.0
-
     var mapView: MGLMapView?
     
     class var sharedManager: GlobalVariables {
