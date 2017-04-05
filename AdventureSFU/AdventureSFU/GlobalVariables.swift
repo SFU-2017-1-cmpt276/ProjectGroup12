@@ -46,9 +46,6 @@ class GlobalVariables {
     var weight: Double = 0.0
 
     var mapView: MGLMapView?
-
-    var ref: FIRDatabaseReference?
-    var userID: String?
     
     class var sharedManager: GlobalVariables {
         struct Static {

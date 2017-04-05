@@ -131,54 +131,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AdventureSFU/GlobalVariables.swift"
-            timestampString = "511579205.58703"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "23"
-            endingLineNumber = "23"
-            landmarkName = "GlobalVariables"
-            landmarkType = "3">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "AdventureSFU.GlobalVariables.plannedWaypoints.setter : Swift.Array&lt;MapboxDirections.Waypoint&gt;"
-                  moduleName = "AdventureSFU"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ela50/CMPT276/test/AdventureSFU/AdventureSFU/GlobalVariables.swift"
-                  timestampString = "511579357.811214"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "23"
-                  endingLineNumber = "23"
-                  offsetFromSymbolStart = "54">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "AdventureSFU.GlobalVariables.init () -&gt; AdventureSFU.GlobalVariables"
-                  moduleName = "AdventureSFU"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ela50/CMPT276/test/AdventureSFU/AdventureSFU/GlobalVariables.swift"
-                  timestampString = "511579357.813092"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "23"
-                  endingLineNumber = "23"
-                  offsetFromSymbolStart = "206">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "AdventureSFU/ExploreMapUI.swift"
             timestampString = "512880002.021209"
             startingColumnNumber = "9223372036854775807"
