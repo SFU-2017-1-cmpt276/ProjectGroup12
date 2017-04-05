@@ -84,6 +84,8 @@ class MainViewController: UIViewController, UITextFieldDelegate, MGLMapViewDeleg
                     if (avgSpeed > 0.0) {
                         GlobalVariables.sharedManager.avgSpeed = avgSpeed
                     }
+                } else {
+                    GlobalVariables.sharedManager.avgSpeed = 0.0
                 }
             })
         })//loading user total KM and distance to calculate average speed for later use
