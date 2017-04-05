@@ -11,15 +11,7 @@
 //	ViewRunController - A page where users can check out the trails map and plan a route.
 //	Programmers: Karan Aujla, Carlos Abaffy, Eleanor Lewis, Chris Norris-Jones
 //
-//	Known Bugs:	-Route limit set to 25 waypoints currently, then assertion called and app crashes, need better method for either setting a limit or increasing number of waypoints without potentially introducing any stability issues
-//
-//              -Map sometimes will not load if info button is clicked first
-//	Todo:   -Further functionality with regards to run details, user's ability to create run
-//			-Further run details information upon creating run
-//          -'Delete last point' function
-//          -Choose speed
-//			-In larger phone sizes, 'Save' and 'Clear' buttons conflict
-
+//	Known Bugs:	memory leak ~5 mb per page view
 //
 
 import UIKit
@@ -46,6 +38,7 @@ class ViewRunController: UIViewController, MapViewDelegate {
         self.distance = distance/1000
         distanceField.text = String(format: "Kms: %.2f", distance/1000)
         //Updates the distance stat of the planned route.
+
         let tempSpeed = GlobalVariables.sharedManager.avgSpeed
         self.time = time
         if (tempSpeed! > 0.0) {
@@ -56,7 +49,6 @@ class ViewRunController: UIViewController, MapViewDelegate {
         let hours = Int(self.time / 3600);
         self.timeField.text = String(format: "H:M:S: %d:%.2d:%.2d", hours, minutes, seconds)
         //Updates the time stat of the planned route with the user's average speed if initialized or the Mapbox time estimate.
-    
     }
     
     func maxPointsAlert() {

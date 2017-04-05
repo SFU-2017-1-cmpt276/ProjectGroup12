@@ -11,7 +11,7 @@
 //	MapUI - The signup screen that alows users to create their account
 //	Programmers: Karan Aujla, Carlos Abaffy, Eleanor Lewis, Chris Norris-Jones
 //
-//	Known Bugs:
+//	Known Bugs: memory leak ~ 5mb per page view
 //	Todo:
 
 import UIKit
@@ -26,13 +26,9 @@ class MapUI: UIViewController, RunViewControllerDelegate, MGLMapViewDelegate {
     
     //Variables
     weak var delegate: MapViewDelegate?
-    var coordinates: [CLLocationCoordinate2D] = []
-    var waypoints: [Waypoint] = []
-    var directions = Directions.shared;
-    var preselectedRoute: Route?
+    var directions = Directions.shared
     var names: Int = 0
     var start = MGLPointAnnotation()
-    var preselectedWaypoints: [Waypoint] = []
     var ref: FIRDatabaseReference?
     let userID = FIRAuth.auth()?.currentUser?.uid
  
@@ -40,15 +36,7 @@ class MapUI: UIViewController, RunViewControllerDelegate, MGLMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = FIRDatabase.database().reference()
-        let hasRoute = String(describing: ref?.child("Users").child(userID!).child("hasPlannedRoute"))
-        if hasRoute=="true" {
-            //load route from Firebase
-        }
-        
         //load map and draw planned route
-    
-        MapUI = GlobalVariables.sharedManager.mapView
-      
         
         MapUI = MGLMapView(frame: view.bounds, styleURL: MGLStyle.outdoorsStyleURL(withVersion: 9))
         MapUI.delegate = self
@@ -81,7 +69,7 @@ class MapUI: UIViewController, RunViewControllerDelegate, MGLMapViewDelegate {
             MapUI.removeAnnotations(MapUI.annotations!)
             // remove drawn route so new route can be drawn
         }
-        //Deletes a planned route.
+        //Deletes local copy of planned route.
     }
     
     
@@ -129,7 +117,6 @@ class MapUI: UIViewController, RunViewControllerDelegate, MGLMapViewDelegate {
     }
 
     func drawRoute(route: Route) {
-        print("expectedtraveltime: \(route.expectedTravelTime)")
         //passes time and distance to containing view for display to user.
         self.delegate?.getDistanceAndTime(distance: route.distance, time: route.expectedTravelTime)
         var routeCoordinates = route.coordinates!
@@ -140,7 +127,6 @@ class MapUI: UIViewController, RunViewControllerDelegate, MGLMapViewDelegate {
     
     
     func dismissMapView() {
-        
         dismiss(animated: false, completion: nil)
     }
     
