@@ -28,7 +28,7 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
     let calendar = Calendar.current
     var actualTotalDistance: Double = 0
     var tracking: Bool = true
-
+    
     
     override func getDistanceAndTime(distance: Double, time: Double) {
         //prevents this inherited function from doing anything.
@@ -139,66 +139,80 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
         let formattedDistance = String(format: "Kms: %.2f", GlobalVariables.sharedManager.distanceThisRun/1000)
         let weight: Double = GlobalVariables.sharedManager.weight / 2.2
 
-        let calsBurned: Double = Double(0.0175 * weight * 6*(Double(time/60))) //whole thing multiplied by 10000000 for easier testing by sedentary programmers. formula source: www .hss.edu/conditions_burning-calories-with-exercise-calculating-estimated-energy-expenditure.asp
+        let calsBurned: Double = Double(0.0175 * weight * 6*(Double(time/60))) //formula source: www .hss.edu/conditions_burning-calories-with-exercise-calculating-estimated-energy-expenditure.asp
         print("searchable calsBurned: \(calsBurned)")
         let formattedCalsBurned = String(format: "Approximate calories burned: %0.f", calsBurned)
         let infoAlert = UIAlertController(title: "Stats for this run:", message: "\(formattedDistance) \(formattedTime), \(formattedCalsBurned)", preferredStyle: .alert)
         let agreeAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
         infoAlert.addAction(agreeAction)
         self.present(infoAlert, animated: true, completion: nil)
-        
-        super.ref?.child("Users").child(super.userID!).child("Team").observeSingleEvent(of: .value, with: { (snapshot) in
+     
+        self.ref?.child("Users").child(self.userID!).child("Team").observeSingleEvent(of: .value, with: { [unowned self] (snapshot) in
                 let tempTeam = snapshot.value as? String
                 if let team = tempTeam {
-                super.ref?.child("Users").child(super.userID!).child("totalSeconds").observeSingleEvent(of: .value, with: { (snapshot) in
+                    
+                    
+                    
+                    
+                self.ref?.child("Users").child(self.userID!).child("totalSeconds").observeSingleEvent(of: .value, with: { [unowned self] (snapshot) in
                     let tempTotalTime = snapshot.value as? TimeInterval
                     if var totalTime = tempTotalTime {
                         totalTime = tempTotalTime! + (GlobalVariables.sharedManager.elapsedTimeThisRun! as Double)
-                        super.ref?.child("Users").child(super.userID!).child("totalSeconds").setValue(totalTime as Double!)
-                        super.ref?.child("Teams").child(team).child("Totaltime").observeSingleEvent(of: .value, with: { (snapshot) in
+                        self.ref?.child("Users").child(self.userID!).child("totalSeconds").setValue(totalTime as Double!)
+                        self.ref?.child("Teams").child(team).child("Totaltime").observeSingleEvent(of: .value, with: { (snapshot) in
                             let tempTotaltimeT = snapshot.value as? Double
                             if var totaltimeT = tempTotaltimeT {
                                 totaltimeT = totaltimeT + (GlobalVariables.sharedManager.elapsedTimeThisRun! as Double)
-                                super.ref?.child("Teams").child(team).child("Totaltime").setValue(totaltimeT)
+                                self.ref?.child("Teams").child(team).child("Totaltime").setValue(totaltimeT)
                                 GlobalVariables.sharedManager.elapsedTimeThisRun = 0
                             }
                         })
                     }
                 })
-                    
-                var tempTotalKm: Double?
-                super.ref?.child("Users").child(super.userID!).child("KMRun").observeSingleEvent(of: .value, with: { (snapshot) in
-                tempTotalKm = snapshot.value as? Double
-                if var totalKm = tempTotalKm {
-                    totalKm = self.actualTotalDistance/1000 + tempTotalKm!
-                    let kmUpdate = self.actualTotalDistance/1000
-                    super.ref?.child("Users").child(super.userID!).child("KMRun").setValue(totalKm)
-                        super.ref?.child("Teams").child(team).child("TotalKm").observeSingleEvent(of: .value, with: { (snapshot) in
-                            let tempTotalKmT = snapshot.value as? Double
-                            if var totalKmT = tempTotalKmT {
-                                totalKmT = totalKmT + kmUpdate
-                                super.ref?.child("Teams").child(team).child("TotalKm").setValue(totalKmT)
-                            }
-                        })
-                        super.ref?.child("Users").child(super.userID!).observe(FIRDataEventType.value, with: { (snapshot) in
-                            if let data = snapshot.value as? [String : AnyObject] {
-                                super.ref?.child("Teams").child(team).child(super.userID!).setValue(data)
+                self.ref?.child("Users").child(self.userID!).child("KMRun").observeSingleEvent(of: .value, with: { [unowned self] (snapshot) in
+                    let tempTotalDistance = snapshot.value as? TimeInterval
+                    if var totalKM = tempTotalDistance {
+                        totalKM = tempTotalDistance! + (self.actualTotalDistance as Double)
+                        self.ref?.child("Users").child(self.userID!).child("KMRun").setValue(totalKM as Double!)
+                        self.ref?.child("Teams").child(team).child("Totalkm").observeSingleEvent(of: .value, with: { (snapshot) in
+                            let tempTotalDistanceT = snapshot.value as? Double
+                            if var totalkmT = tempTotalDistanceT {
+                                totalkmT = totalkmT + (self.actualTotalDistance as Double)
+                                self.ref?.child("Teams").child(team).child("Totalkm").setValue(totalkmT)
                                 self.actualTotalDistance = 0
                             }
                         })
                     }
                 })
+
+                    
+                    
+                    
                     
                 var tempTotalCals: Double?
-            super.ref?.child("Users").child(super.userID!).child("TotalCalories").observeSingleEvent(of: .value, with: { (snapshot) in
+            self.ref?.child("Users").child(self.userID!).child("TotalCalories").observeSingleEvent(of: .value, with: { (snapshot) in
                         
                     tempTotalCals = snapshot.value as? Double
                     if var totalCals = tempTotalCals {
                         totalCals = tempTotalCals! + calsBurned
-                        super.ref?.child("Users").child(super.userID!).child("TotalCalories").setValue(totalCals as Double!)
+                        self.ref?.child("Users").child(self.userID!).child("TotalCalories").setValue(totalCals as Double!)
                     }
             })
+            
+            
+            
+            
+            
+            
+            
+            
             }
+            
+            
+            
+            
+            
+            
         })
     }
 }

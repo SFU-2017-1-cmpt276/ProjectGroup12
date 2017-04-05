@@ -96,26 +96,7 @@ GlobalVariables.sharedManager.mapView = self.mapView
             })
         })//loading to prevent conflicts due to asynchronicity in firebase methods in planned route time estimation
         
-        //Setup offline pack notification handlers.
-        
-        let infoAlert = UIAlertController(title: "Offline Map Option", message: "Download map resources for offline use?", preferredStyle: .alert)
-        
-        let rejectAction = UIAlertAction(title: "No", style: .default, handler: nil)
-        
-        let agreeAction = UIAlertAction(title: "Yes", style: .default, handler: { [unowned self] (action) in
-            
-            NotificationCenter.default.addObserver(self, selector: #selector(self.offlinePackProgressDidChange), name: NSNotification.Name.MGLOfflinePackProgressChanged, object: nil)
-            NotificationCenter.default.addObserver(self, selector: #selector(self.offlinePackDidReceiveError), name: NSNotification.Name.MGLOfflinePackError, object: nil)
-            NotificationCenter.default.addObserver(self, selector: #selector(self.offlinePackDidReceiveMaximumAllowedMapboxTiles), name: NSNotification.Name.MGLOfflinePackMaximumMapboxTilesReached, object: nil)
-            self.mapViewDidFinishLoadingMap(self.mapView!)
-            })
-        
-        
-        infoAlert.addAction(rejectAction)
-        infoAlert.addAction(agreeAction)
-        self.present(infoAlert, animated: true, completion: nil)
-        
-        
+
         
     }
     
@@ -144,6 +125,21 @@ GlobalVariables.sharedManager.mapView = self.mapView
         performSegue(withIdentifier: "mainToExplore", sender: self)
     }
     
+    @IBAction func loadOfflineMap(_ sender: AnyObject) {
+        
+  
+            
+            NotificationCenter.default.addObserver(self, selector: #selector(self.offlinePackProgressDidChange), name: NSNotification.Name.MGLOfflinePackProgressChanged, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(self.offlinePackDidReceiveError), name: NSNotification.Name.MGLOfflinePackError, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(self.offlinePackDidReceiveMaximumAllowedMapboxTiles), name: NSNotification.Name.MGLOfflinePackMaximumMapboxTilesReached, object: nil)
+            self.mapViewDidFinishLoadingMap(self.mapView!)
+    }
+
+       
+        
+        
+        
+
     @IBAction func toTeamsPage() {
         let userID = FIRAuth.auth()?.currentUser?.uid
         
