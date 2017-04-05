@@ -11,7 +11,7 @@
 //	Programmers: Karan Aujla, Carlos Abaffy, Eleanor Lewis, Chris Norris-Jones
 //
 //	Known Bugs:
-//	Todo: //
+//	Todo: 
 
 
 import UIKit
@@ -21,8 +21,11 @@ import Firebase
 
 class ActiveMapUI: MapUI, ActiveRunControllerDelegate {
 
+    //Variables
     weak var activeDelegate: ActiveMapViewDelegate?
 
+    
+    //Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         if (GlobalVariables.sharedManager.plannedWaypoints.count > 0) {

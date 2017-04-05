@@ -40,18 +40,16 @@ class ViewController: UIViewController, UITextFieldDelegate {
 //Load Actions
     override func viewDidLoad() {
         super.viewDidLoad()
-		
 		ref = FIRDatabase.database().reference()
-		
     }
     
     override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-       
+        super.didReceiveMemoryWarning()       
     }
 	
 //Actions
 	
+    //login to app
 	@IBAction func loginAction(_ sender: AnyObject) {
 		//If fields aren't entered, throw a warning
 		if self.emailField.text == "" || self.passwordField.text == "" {
@@ -77,6 +75,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
 		}
 	}
 	
+    //navigate to account creation page
 	@IBAction func createAccount() {
 		performSegue(withIdentifier: "signInToAccountCreation", sender: self)
 	}

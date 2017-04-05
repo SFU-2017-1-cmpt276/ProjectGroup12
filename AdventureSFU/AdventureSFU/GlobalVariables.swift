@@ -12,7 +12,7 @@
 //	Programmers: Karan Aujla, Carlos Abaffy, Eleanor Lewis, Chris Norris-Jones
 //
 //	Known Bugs:
-//	Todo: - remove unused vars
+//	Todo:
 //
 
 

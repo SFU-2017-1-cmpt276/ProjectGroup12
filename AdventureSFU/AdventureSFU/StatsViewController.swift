@@ -106,13 +106,11 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
                 celltoBeReturned.detailTextLabel?.text = String(format: "%.2f", totalCaloriesBurned)
             }else {
                 celltoBeReturned.detailTextLabel?.text = "0 counted"
-                
             }
         }
         else{
             celltoBeReturned.textLabel?.text = ""
             celltoBeReturned.detailTextLabel?.text = ""
-            
         }
         return celltoBeReturned //Loads cells with their info
     }
@@ -297,8 +295,8 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
 		}) //Load page and get info from Firebase
     }
     
+    //make sure the user data is updated
     override func viewDidAppear(_ animated: Bool) {
-        //make sure the user data is updated
         self.userInfo.reloadData()
     }
 

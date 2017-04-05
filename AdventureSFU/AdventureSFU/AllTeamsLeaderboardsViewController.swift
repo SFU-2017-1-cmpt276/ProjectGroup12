@@ -1,9 +1,13 @@
 //
 //  AllTeamsLeaderboardsViewController.swift
 //  AdventureSFU
+//	Created for SFU CMPT 276, Instructor Herbert H. Tsang, P.Eng., Ph.D.
+//	AdventureSFU was a project created by Group 12 of CMPT 276
 //
-//  Created by Carlos Abaffy paz on 4/2/17.
-//  Copyright © 2017 Karan Aujla. All rights reserved.
+//  Creates and populates a leaderboard of teams.
+//
+//  Created by Group 12 on 4/2/17.
+//  Copyright © 2017 . All rights reserved.
 //
 
 import UIKit
@@ -175,11 +179,7 @@ class AllTeamsLeaderboardsViewController: UIViewController, UITableViewDelegate,
                 cellToBeReturned.textLabel?.text = Leaderboard.teamArray[indexPath.row].teamName
                 let time: Int = Int(Leaderboard.teamArray[indexPath.row].timeRun)
                 let Minutes: Int = time / 60
-                cellToBeReturned.detailTextLabel?.text =  "\(Minutes) min, \(time%60) sec"
-                
-                
-                
-                
+                cellToBeReturned.detailTextLabel?.text =  "\(Minutes) min, \(time%60) sec"                
             }
         }
         return cellToBeReturned

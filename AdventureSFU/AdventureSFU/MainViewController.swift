@@ -97,32 +97,37 @@ class MainViewController: UIViewController, UITextFieldDelegate, MGLMapViewDeleg
     
     //Actions
     
+    //logout of firebase and app
     @IBAction func logoutAction(){
         //Call to firebase to logout, then move back to ViewController
         try! FIRAuth.auth()?.signOut()
         dismiss(animated: true, completion: nil)
     }
     
+    //navigate to stats page
     @IBAction func toStatsPage() {
         performSegue(withIdentifier: "mainToStats", sender: self)
     }
     
+    //navigate to run page
     @IBAction func toRunControllerPage() {
         performSegue(withIdentifier: "mainToRunController", sender: self)
     }
     
+    //navigate to explore page
     @IBAction func toExploreControllerPage() {
         performSegue(withIdentifier: "mainToExplore", sender: self)
     }
     
+    //load or update offline map pack
     @IBAction func loadOfflineMap(_ sender: AnyObject) {
             NotificationCenter.default.addObserver(self, selector: #selector(self.offlinePackProgressDidChange), name: NSNotification.Name.MGLOfflinePackProgressChanged, object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(self.offlinePackDidReceiveError), name: NSNotification.Name.MGLOfflinePackError, object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(self.offlinePackDidReceiveMaximumAllowedMapboxTiles), name: NSNotification.Name.MGLOfflinePackMaximumMapboxTilesReached, object: nil)
             self.mapViewDidFinishLoadingMap(self.mapView!)
-        //Load or update offline map pack
     }
 
+    //summary of buttons on main page
     @IBAction func infoAlert(_ sender: Any) {
         let alert = UIAlertController(title: "Main Page Help",
                                       message: "Select 'Get Offline Map' to download or update a copy of the trail map for offline use. Select Teams to view your team leaderboard and all-team leaderboard. Select Run to plan your route and track your run. Select Explore to go geocaching. Select Stats to view your user information and statistics.",
@@ -130,10 +135,9 @@ class MainViewController: UIViewController, UITextFieldDelegate, MGLMapViewDeleg
         let alertConfirmation = UIAlertAction(title: "ok", style: .default, handler: nil)
         alert.addAction(alertConfirmation)
         self.present(alert, animated: true, completion: nil)
-        
-        //Provides summary of buttons on main page.
     }
     
+    //navigation to Team page
     @IBAction func toTeamsPage() {
         let userID = FIRAuth.auth()?.currentUser?.uid
         ref?.child("Users").child(userID!).child("Team").observeSingleEvent(of: .value, with: { (snapshot) in
@@ -161,7 +165,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, MGLMapViewDeleg
     //Last retrieved April 3 2017
     
     func mapViewDidFinishLoadingMap(_ mapView: MGLMapView) {
-        // Start downloading tiles and resources for z13-16.
+        // Start downloading tiles and resources.
         startOfflinePackDownload()
     }
 
@@ -170,6 +174,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, MGLMapViewDeleg
         NotificationCenter.default.removeObserver(self)
     }
     
+    //downloads the offline pack
     func startOfflinePackDownload() {
         // Create a region that includes the current viewport and any tiles needed to view it when zoomed further in.
         // Because tile count grows exponentially with the maximum zoom level, you should be conservative with your `toZoomLevel` setting.
@@ -202,21 +207,19 @@ class MainViewController: UIViewController, UITextFieldDelegate, MGLMapViewDeleg
 
     // MARK: - MGLOfflinePack notification handlers
 
+    //alerts user when pack is finished downloading
     func offlinePackProgressDidChange(notification: NSNotification) {
         // Get the offline pack this notification is regarding,
         // and the associated user info for the pack; in this case, `name = My Offline Pack`
         if let pack = notification.object as? MGLOfflinePack,
             let _ = NSKeyedUnarchiver.unarchiveObject(with: pack.context) as? [String: String] {
             let progress = pack.progress
-            // or notification.userInfo![MGLOfflinePackProgressUserInfoKey]!.MGLOfflinePackProgressValue
             let completedResources = progress.countOfResourcesCompleted
             let expectedResources = progress.countOfResourcesExpected
 
             // If this pack has finished, print its size and resource count.
             if completedResources == expectedResources {
-                let alert = UIAlertController(title: "Map download complete",
-                                              message: "",
-                    preferredStyle: .alert)
+                let alert = UIAlertController(title: "Map download complete", message: "", preferredStyle: .alert)
                 let alertConfirmation = UIAlertAction(title: "ok", style: .default, handler: nil)
                 alert.addAction(alertConfirmation)
                 self.present(alert, animated: true, completion: nil)
@@ -224,7 +227,7 @@ class MainViewController: UIViewController, UITextFieldDelegate, MGLMapViewDeleg
         }
     }
 
-
+    //alerts user of problem downloading pack for miscellaneous errors
     func offlinePackDidReceiveError(notification: NSNotification) {
         if let pack = notification.object as? MGLOfflinePack,
             let userInfo = NSKeyedUnarchiver.unarchiveObject(with: pack.context) as? [String: String],
@@ -239,13 +242,12 @@ class MainViewController: UIViewController, UITextFieldDelegate, MGLMapViewDeleg
         }
     }
 
+    //alerts user of problem downloading pack due to maximum tiles downloaded already
     func offlinePackDidReceiveMaximumAllowedMapboxTiles(notification: NSNotification) {
         if let pack = notification.object as? MGLOfflinePack,
             let userInfo = NSKeyedUnarchiver.unarchiveObject(with: pack.context) as? [String: String],
             let maximumCount = (notification.userInfo?[MGLOfflinePackUserInfoKey.maximumCount] as AnyObject).uint64Value {
-            let alert = UIAlertController(title: "Could not download offline pack",
-                                                                                                                                                     message: "Offline pack “\(String(describing: userInfo["name"]))” reached limit of \(maximumCount) tiles.",
-                preferredStyle: .alert)
+            let alert = UIAlertController(title: "Could not download offline pack", message: "Offline pack “\(String(describing: userInfo["name"]))” reached limit of \(maximumCount) tiles.", preferredStyle: .alert)
             let alertConfirmation = UIAlertAction(title: "ok", style: .default, handler: nil)
             alert.addAction(alertConfirmation)
             self.present(alert, animated: true, completion: nil)

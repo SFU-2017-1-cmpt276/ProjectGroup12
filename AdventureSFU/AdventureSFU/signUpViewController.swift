@@ -12,8 +12,7 @@
 //	Programmers: Karan Aujla, Carlos Abaffy, Eleanor Lewis, Chris Norris-Jones
 //
 //	Known Bugs: None Currently
-//	Todo:	-Integrate Further User Details into account creation
-//			-Set up Team Create Page
+//	Todo:
 //
 
 import UIKit
@@ -166,9 +165,6 @@ class signUpViewController: UIViewController, UITextFieldDelegate {
         //combine both the feet and inches values, and store it as feet
         let userHeight: Double = (validHeightFeet )  + (validHeightInches)/12
         
-        
-        
-        
         //setting weight
         if let enteredWeight:Double = Double(weightField.text!){
             if enteredWeight >= 0 && weightField.text?.isEmpty == false{
@@ -201,7 +197,6 @@ class signUpViewController: UIViewController, UITextFieldDelegate {
             if personalMessageField.text?.isEmpty == false {
                 validPersonalMessage = enteredPersonalMessage
             }
-            
         }
         
         
@@ -269,6 +264,5 @@ class signUpViewController: UIViewController, UITextFieldDelegate {
 													}
 			})
         }
-
 	}
 }
