@@ -23,9 +23,11 @@ import MapboxDirections
 
 class GlobalVariables {
     
+
     //Variables
     
     //Struct describing a single explore item
+
     struct ExploreItem {
         var id : Int?
         var title : String?
@@ -35,6 +37,7 @@ class GlobalVariables {
         var pass : String?
     }
     
+    //Variables
     var exploreItemArray = [ExploreItem]()
     var actualWaypoints: [Waypoint] = []
     var waypoints: [Waypoint] = []

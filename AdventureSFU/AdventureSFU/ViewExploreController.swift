@@ -21,8 +21,6 @@ import Firebase
 class ViewExploreController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
 //Variables
-    /*Currently the text and hint information is being held locally on this page, as it is taken into the Explore View One page when
-    selected. For V3 will look into pulling this out into a global variable */
     
     var ref: FIRDatabaseReference?
     
@@ -83,7 +81,9 @@ class ViewExploreController: UIViewController, UITableViewDelegate, UITableViewD
 		tableView.deselectRow(at: indexPath, animated: true)
         selectedRow = indexPath.row
 
+
 		self.performSegue(withIdentifier: "exploreDetail", sender: nil)
+
 		
 	}
     //When segueing into the Explore View One page, setting up required variables for the view-one page
@@ -119,7 +119,7 @@ class ViewExploreController: UIViewController, UITableViewDelegate, UITableViewD
                 self.numberRows = actualVal
             }
             self.exploreTable.reloadData()
-  
+
         })
         
         done = 1
@@ -154,13 +154,13 @@ class ViewExploreController: UIViewController, UITableViewDelegate, UITableViewD
                     let tempPass = value?["Password"] as! String
                     
                     let eItem = ExploreItem(title: tempTitle, hint: tempHint, lat: tempLat, long: tempLong, pass: tempPass)
+
                                        self.exploreItemArray.append(eItem)
-                   
+
                 })
                 count += 1
             }
         })
-        //exploreTable.reloadData()
     }
 	
 //Actions

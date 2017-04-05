@@ -20,7 +20,7 @@ import Firebase
 import CoreLocation
 
 class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationManagerDelegate {
- 
+
     //Variables
     var locationManager:CLLocationManager!
     var actualWaypointNumber: Int = 0
@@ -31,11 +31,13 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
     var tracking: Bool = true
     
     @IBOutlet weak var runToggle: UIButton!
+
     
     
     //Functions
     
     //overrides MapUI tool
+
     override func getDistanceAndTime(distance: Double, time: Double) {
         //do nothing
     }
@@ -86,7 +88,9 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
         super.didReceiveMemoryWarning()
     }
   
+
     //Allows the user to start and stop run tracking. Each Stopped run is treated as a complete run - stats are submitted.
+
     @IBAction func stopRun(_ sender: UIButton) {
         if (CLLocationManager.locationServicesEnabled()) {
             if (self.tracking == true)  {

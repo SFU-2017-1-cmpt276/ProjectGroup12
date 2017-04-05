@@ -1,19 +1,19 @@
 //
 //  AllTeamsLeaderboardsViewController.swift
-//  AdventureSFU
-//
-//  Created by Group 12 on 4/2/17.
-//  Copyright © 2017 . All rights reserved.
-//
-//	AdventureSFU: Make Your Path
+//  AdventureSFU: Make Your Path
 //	Created for SFU CMPT 276, Instructor Herbert H. Tsang, P.Eng., Ph.D.
 //	AdventureSFU was a project created by Group 12 of CMPT 276
 //
+
+//  Created by Group 12 on 4/2/17.
+//  Copyright © 2017 . All rights reserved.
+
 //	Displays leaderboard of teams.
 //	Programmers: Karan Aujla, Carlos Abaffy, Eleanor Lewis, Chris Norris-Jones
 //
 //	Known Bugs:
 //	Todo:
+
 //
 import UIKit
 import Firebase
@@ -182,6 +182,7 @@ class AllTeamsLeaderboardsViewController: UIViewController, UITableViewDelegate,
                 
                 Leaderboard.sortByTime()
                 cellToBeReturned.textLabel?.text = Leaderboard.teamArray[indexPath.row].teamName
+
                 
                 var seconds: Int = Int(Leaderboard.teamArray[indexPath.row].timeRun)
                 
@@ -191,7 +192,6 @@ class AllTeamsLeaderboardsViewController: UIViewController, UITableViewDelegate,
                 seconds -= minutes * 60
                 minutes -= hours * 60
                 cellToBeReturned.detailTextLabel?.text =  String(format: "H:M:S %d:%.2d:%.2d", hours, minutes, seconds)
-                
                 
                 
             }

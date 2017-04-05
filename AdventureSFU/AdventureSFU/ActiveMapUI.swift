@@ -11,7 +11,7 @@
 //	Programmers: Karan Aujla, Carlos Abaffy, Eleanor Lewis, Chris Norris-Jones
 //
 //	Known Bugs:
-//	Todo: //
+//	Todo: 
 
 
 import UIKit
@@ -24,9 +24,11 @@ class ActiveMapUI: MapUI, ActiveRunControllerDelegate {
     //Variables
     weak var activeDelegate: ActiveMapViewDelegate?
 
+
     //Functions
     
     //Draws map at specified coordinates and adds planned route.
+
     override func viewDidLoad() {
         super.viewDidLoad()
         if (GlobalVariables.sharedManager.plannedWaypoints.count > 0) {

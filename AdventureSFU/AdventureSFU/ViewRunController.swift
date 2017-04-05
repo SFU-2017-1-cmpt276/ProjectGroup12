@@ -63,10 +63,12 @@ class ViewRunController: UIViewController, MapViewDelegate {
     
  
     
+
     //IBAction functions
     
     
     //clears current route from memory, then loads stored route, if any, from Firebase
+
     @IBAction func restoreRoute(_ sender: AnyObject) {
         self.RunViewDelegate?.deleteAllPoints()
         GlobalVariables.sharedManager.plannedWaypoints.removeAll()
