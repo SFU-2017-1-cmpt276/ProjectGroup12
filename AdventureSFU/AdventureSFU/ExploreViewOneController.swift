@@ -117,7 +117,6 @@ class ExploreViewOneController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "embeddedExploreMap" {
-       print("searchable explore test: exploreTitle = \(exploreTitle)")
             let childViewController = segue.destination as? ExploreMapUI
             childViewController?.mapLat = self.mapLat
             childViewController?.mapLong = self.mapLong
@@ -126,9 +125,6 @@ class ExploreViewOneController: UIViewController {
             
         }
         
-    }
-    deinit {
-        print("searchable deinitializing exploreviewonecontroller")
     }
 
 }

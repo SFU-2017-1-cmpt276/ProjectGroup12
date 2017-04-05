@@ -173,10 +173,15 @@ class AllTeamsLeaderboardsViewController: UIViewController, UITableViewDelegate,
                 
                 Leaderboard.sortByTime()
                 cellToBeReturned.textLabel?.text = Leaderboard.teamArray[indexPath.row].teamName
-                let time: Int = Int(Leaderboard.teamArray[indexPath.row].timeRun)
-                let Minutes: Int = time / 60
-                cellToBeReturned.detailTextLabel?.text =  "\(Minutes) min, \(time%60) sec"
                 
+                var seconds: Int = Int(Leaderboard.teamArray[indexPath.row].timeRun)
+                
+                var minutes: Int = seconds / 60
+                
+                let hours: Int = minutes / 60
+                seconds -= minutes * 60
+                minutes -= hours * 60
+                cellToBeReturned.detailTextLabel?.text =  String(format: "H:M:S: %d:%.2d:%.2d", hours, minutes, seconds)
                 
                 
                 

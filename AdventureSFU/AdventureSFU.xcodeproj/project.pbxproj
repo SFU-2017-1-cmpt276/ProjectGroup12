@@ -15,7 +15,6 @@
 		48B69F0079BE6F57F6C0C826 /* Pods_AdventureSFUUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE11182882D24DBBA17B1040 /* Pods_AdventureSFUUITests.framework */; };
 		9E1B868D1E691C08006C0E61 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1B868C1E691C08006C0E61 /* AppDelegate.swift */; };
 		9E1B868F1E691C08006C0E61 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1B868E1E691C08006C0E61 /* ViewController.swift */; };
-		9E1B86951E691C08006C0E61 /* AdventureSFU.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9E1B86931E691C08006C0E61 /* AdventureSFU.xcdatamodeld */; };
 		9E1B86971E691C08006C0E61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E1B86961E691C08006C0E61 /* Assets.xcassets */; };
 		9E1B869A1E691C08006C0E61 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E1B86981E691C08006C0E61 /* LaunchScreen.storyboard */; };
 		9E1B86A51E691C08006C0E61 /* AdventureSFUTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1B86A41E691C08006C0E61 /* AdventureSFUTests.swift */; };
@@ -26,18 +25,10 @@
 		9E7F20C31E8DFDE100B7E5ED /* LeaderBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7F20C21E8DFDE100B7E5ED /* LeaderBoardViewController.swift */; };
 		9E8C65F21E6B77BC0090CEDA /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8C65F11E6B77BC0090CEDA /* StatsViewController.swift */; };
 		9E9CFCC51E6A1571006A4E1D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9CFCC41E6A1571006A4E1D /* MainViewController.swift */; };
-		C9181C161E8DBAE1007C3732 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9181C151E8DBAE1007C3732 /* DataController.swift */; };
-		C9181C171E8DBAE1007C3732 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9181C151E8DBAE1007C3732 /* DataController.swift */; };
-		C9181C181E8DBAE1007C3732 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9181C151E8DBAE1007C3732 /* DataController.swift */; };
-		C9181C1B1E8DBB28007C3732 /* AdventureSFUDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C9181C191E8DBB28007C3732 /* AdventureSFUDataModel.xcdatamodeld */; };
-		C9181C1C1E8DBB28007C3732 /* AdventureSFUDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C9181C191E8DBB28007C3732 /* AdventureSFUDataModel.xcdatamodeld */; };
-		C9181C1D1E8DBB28007C3732 /* AdventureSFUDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C9181C191E8DBB28007C3732 /* AdventureSFUDataModel.xcdatamodeld */; };
 		C91945511E7E099300B773BF /* ActiveRunControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91945501E7E099300B773BF /* ActiveRunControllerDelegate.swift */; };
 		C941919B1E78B7F500EB6178 /* ActiveRunController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C941919A1E78B7F500EB6178 /* ActiveRunController.swift */; };
 		C941919D1E78B95200EB6178 /* ActiveMapUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C941919C1E78B95200EB6178 /* ActiveMapUI.swift */; };
-		C9CA4DE31E8C7D1D0070B4B9 /* OfflineMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CA4DE21E8C7D1D0070B4B9 /* OfflineMapViewController.swift */; };
 		C9CC21611E8DE35E00E2C50F /* signUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CC21601E8DE35E00E2C50F /* signUpViewController.swift */; };
-		C9CC21631E8DE36600E2C50F /* StatsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CC21621E8DE36600E2C50F /* StatsTableViewController.swift */; };
 		C9D7C29F1E90966100D1D827 /* sfu-satellite-screenshot2.png in Resources */ = {isa = PBXBuildFile; fileRef = C9D7C29E1E90966100D1D827 /* sfu-satellite-screenshot2.png */; };
 		C9EAD2BE1E7F406A00145B09 /* RunViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EAD2BD1E7F406A00145B09 /* RunViewControllerDelegate.swift */; };
 		C9EAD2C01E7F59F800145B09 /* ExploreMapUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EAD2BF1E7F59F800145B09 /* ExploreMapUI.swift */; };
@@ -95,7 +86,6 @@
 		9E1B86891E691C08006C0E61 /* AdventureSFU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdventureSFU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E1B868C1E691C08006C0E61 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9E1B868E1E691C08006C0E61 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		9E1B86941E691C08006C0E61 /* AdventureSFU.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AdventureSFU.xcdatamodel; sourceTree = "<group>"; };
 		9E1B86961E691C08006C0E61 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E1B86991E691C08006C0E61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9E1B869B1E691C08006C0E61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -111,14 +101,10 @@
 		9E7F20C21E8DFDE100B7E5ED /* LeaderBoardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderBoardViewController.swift; sourceTree = "<group>"; };
 		9E8C65F11E6B77BC0090CEDA /* StatsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		9E9CFCC41E6A1571006A4E1D /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		C9181C151E8DBAE1007C3732 /* DataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
-		C9181C1A1E8DBB28007C3732 /* AdventureSFUDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AdventureSFUDataModel.xcdatamodel; sourceTree = "<group>"; };
 		C91945501E7E099300B773BF /* ActiveRunControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveRunControllerDelegate.swift; sourceTree = "<group>"; };
 		C941919A1E78B7F500EB6178 /* ActiveRunController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveRunController.swift; sourceTree = "<group>"; };
 		C941919C1E78B95200EB6178 /* ActiveMapUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveMapUI.swift; sourceTree = "<group>"; };
-		C9CA4DE21E8C7D1D0070B4B9 /* OfflineMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfflineMapViewController.swift; sourceTree = "<group>"; };
 		C9CC21601E8DE35E00E2C50F /* signUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = signUpViewController.swift; sourceTree = "<group>"; };
-		C9CC21621E8DE36600E2C50F /* StatsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsTableViewController.swift; sourceTree = "<group>"; };
 		C9D7C29E1E90966100D1D827 /* sfu-satellite-screenshot2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sfu-satellite-screenshot2.png"; sourceTree = "<group>"; };
 		C9EAD2BD1E7F406A00145B09 /* RunViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunViewControllerDelegate.swift; sourceTree = "<group>"; };
 		C9EAD2BF1E7F59F800145B09 /* ExploreMapUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreMapUI.swift; sourceTree = "<group>"; };
@@ -177,8 +163,6 @@
 		9E1B86801E691C08006C0E61 = {
 			isa = PBXGroup;
 			children = (
-				C9181C191E8DBB28007C3732 /* AdventureSFUDataModel.xcdatamodeld */,
-				C9181C151E8DBAE1007C3732 /* DataController.swift */,
 				9E1B868B1E691C08006C0E61 /* AdventureSFU */,
 				9E1B86A31E691C08006C0E61 /* AdventureSFUTests */,
 				9E1B86AE1E691C08006C0E61 /* AdventureSFUUITests */,
@@ -201,7 +185,6 @@
 		9E1B868B1E691C08006C0E61 /* AdventureSFU */ = {
 			isa = PBXGroup;
 			children = (
-				C9CC21621E8DE36600E2C50F /* StatsTableViewController.swift */,
 				C9CC21601E8DE35E00E2C50F /* signUpViewController.swift */,
 				9E24D9FE1E6B8E290093D4D1 /* Main.storyboard */,
 				9E7F20C21E8DFDE100B7E5ED /* LeaderBoardViewController.swift */,
@@ -231,8 +214,6 @@
 				9E1B86981E691C08006C0E61 /* LaunchScreen.storyboard */,
 				9E1B869B1E691C08006C0E61 /* Info.plist */,
 				DEE6203C1E6B47E000B49665 /* GoogleService-Info.plist */,
-				9E1B86931E691C08006C0E61 /* AdventureSFU.xcdatamodeld */,
-				C9CA4DE21E8C7D1D0070B4B9 /* OfflineMapViewController.swift */,
 			);
 			path = AdventureSFU;
 			sourceTree = "<group>";
@@ -554,15 +535,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9CA4DE31E8C7D1D0070B4B9 /* OfflineMapViewController.swift in Sources */,
 				229D2C9A1E91A988000E5D5A /* AllTeamsLeaderboardsViewController.swift in Sources */,
-				9E1B86951E691C08006C0E61 /* AdventureSFU.xcdatamodeld in Sources */,
 				22419C231E7CB3100059D3D2 /* TeamSelect2.swift in Sources */,
 				2204B2811E6B7572009A6DF5 /* ViewRunController.swift in Sources */,
 				9E7F20C31E8DFDE100B7E5ED /* LeaderBoardViewController.swift in Sources */,
 				9E1B868F1E691C08006C0E61 /* ViewController.swift in Sources */,
-				C9181C1B1E8DBB28007C3732 /* AdventureSFUDataModel.xcdatamodeld in Sources */,
-				C9CC21631E8DE36600E2C50F /* StatsTableViewController.swift in Sources */,
 				C91945511E7E099300B773BF /* ActiveRunControllerDelegate.swift in Sources */,
 				C9EAD2BE1E7F406A00145B09 /* RunViewControllerDelegate.swift in Sources */,
 				C9EAD2C01E7F59F800145B09 /* ExploreMapUI.swift in Sources */,
@@ -570,7 +547,6 @@
 				DE23212E1E78778200E7A8E9 /* ExploreTableViewCell.swift in Sources */,
 				9E9CFCC51E6A1571006A4E1D /* MainViewController.swift in Sources */,
 				DE664EC41E6DAD2900FC1848 /* MapUI.swift in Sources */,
-				C9181C161E8DBAE1007C3732 /* DataController.swift in Sources */,
 				9E8C65F21E6B77BC0090CEDA /* StatsViewController.swift in Sources */,
 				DE664EC21E6DAC7E00FC1848 /* MapViewDelegate.swift in Sources */,
 				C9CC21611E8DE35E00E2C50F /* signUpViewController.swift in Sources */,
@@ -590,8 +566,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E1B86A51E691C08006C0E61 /* AdventureSFUTests.swift in Sources */,
-				C9181C1C1E8DBB28007C3732 /* AdventureSFUDataModel.xcdatamodeld in Sources */,
-				C9181C171E8DBAE1007C3732 /* DataController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -601,8 +575,6 @@
 			files = (
 				9E1B86B01E691C08006C0E61 /* AdventureSFUUITests.swift in Sources */,
 				9E7B73411E933E0C0026342A /* SignUpUITest.swift in Sources */,
-				C9181C1D1E8DBB28007C3732 /* AdventureSFUDataModel.xcdatamodeld in Sources */,
-				C9181C181E8DBAE1007C3732 /* DataController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -868,29 +840,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		9E1B86931E691C08006C0E61 /* AdventureSFU.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				9E1B86941E691C08006C0E61 /* AdventureSFU.xcdatamodel */,
-			);
-			currentVersion = 9E1B86941E691C08006C0E61 /* AdventureSFU.xcdatamodel */;
-			path = AdventureSFU.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-		C9181C191E8DBB28007C3732 /* AdventureSFUDataModel.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				C9181C1A1E8DBB28007C3732 /* AdventureSFUDataModel.xcdatamodel */,
-			);
-			currentVersion = C9181C1A1E8DBB28007C3732 /* AdventureSFUDataModel.xcdatamodel */;
-			path = AdventureSFUDataModel.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 9E1B86811E691C08006C0E61 /* Project object */;
 }
