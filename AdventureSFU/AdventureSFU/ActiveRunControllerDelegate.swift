@@ -20,6 +20,6 @@ import Foundation
 
 protocol ActiveRunControllerDelegate: NSObjectProtocol {
     
-    func appendToDrawnRoute() //updates user-route polyline.
+    func appendToDrawnRoute() //adds user's most recent movement to map.
     
 }

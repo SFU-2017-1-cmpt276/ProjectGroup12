@@ -21,7 +21,6 @@ import Mapbox
 import MapboxDirections
 protocol ActiveMapViewDelegate: MapViewDelegate, NSObjectProtocol {
     
- //   func getTime(time: Double)
     func getDistanceAndTime(distance: Double, time: Double)
     
 }
