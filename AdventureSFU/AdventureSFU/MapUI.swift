@@ -57,6 +57,8 @@ class MapUI: UIViewController, RunViewControllerDelegate, MGLMapViewDelegate {
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(handleSingleTap))
         singleTap.require(toFail: doubleTap)
         MapUI.addGestureRecognizer(singleTap)
+        MapUI.userTrackingMode = .follow
+
     }
     
     //Functions

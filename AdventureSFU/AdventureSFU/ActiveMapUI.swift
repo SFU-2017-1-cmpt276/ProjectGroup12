@@ -32,7 +32,7 @@ class ActiveMapUI: MapUI, ActiveRunControllerDelegate {
         if (GlobalVariables.sharedManager.plannedWaypoints.count > 0) {
         MapUI.setCenter(CLLocationCoordinate2D(latitude: GlobalVariables.sharedManager.plannedWaypoints[0].coordinate.latitude, longitude: GlobalVariables.sharedManager.plannedWaypoints[0].coordinate.longitude),
                         zoomLevel: 13, animated: false) }
-        MapUI.userTrackingMode = .follow
+      //  MapUI.userTrackingMode = .follow
         self.handleRoute()
         
     }
