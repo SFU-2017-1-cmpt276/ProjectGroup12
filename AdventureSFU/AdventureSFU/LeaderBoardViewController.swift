@@ -122,8 +122,15 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
                             if tempTime != nil{
                                 newUser.timeRun = tempTime as! Double
                             }
-                            if tempMessage != nil{
-                                newUser.personalMessage = tempMessage as! String
+
+                            
+                            if let validMessage: String =  tempMessage as? String {
+                                print("personal message is of type \(type(of: tempMessage)))")
+                                newUser.personalMessage = validMessage
+                                
+                            }else{
+                                //a placeholder message if it can't be cast into a string
+                                newUser.personalMessage = "can not retrieve message at this time"
                             }
                             
                             //once the user is filled out, add it to the teamleaderboard

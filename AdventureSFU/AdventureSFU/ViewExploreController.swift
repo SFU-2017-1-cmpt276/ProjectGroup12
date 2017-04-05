@@ -80,7 +80,9 @@ class ViewExploreController: UIViewController, UITableViewDelegate, UITableViewD
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
         selectedRow = indexPath.row
+
         self.performSegue(withIdentifier: "exploreDetail", sender: nil)
+
 		
 	}
     //When segueing into the Explore View One page, setting up required variables for the view-one page
@@ -151,7 +153,9 @@ class ViewExploreController: UIViewController, UITableViewDelegate, UITableViewD
                     let tempPass = value?["Password"] as! String
                     
                     let eItem = ExploreItem(title: tempTitle, hint: tempHint, lat: tempLat, long: tempLong, pass: tempPass)
+
                     self.exploreItemArray.append(eItem)
+
                 })
                 count += 1
             }
