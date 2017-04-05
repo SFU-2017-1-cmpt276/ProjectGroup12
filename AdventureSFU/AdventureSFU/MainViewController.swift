@@ -217,25 +217,32 @@ class MainViewController: UIViewController, UITextFieldDelegate, MGLMapViewDeleg
             let completedResources = progress.countOfResourcesCompleted
             let expectedResources = progress.countOfResourcesExpected
 
-            // If this pack has finished, print its size and resource count.
+
+            // If this pack has finished while user is on main page, let them know
             if completedResources == expectedResources {
-                let alert = UIAlertController(title: "Map download complete", message: "", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Map download complete",
+                                              message: "",
+                                              preferredStyle: .alert)
                 let alertConfirmation = UIAlertAction(title: "ok", style: .default, handler: nil)
                 alert.addAction(alertConfirmation)
                 self.present(alert, animated: true, completion: nil)
-            } 
+                return
+            }
+
         }
     }
 
     //alerts user of problem downloading pack for miscellaneous errors
     func offlinePackDidReceiveError(notification: NSNotification) {
         if let pack = notification.object as? MGLOfflinePack,
-            let userInfo = NSKeyedUnarchiver.unarchiveObject(with: pack.context) as? [String: String],
+            let userinfo = NSKeyedUnarchiver.unarchiveObject(with: pack.context) as? [String: String],
             let error = notification.userInfo?[MGLOfflinePackUserInfoKey.error] as? NSError {
-            print("Offline pack “\(String(describing: userInfo["name"]))” received error: \(String(describing: error.localizedFailureReason))")
+
+            print("Offline pack “\(String(describing: userinfo["name"]))” received error: \(String(describing: error.localizedFailureReason))")
             let alert = UIAlertController(title: "Could not download offline pack",
-                                         message: "Offline pack “\(String(describing: userInfo["name"]))” received error: \(String(describing: error.localizedFailureReason))",
+                                         message: "Offline pack “\(String(describing: userinfo["name"]))” received error: \(String(describing: error.localizedFailureReason))",
                                          preferredStyle: .alert)
+
             let alertConfirmation = UIAlertAction(title: "ok", style: .default, handler: nil)
             alert.addAction(alertConfirmation)
             self.present(alert, animated: true, completion: nil)
@@ -245,9 +252,13 @@ class MainViewController: UIViewController, UITextFieldDelegate, MGLMapViewDeleg
     //alerts user of problem downloading pack due to maximum tiles downloaded already
     func offlinePackDidReceiveMaximumAllowedMapboxTiles(notification: NSNotification) {
         if let pack = notification.object as? MGLOfflinePack,
-            let userInfo = NSKeyedUnarchiver.unarchiveObject(with: pack.context) as? [String: String],
-            let maximumCount = (notification.userInfo?[MGLOfflinePackUserInfoKey.maximumCount] as AnyObject).uint64Value {
-            let alert = UIAlertController(title: "Could not download offline pack", message: "Offline pack “\(String(describing: userInfo["name"]))” reached limit of \(maximumCount) tiles.", preferredStyle: .alert)
+
+            let _ = NSKeyedUnarchiver.unarchiveObject(with: pack.context) as? [String: String],
+            let _ = (notification.userInfo?[MGLOfflinePackUserInfoKey.maximumCount] as AnyObject).uint64Value {
+            let alert = UIAlertController(title: "Map download error",
+                                          message: "Error: maximum tiles downloaded",
+                preferredStyle: .alert)
+
             let alertConfirmation = UIAlertAction(title: "ok", style: .default, handler: nil)
             alert.addAction(alertConfirmation)
             self.present(alert, animated: true, completion: nil)

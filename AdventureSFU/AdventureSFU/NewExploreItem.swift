@@ -57,12 +57,12 @@ class NewExploreItem: UIViewController, CLLocationManagerDelegate, UITextFieldDe
 			self.locationManager.startUpdatingLocation()
 		}
 
-        // Do any additional setup after loading the view.
+       
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
     }
     
 //Actions
@@ -79,6 +79,7 @@ class NewExploreItem: UIViewController, CLLocationManagerDelegate, UITextFieldDe
 		infoAlert.addAction(agreeAction)
 		self.present(infoAlert, animated: true, completion: nil)
 	}
+    
 	//Creates a New Explore Item, it will be loaded into the database and subsequently displayed on the ViewExploreController page
 	@IBAction func CreateExplore() {
 		//First make sure fields aren't empty

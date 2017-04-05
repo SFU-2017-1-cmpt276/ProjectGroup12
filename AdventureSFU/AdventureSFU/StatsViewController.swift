@@ -81,7 +81,7 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
             let seconds: Int = Int(totalTimeInSeconds) % 60;
             let minutes: Int = Int(totalTimeInSeconds / 60) % 60;
             let hours: Int = Int(totalTimeInSeconds / 3600);
-            celltoBeReturned.detailTextLabel?.text = String(format: "H:M:S: %d:%.2d:%.2d", hours, minutes, seconds)
+            celltoBeReturned.detailTextLabel?.text = String(format: "%d:%.2d:%.2d", hours, minutes, seconds)
         }
         else if indexPath.row == 6{celltoBeReturned.textLabel?.text = "Average Speed"
             var averageSpeed: Double = 0.0

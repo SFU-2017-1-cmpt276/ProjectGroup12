@@ -31,14 +31,21 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
     var tracking: Bool = true
     
     @IBOutlet weak var runToggle: UIButton!
+
+    
     
     //Functions
+    
+    //overrides MapUI tool
+
     override func getDistanceAndTime(distance: Double, time: Double) {
-        //prevents this inherited function from doing anything.
+        //do nothing
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Initiate user-route updating and set start time. Alternately, set STOP button label to reflect run is not being tracked.
         GlobalVariables.sharedManager.startTime = Date()
         self.locationManager = CLLocationManager()
         self.locationManager.requestAlwaysAuthorization()
@@ -51,9 +58,10 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
         } else {
             runToggle.setTitle("Not tracking run", for: [])
         }
-        // Initiate user-route updating and set start time. Alternately, set STOP button label to reflect run is not being tracked.
+    
     }
     
+    //Gets user's current location, calculates distance from previous location, adds that to total distance travel, and updates drawn route on map.
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
         let location = locations.last! as CLLocation
@@ -78,9 +86,11 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
   
+
+    //Allows the user to start and stop run tracking. Each Stopped run is treated as a complete run - stats are submitted.
+
     @IBAction func stopRun(_ sender: UIButton) {
         if (CLLocationManager.locationServicesEnabled()) {
             if (self.tracking == true)  {
@@ -95,13 +105,81 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
                 self.locationManager.startUpdatingLocation()
             }
         }
-        //Allows the user to start and stop run tracking. Each Stopped run is treated as a complete run - stats are submitted.
+    }
+    //calculates and submits total distance, time and calories for this run when either 'Back' or 'Stop' is selected. Reports them to user and updates Firebase.
+    func submitRunInfo() {
+        GlobalVariables.sharedManager.endTime = Date()
+        GlobalVariables.sharedManager.elapsedTimeThisRun = GlobalVariables.sharedManager.endTime!.timeIntervalSince(GlobalVariables.sharedManager.startTime!)
+        //  GlobalVariables.sharedManager.startTime = nil
+        GlobalVariables.sharedManager.distanceThisRun = self.actualTotalDistance
+        let time = GlobalVariables.sharedManager.elapsedTimeThisRun!
+        let seconds = Int(time) % 60;
+        let minutes = Int(time / 60) % 60;
+        let hours = Int(time / 3600);
+        let formattedTime = String(format: "H:M:S: %d:%.2d:%.2d", hours, minutes, seconds)
+        
+        let formattedDistance = String(format: "Kms: %.2f", GlobalVariables.sharedManager.distanceThisRun/1000)
+        
+        let weight: Double = GlobalVariables.sharedManager.weight / 2.2
+        let calsBurned: Double = Double(0.0175 * weight * 6*(Double(time/60))) //formula source: www .hss.edu/conditions_burning-calories-with-exercise-calculating-estimated-energy-expenditure.asp
+        
+        let formattedCalsBurned = String(format: "Approximate calories burned: %0.f", calsBurned)
+        let infoAlert = UIAlertController(title: "Stats for this run:", message: "\(formattedDistance) \(formattedTime), \(formattedCalsBurned)", preferredStyle: .alert)
+        let agreeAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+        infoAlert.addAction(agreeAction)
+        self.present(infoAlert, animated: true, completion: nil)
+        
+        //calculates total distance, time and calories burned, and reports them to the user
+        
+        self.ref?.child("Users").child(self.userID!).child("Team").observeSingleEvent(of: .value, with: { [unowned self] (snapshot) in
+            let tempTeam = snapshot.value as? String
+            if let team = tempTeam {
+                self.ref?.child("Users").child(self.userID!).child("totalSeconds").observeSingleEvent(of: .value, with: { [unowned self] (snapshot) in
+                    let tempTotalTime = snapshot.value as? TimeInterval
+                    if var totalTime = tempTotalTime {
+                        totalTime = tempTotalTime! + (GlobalVariables.sharedManager.elapsedTimeThisRun! as Double)
+                        self.ref?.child("Users").child(self.userID!).child("totalSeconds").setValue(totalTime as Double!)
+                        self.ref?.child("Teams").child(team).child("Totaltime").observeSingleEvent(of: .value, with: { (snapshot) in
+                            let tempTotaltimeT = snapshot.value as? Double
+                            if var totaltimeT = tempTotaltimeT {
+                                totaltimeT = totaltimeT + (GlobalVariables.sharedManager.elapsedTimeThisRun! as Double)
+                                self.ref?.child("Teams").child(team).child("Totaltime").setValue(totaltimeT)
+                                GlobalVariables.sharedManager.elapsedTimeThisRun = 0
+                            }
+                        })
+                    }
+                }) //updates Firebase user and team records with time from this run
+                self.ref?.child("Users").child(self.userID!).child("KMRun").observeSingleEvent(of: .value, with: { [unowned self] (snapshot) in
+                    let tempTotalDistance = snapshot.value as? Double
+                    if var totalKM = tempTotalDistance {
+                        totalKM = tempTotalDistance! + (self.actualTotalDistance/1000 as Double)
+                        self.ref?.child("Users").child(self.userID!).child("KMRun").setValue(totalKM)
+                        self.ref?.child("Teams").child(team).child("TotalKm").observeSingleEvent(of: .value, with: { (snapshot) in
+                            let tempTotalDistanceT = snapshot.value as? Double
+                            
+                            if var totalkmT = tempTotalDistanceT {
+                                totalkmT = totalkmT + (self.actualTotalDistance/1000 as Double)
+                                self.ref?.child("Teams").child(team).child("TotalKm").setValue(totalkmT)
+                                self.actualTotalDistance = 0
+                            }
+                        })
+                    }
+                }) //updates Firebase user and team records with distance from this run
+                
+                var tempTotalCals: Double?
+                self.ref?.child("Users").child(self.userID!).child("TotalCalories").observeSingleEvent(of: .value, with: { [unowned self] (snapshot) in
+                    tempTotalCals = snapshot.value as? Double
+                    if var totalCals = tempTotalCals {
+                        totalCals = tempTotalCals! + calsBurned
+                        self.ref?.child("Users").child(self.userID!).child("TotalCalories").setValue(totalCals as Double!)
+                    }
+                })
+            } //updates Firebase user record with calories burned on this run
+        })
     }
 
-
-    
     @IBAction func activeRunHelp(_ sender: UIButton) {
-        let infoAlert = UIAlertController(title: "Run Tracking Help", message: "On this page you can see a record of your route on this trip. Select End Run! to stop recording and go back to the Route Planning page. Your total distance and time will be updated to include the distance and time from this trip.", preferredStyle: .alert)
+        let infoAlert = UIAlertController(title: "Run Tracking Help", message: "On this page you can see a record of your route on this trip. Select Back to finish tracking and go back to the Route Planning page. Select Stop Run to finish tracking, get your stats, and stay on this page. Your total distance and time will be updated to include the distance and time from this trip.", preferredStyle: .alert)
         let agreeAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
         infoAlert.addAction(agreeAction)
         self.present(infoAlert, animated: true, completion: nil)
@@ -121,74 +199,6 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
         dismiss(animated: false, completion: nil)
     }
    
-    func submitRunInfo() {
-        GlobalVariables.sharedManager.endTime = Date()
-        GlobalVariables.sharedManager.elapsedTimeThisRun = GlobalVariables.sharedManager.endTime!.timeIntervalSince(GlobalVariables.sharedManager.startTime!)
-      //  GlobalVariables.sharedManager.startTime = nil
-        GlobalVariables.sharedManager.distanceThisRun = self.actualTotalDistance
-        let time = GlobalVariables.sharedManager.elapsedTimeThisRun!
-        let seconds = Int(time) % 60;
-        let minutes = Int(time / 60) % 60;
-        let hours = Int(time / 3600);
-        let formattedTime = String(format: "H:M:S: %d:%.2d:%.2d", hours, minutes, seconds)
-        
-        let formattedDistance = String(format: "Kms: %.2f", GlobalVariables.sharedManager.distanceThisRun/1000)
+    
 
-        let weight: Double = GlobalVariables.sharedManager.weight / 2.2
-        let calsBurned: Double = Double(0.0175 * weight * 6*(Double(time/60))) //formula source: www .hss.edu/conditions_burning-calories-with-exercise-calculating-estimated-energy-expenditure.asp
-
-        let formattedCalsBurned = String(format: "Approximate calories burned: %0.f", calsBurned)
-        let infoAlert = UIAlertController(title: "Stats for this run:", message: "\(formattedDistance) \(formattedTime), \(formattedCalsBurned)", preferredStyle: .alert)
-        let agreeAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-        infoAlert.addAction(agreeAction)
-        self.present(infoAlert, animated: true, completion: nil)
-  
-        //calculates total distance, time and calories burned, and reports them to the user
-        
-        self.ref?.child("Users").child(self.userID!).child("Team").observeSingleEvent(of: .value, with: { [unowned self] (snapshot) in
-                let tempTeam = snapshot.value as? String
-                if let team = tempTeam {
-                self.ref?.child("Users").child(self.userID!).child("totalSeconds").observeSingleEvent(of: .value, with: { [unowned self] (snapshot) in
-                    let tempTotalTime = snapshot.value as? TimeInterval
-                    if var totalTime = tempTotalTime {
-                        totalTime = tempTotalTime! + (GlobalVariables.sharedManager.elapsedTimeThisRun! as Double)
-                        self.ref?.child("Users").child(self.userID!).child("totalSeconds").setValue(totalTime as Double!)
-                        self.ref?.child("Teams").child(team).child("Totaltime").observeSingleEvent(of: .value, with: { (snapshot) in
-                            let tempTotaltimeT = snapshot.value as? Double
-                            if var totaltimeT = tempTotaltimeT {
-                                totaltimeT = totaltimeT + (GlobalVariables.sharedManager.elapsedTimeThisRun! as Double)
-                                self.ref?.child("Teams").child(team).child("Totaltime").setValue(totaltimeT)
-                                GlobalVariables.sharedManager.elapsedTimeThisRun = 0
-                            }
-                        })
-                    }
-                }) //updates Firebase user and team records with time from this run
-                self.ref?.child("Users").child(self.userID!).child("KMRun").observeSingleEvent(of: .value, with: { [unowned self] (snapshot) in
-                    let tempTotalDistance = snapshot.value as? Double
-                    if var totalKM = tempTotalDistance {
-                        totalKM = tempTotalDistance! + (self.actualTotalDistance/1000 as Double)                   
-                        self.ref?.child("Users").child(self.userID!).child("KMRun").setValue(totalKM)
-                        self.ref?.child("Teams").child(team).child("TotalKm").observeSingleEvent(of: .value, with: { (snapshot) in
-                            let tempTotalDistanceT = snapshot.value as? Double
-
-                            if var totalkmT = tempTotalDistanceT {
-                                totalkmT = totalkmT + (self.actualTotalDistance/1000 as Double)
-                                self.ref?.child("Teams").child(team).child("TotalKm").setValue(totalkmT)
-                                self.actualTotalDistance = 0
-                            }
-                        })
-                    }
-                }) //updates Firebase user and team records with distance from this run
-  
-                var tempTotalCals: Double?
-                self.ref?.child("Users").child(self.userID!).child("TotalCalories").observeSingleEvent(of: .value, with: { [unowned self] (snapshot) in
-                    tempTotalCals = snapshot.value as? Double
-                    if var totalCals = tempTotalCals {
-                        totalCals = tempTotalCals! + calsBurned
-                        self.ref?.child("Users").child(self.userID!).child("TotalCalories").setValue(totalCals as Double!)
-                    }
-                })
-            } //updates Firebase user record with calories burned on this run
-        })
-    } //calculates total distance, time and calories burned on this run, reports them to the user, and updates the user's and user's team's records on Firebase.
 }

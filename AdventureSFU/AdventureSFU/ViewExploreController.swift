@@ -81,7 +81,8 @@ class ViewExploreController: UIViewController, UITableViewDelegate, UITableViewD
 		tableView.deselectRow(at: indexPath, animated: true)
         selectedRow = indexPath.row
 
-        self.performSegue(withIdentifier: "exploreDetail", sender: nil)
+
+		self.performSegue(withIdentifier: "exploreDetail", sender: nil)
 
 		
 	}
@@ -154,7 +155,7 @@ class ViewExploreController: UIViewController, UITableViewDelegate, UITableViewD
                     
                     let eItem = ExploreItem(title: tempTitle, hint: tempHint, lat: tempLat, long: tempLong, pass: tempPass)
 
-                    self.exploreItemArray.append(eItem)
+                                       self.exploreItemArray.append(eItem)
 
                 })
                 count += 1

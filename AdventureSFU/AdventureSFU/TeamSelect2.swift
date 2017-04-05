@@ -56,6 +56,7 @@ class TeamSelect2: UIViewController {
         })
     }
 
+
     //sends user back to previous page
     @IBAction func backtoMain(){
      
@@ -80,6 +81,7 @@ class TeamSelect2: UIViewController {
                 self.ref?.child("Teams").child("Eagles").child(userID!).setValue(data)
             }
         })
+
         dismiss(animated: true, completion: nil)
      }
      
@@ -96,6 +98,7 @@ class TeamSelect2: UIViewController {
                 self.ref?.child("Teams").child("Bobcats").child(userID!).setValue(data)
             }
         })
+
         dismiss(animated: true, completion: nil)
      }
      
@@ -112,9 +115,12 @@ class TeamSelect2: UIViewController {
                 self.ref?.child("Teams").child("Bears").child(userID!).setValue(data)
             }
         })
-        dismiss(animated: true, completion: nil)
+
+                dismiss(animated: true, completion: nil)
+
      }
     
+    //explains what to do on this page
     func makeAlert()
     {
         let alert = UIAlertController(title: "Select your Team",

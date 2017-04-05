@@ -24,33 +24,38 @@ class ActiveMapUI: MapUI, ActiveRunControllerDelegate {
     //Variables
     weak var activeDelegate: ActiveMapViewDelegate?
 
-    
+
     //Functions
+    
+    //Draws map at specified coordinates and adds planned route.
+
     override func viewDidLoad() {
         super.viewDidLoad()
         if (GlobalVariables.sharedManager.plannedWaypoints.count > 0) {
         MapUI.setCenter(CLLocationCoordinate2D(latitude: GlobalVariables.sharedManager.plannedWaypoints[0].coordinate.latitude, longitude: GlobalVariables.sharedManager.plannedWaypoints[0].coordinate.longitude),
                         zoomLevel: 13, animated: false) }
-        MapUI.userTrackingMode = .follow
+
         self.handleRoute()
-        //Draws map at specified coordinates and adds planned route.
+        
     }
    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
+    //Overrides route-selection gesture recognizer.
     override func handleSingleTap(tap: UITapGestureRecognizer) {
-        //Overrides route-selection gesture recognizer.
+        //do nothing
     }
-  
+    
+    //Updates map annotations to include most recent user movement.
     func appendToDrawnRoute() {
         if GlobalVariables.sharedManager.actualWaypoints.count > 1 {
         let coords = [GlobalVariables.sharedManager.actualWaypoints[GlobalVariables.sharedManager.actualWaypoints.count-2].coordinate, GlobalVariables.sharedManager.actualWaypoints[GlobalVariables.sharedManager.actualWaypoints.count-1].coordinate]
         let line = MGLPolyline(coordinates: coords, count: 2)
         MapUI.addAnnotation(line)
         }
-        //Updates map annotations to include most recent user movement.
+        
     }
 
 }

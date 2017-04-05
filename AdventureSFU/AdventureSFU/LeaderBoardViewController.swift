@@ -4,12 +4,20 @@
 //	Created for SFU CMPT 276, Instructor Herbert H. Tsang, P.Eng., Ph.D.
 //	AdventureSFU was a project created by Group 12 of CMPT 276
 //
-//  Creates and populates a leaderboard of team members.
-//
+
 //  Created by Group 12 on 3/30/17.
 //  Copyright © 2017 . All rights reserved.
 //
-
+//	AdventureSFU: Make Your Path
+//	Created for SFU CMPT 276, Instructor Herbert H. Tsang, P.Eng., Ph.D.
+//	AdventureSFU was a project created by Group 12 of CMPT 276
+//
+//	Displays leaderboard of team members.
+//	Programmers: Karan Aujla, Carlos Abaffy, Eleanor Lewis, Chris Norris-Jones
+//
+//	Known Bugs:
+//	Todo:
+//
 import UIKit
 import Firebase
 
@@ -89,9 +97,11 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
         ref?.child("Users").child(userID!).child("Team").observeSingleEvent(of: .value, with: { (snapshot) in
             //get what team the user is part of so we can get the correct data from firbase
             let value = snapshot.value as? String
+
             self.team = value!
             //display the team name on the page
             self.TeamTitle.text = "Team " + self.team
+
             self.ref?.child("Teams").child(self.team).observeSingleEvent(of: .value, with: { snapshot in
                 let enumerator = snapshot.children
                 while let rest = enumerator.nextObject() as? FIRDataSnapshot {
@@ -112,7 +122,7 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
                             let tempKM = info?["KMRun"]
                             let tempTime = info?["totalSeconds"]
                             let tempMessage = info?["personalMessage"]
-                            
+
                             if tempUsername != nil{
                                 newUser.username = tempUsername as! String
                             }
@@ -125,7 +135,7 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
 
                             
                             if let validMessage: String =  tempMessage as? String {
-                                print("personal message is of type \(type(of: tempMessage)))")
+                
                                 newUser.personalMessage = validMessage
                                 
                             }else{
@@ -177,7 +187,9 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
                 let hours: Int = minutes / 60
                 seconds -= minutes * 60
                 minutes -= hours * 60
-                cellToBeReturned.detailTextLabel?.text =  "\(hours)hr:\(minutes)min:\(seconds)sec"
+
+                cellToBeReturned.detailTextLabel?.text =  String(format: "H:M:S %d:%.2d:%.2d", hours, minutes, seconds)
+
             }
         }
         return cellToBeReturned

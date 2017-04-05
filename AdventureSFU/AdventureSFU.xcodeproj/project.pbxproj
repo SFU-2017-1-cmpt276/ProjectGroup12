@@ -15,7 +15,6 @@
 		48B69F0079BE6F57F6C0C826 /* Pods_AdventureSFUUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE11182882D24DBBA17B1040 /* Pods_AdventureSFUUITests.framework */; };
 		9E1B868D1E691C08006C0E61 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1B868C1E691C08006C0E61 /* AppDelegate.swift */; };
 		9E1B868F1E691C08006C0E61 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1B868E1E691C08006C0E61 /* ViewController.swift */; };
-		9E1B86951E691C08006C0E61 /* AdventureSFU.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9E1B86931E691C08006C0E61 /* AdventureSFU.xcdatamodeld */; };
 		9E1B86971E691C08006C0E61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E1B86961E691C08006C0E61 /* Assets.xcassets */; };
 		9E1B869A1E691C08006C0E61 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E1B86981E691C08006C0E61 /* LaunchScreen.storyboard */; };
 		9E1B86A51E691C08006C0E61 /* AdventureSFUTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1B86A41E691C08006C0E61 /* AdventureSFUTests.swift */; };
@@ -87,7 +86,6 @@
 		9E1B86891E691C08006C0E61 /* AdventureSFU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdventureSFU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E1B868C1E691C08006C0E61 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9E1B868E1E691C08006C0E61 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		9E1B86941E691C08006C0E61 /* AdventureSFU.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AdventureSFU.xcdatamodel; sourceTree = "<group>"; };
 		9E1B86961E691C08006C0E61 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E1B86991E691C08006C0E61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9E1B869B1E691C08006C0E61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -216,7 +214,6 @@
 				9E1B86981E691C08006C0E61 /* LaunchScreen.storyboard */,
 				9E1B869B1E691C08006C0E61 /* Info.plist */,
 				DEE6203C1E6B47E000B49665 /* GoogleService-Info.plist */,
-				9E1B86931E691C08006C0E61 /* AdventureSFU.xcdatamodeld */,
 			);
 			path = AdventureSFU;
 			sourceTree = "<group>";
@@ -539,7 +536,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				229D2C9A1E91A988000E5D5A /* AllTeamsLeaderboardsViewController.swift in Sources */,
-				9E1B86951E691C08006C0E61 /* AdventureSFU.xcdatamodeld in Sources */,
 				22419C231E7CB3100059D3D2 /* TeamSelect2.swift in Sources */,
 				2204B2811E6B7572009A6DF5 /* ViewRunController.swift in Sources */,
 				9E7F20C31E8DFDE100B7E5ED /* LeaderBoardViewController.swift in Sources */,
@@ -844,19 +840,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		9E1B86931E691C08006C0E61 /* AdventureSFU.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				9E1B86941E691C08006C0E61 /* AdventureSFU.xcdatamodel */,
-			);
-			currentVersion = 9E1B86941E691C08006C0E61 /* AdventureSFU.xcdatamodel */;
-			path = AdventureSFU.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 9E1B86811E691C08006C0E61 /* Project object */;
 }
