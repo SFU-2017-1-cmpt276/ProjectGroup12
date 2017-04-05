@@ -206,22 +206,21 @@ class MainViewController: UIViewController, UITextFieldDelegate, MGLMapViewDeleg
         // Get the offline pack this notification is regarding,
         // and the associated user info for the pack; in this case, `name = My Offline Pack`
         if let pack = notification.object as? MGLOfflinePack,
-            let userInfo = NSKeyedUnarchiver.unarchiveObject(with: pack.context) as? [String: String] {
+            let _ = NSKeyedUnarchiver.unarchiveObject(with: pack.context) as? [String: String] {
             let progress = pack.progress
             // or notification.userInfo![MGLOfflinePackProgressUserInfoKey]!.MGLOfflinePackProgressValue
             let completedResources = progress.countOfResourcesCompleted
             let expectedResources = progress.countOfResourcesExpected
 
-            // Calculate current progress percentage.
-            let progressPercentage = Float(completedResources) / Float(expectedResources)
-
-            // If this pack has finished, print its size and resource count.
+            // If this pack has finished while user is on main page, let them know
             if completedResources == expectedResources {
-                let byteCount = ByteCountFormatter.string(fromByteCount: Int64(pack.progress.countOfBytesCompleted), countStyle: ByteCountFormatter.CountStyle.memory)
-                print("Offline pack “\(String(describing: userInfo["name"]))” completed: \(byteCount), \(completedResources) resources")
-            } else {
-                // Otherwise, print download/verification progress.
-                print("Offline pack “\(String(describing: userInfo["name"]))” has \(completedResources) of \(expectedResources) resources — \(progressPercentage * 100)%.")
+                let alert = UIAlertController(title: "Map download complete",
+                                              message: "",
+                                              preferredStyle: .alert)
+                let alertConfirmation = UIAlertAction(title: "ok", style: .default, handler: nil)
+                alert.addAction(alertConfirmation)
+                self.present(alert, animated: true, completion: nil)
+                return
             }
         }
     }
@@ -229,17 +228,27 @@ class MainViewController: UIViewController, UITextFieldDelegate, MGLMapViewDeleg
 
     func offlinePackDidReceiveError(notification: NSNotification) {
         if let pack = notification.object as? MGLOfflinePack,
-            let userInfo = NSKeyedUnarchiver.unarchiveObject(with: pack.context) as? [String: String],
+            let _ = NSKeyedUnarchiver.unarchiveObject(with: pack.context) as? [String: String],
             let error = notification.userInfo?[MGLOfflinePackUserInfoKey.error] as? NSError {
-            print("Offline pack “\(String(describing: userInfo["name"]))” received error: \(String(describing: error.localizedFailureReason))")
+            let alert = UIAlertController(title: "Map download error",
+                                          message: "Error: \(String(describing: error.localizedFailureReason))",
+                                          preferredStyle: .alert)
+            let alertConfirmation = UIAlertAction(title: "ok", style: .default, handler: nil)
+            alert.addAction(alertConfirmation)
+            self.present(alert, animated: true, completion: nil)
         }
     }
 
     func offlinePackDidReceiveMaximumAllowedMapboxTiles(notification: NSNotification) {
         if let pack = notification.object as? MGLOfflinePack,
-            let userInfo = NSKeyedUnarchiver.unarchiveObject(with: pack.context) as? [String: String],
-            let maximumCount = (notification.userInfo?[MGLOfflinePackUserInfoKey.maximumCount] as AnyObject).uint64Value {
-            print("Offline pack “\(String(describing: userInfo["name"]))” reached limit of \(maximumCount) tiles.")
+            let _ = NSKeyedUnarchiver.unarchiveObject(with: pack.context) as? [String: String],
+            let _ = (notification.userInfo?[MGLOfflinePackUserInfoKey.maximumCount] as AnyObject).uint64Value {
+            let alert = UIAlertController(title: "Map download error",
+                                          message: "Error: maximum tiles downloaded",
+                preferredStyle: .alert)
+            let alertConfirmation = UIAlertAction(title: "ok", style: .default, handler: nil)
+            alert.addAction(alertConfirmation)
+            self.present(alert, animated: true, completion: nil)
         }
     }
 

@@ -2,10 +2,19 @@
 //  LeaderBoardViewController.swift
 //  AdventureSFU
 //
-//  Created by Karan Aujla on 3/30/17.
-//  Copyright © 2017 Karan Aujla. All rights reserved.
+//  Created by Group 12 on 3/30/17.
+//  Copyright © 2017 . All rights reserved.
 //
-
+//	AdventureSFU: Make Your Path
+//	Created for SFU CMPT 276, Instructor Herbert H. Tsang, P.Eng., Ph.D.
+//	AdventureSFU was a project created by Group 12 of CMPT 276
+//
+//	Displays leaderboard of team members.
+//	Programmers: Karan Aujla, Carlos Abaffy, Eleanor Lewis, Chris Norris-Jones
+//
+//	Known Bugs:
+//	Todo:
+//
 import UIKit
 import Firebase
 
@@ -196,7 +205,7 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
                 let hours: Int = minutes / 60
                 seconds -= minutes * 60
                 minutes -= hours * 60
-                cellToBeReturned.detailTextLabel?.text =  String(format: "H:M:S: %d:%.2d:%.2d", hours, minutes, seconds)
+                cellToBeReturned.detailTextLabel?.text =  String(format: "H:M:S %d:%.2d:%.2d", hours, minutes, seconds)
 
 
 

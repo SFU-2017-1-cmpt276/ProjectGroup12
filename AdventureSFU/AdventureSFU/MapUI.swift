@@ -60,6 +60,8 @@ class MapUI: UIViewController, RunViewControllerDelegate, MGLMapViewDelegate {
     }
     
     //Functions
+    
+     //Deletes local copy of planned route.
     func deleteAllPoints() {
         if (GlobalVariables.sharedManager.plannedWaypoints.count > 0) {
             GlobalVariables.sharedManager.plannedWaypoints.removeAll()
@@ -69,10 +71,10 @@ class MapUI: UIViewController, RunViewControllerDelegate, MGLMapViewDelegate {
             MapUI.removeAnnotations(MapUI.annotations!)
             // remove drawn route so new route can be drawn
         }
-        //Deletes local copy of planned route.
+       
     }
     
-    
+    //Adds selected location to user route.
     func handleSingleTap(tap: UITapGestureRecognizer) {
         if GlobalVariables.sharedManager.plannedWaypoints.count < 25 {
         let location: CLLocationCoordinate2D = MapUI.convert(tap.location(in: MapUI), toCoordinateFrom: MapUI)
@@ -86,10 +88,10 @@ class MapUI: UIViewController, RunViewControllerDelegate, MGLMapViewDelegate {
         } else {
             self.delegate?.maxPointsAlert()
         }
-        //Adds selected location to user route.
+        
     }
     
-    
+    //adds start annotation. generates route if there is more than one point. submits it to be drawn.
     func handleRoute() {
         if GlobalVariables.sharedManager.plannedWaypoints.count > 0 {
             start.coordinate = GlobalVariables.sharedManager.plannedWaypoints[0].coordinate
@@ -111,18 +113,18 @@ class MapUI: UIViewController, RunViewControllerDelegate, MGLMapViewDelegate {
                         self.drawRoute(route: route)
                     }
                 }
-            } //generates route if there is more than one point. submits it to be drawn.
+            }
         }
-       
     }
 
+     //redraw route
     func drawRoute(route: Route) {
         //passes time and distance to containing view for display to user.
         self.delegate?.getDistanceAndTime(distance: route.distance, time: route.expectedTravelTime)
         var routeCoordinates = route.coordinates!
         let routeLine = MGLPolyline(coordinates: &routeCoordinates, count: route.coordinateCount)
         self.MapUI.addAnnotation(routeLine)
-        //redraw route
+       
     }
     
     
@@ -132,7 +134,6 @@ class MapUI: UIViewController, RunViewControllerDelegate, MGLMapViewDelegate {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func viewDidAppear(_ animated: Bool) {
