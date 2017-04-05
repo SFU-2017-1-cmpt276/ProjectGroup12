@@ -64,8 +64,8 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
             celltoBeReturned.detailTextLabel?.text = email
         
 		}else if indexPath.row == 2{
-			celltoBeReturned.textLabel?.text = "Kilometres Run"
-            celltoBeReturned.detailTextLabel?.text = String(format: "%.2f", kilometres)
+            celltoBeReturned.textLabel?.text = "team"
+            celltoBeReturned.detailTextLabel?.text = team
             
 		}else if indexPath.row == 3{
             celltoBeReturned.textLabel?.text = "height"
@@ -85,11 +85,12 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
             celltoBeReturned.detailTextLabel?.text = personalMessage
             
         }else if indexPath.row == 6{
-            celltoBeReturned.textLabel?.text = "team"
-            celltoBeReturned.detailTextLabel?.text = team
+            celltoBeReturned.textLabel?.text = "Kilometres Run"
+            celltoBeReturned.detailTextLabel?.text = String(format: "%.2f", kilometres)
+
         }
         else if indexPath.row == 7{
-            celltoBeReturned.textLabel?.text = "Total time run (H:M:S)"
+            celltoBeReturned.textLabel?.text = "Total time run"
             
             let seconds: Int = Int(totalTimeInSeconds) % 60;
             let minutes: Int = Int(totalTimeInSeconds / 60) % 60;
@@ -153,6 +154,15 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
                 present(changeUsernameAlert, animated: true)
             
             //if height is selected
+            }else if indexPath.row == 2{
+                print("teams selected, team is currently \(team)")
+                //if there is no team, then let the user select one.
+                if team == "No Team" {
+                    print("no team found going to team selectß")
+                    // perform a segue to the teams page
+                    performSegue(withIdentifier: "teamSelect", sender: self)
+                }
+                
             } else if indexPath.row == 3 {
                //force the user to enter in inches
                 let changeHeight = UIAlertController(title: "new Height", message: "please enter your new height in inches", preferredStyle: .alert)
@@ -242,18 +252,30 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
                 present(changePersonalMessage, animated: true, completion: nil)
                 
             //if teams were selected
-            } else if indexPath.row == 6{
-                print("teams selected, team is currently \(team)")
-                //if there is no team, then let the user select one. 
-                if team == "No Team" {
-                    print("no team found going to team selectß")
-                    // perform a segue to the teams page
-                    performSegue(withIdentifier: "teamSelect", sender: self)
-                }
-            
+            }else{
+                //do nothing
             }
             
+            
         }
+        /*when the user taps the personal message cell
+         *when editing is not enabled, allow them to view the full string,
+         *in case it is longer than what can be displayed
+         */
+            
+        //if the current cell is infact the personal message
+        if indexPath.row == 5 {
+            //create an alert to display the personal message
+            let personalMessageAlert = UIAlertController(title: "Your Personal Message:", message: personalMessage, preferredStyle: .actionSheet)
+            //create a confirm button for the alert
+            let personalMessageConfirm = UIAlertAction(title: "ok", style: .default, handler: nil)
+            //add it to the alert
+            personalMessageAlert.addAction(personalMessageConfirm)
+            
+            //present the alert
+            present(personalMessageAlert, animated: true, completion: nil)
+        }
+        
     }
 
 //Load Actions
