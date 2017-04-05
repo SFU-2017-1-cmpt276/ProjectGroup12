@@ -14,11 +14,15 @@ import Mapbox
 
 
 class ExploreMapUI: MapUI {
+    
+    //Variables
     var mapLat: Double?
     var mapLong: Double?
     var exploreTitle: String?
     var target = MGLPointAnnotation()
     
+    
+    //Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         target.coordinate = CLLocationCoordinate2D(latitude: mapLat!, longitude: mapLong!)

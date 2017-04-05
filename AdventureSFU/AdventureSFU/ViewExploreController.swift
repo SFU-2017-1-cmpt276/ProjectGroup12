@@ -21,8 +21,6 @@ import Firebase
 class ViewExploreController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
 //Variables
-    /*Currently the text and hint information is being held locally on this page, as it is taken into the Explore View One page when
-    selected. For V3 will look into pulling this out into a global variable */
     
     var ref: FIRDatabaseReference?
     
@@ -82,9 +80,9 @@ class ViewExploreController: UIViewController, UITableViewDelegate, UITableViewD
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
         selectedRow = indexPath.row
-        //print("Row selected is \(selectedRow)")
-        //print("Struct title from selected row is \(exploreItemArray[selectedRow].title!)")
-		self.performSegue(withIdentifier: "exploreDetail", sender: nil)
+
+        self.performSegue(withIdentifier: "exploreDetail", sender: nil)
+
 		
 	}
     //When segueing into the Explore View One page, setting up required variables for the view-one page
@@ -120,25 +118,7 @@ class ViewExploreController: UIViewController, UITableViewDelegate, UITableViewD
                 self.numberRows = actualVal
             }
             self.exploreTable.reloadData()
-            /*
-            var count:Int = 0
-            while (count < tempVal!) {
-                self.ref?.child("ExploreItems").child(String(count+1)).observeSingleEvent(of: .value, with: { (snapshot) in
-                    let value = snapshot.value as? NSDictionary
-                    
-                    let tempTitle = value?["Title"] as! String
-                    let tempLat = value?["Latitude"] as! Double
-                    let tempLong = value?["Longitude"] as! Double
-                    let tempHint = value?["Hint"] as! String
-                    let tempPass = value?["Password"] as! String
-                    
-                    let eItem = ExploreItem(title: tempTitle, hint: tempHint, lat: tempLat, long: tempLong, pass: tempPass)
-                    
-                    self.exploreItemArray.append(eItem)
-                })
-                count += 1
-            }
-        */
+
         })
         
         done = 1
@@ -173,14 +153,13 @@ class ViewExploreController: UIViewController, UITableViewDelegate, UITableViewD
                     let tempPass = value?["Password"] as! String
                     
                     let eItem = ExploreItem(title: tempTitle, hint: tempHint, lat: tempLat, long: tempLong, pass: tempPass)
-                    //print("Explore Item Title: \(String(describing: eItem.title))")
+
                     self.exploreItemArray.append(eItem)
-                    //print("If array loaded, then total is: \(self.exploreItemArray.count)")
+
                 })
                 count += 1
             }
         })
-        //exploreTable.reloadData()
     }
 	
 //Actions

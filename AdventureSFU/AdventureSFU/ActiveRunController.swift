@@ -20,6 +20,8 @@ import Firebase
 import CoreLocation
 
 class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationManagerDelegate {
+
+    //Variables
     var locationManager:CLLocationManager!
     var actualWaypointNumber: Int = 0
     weak var activeDelegate: ActiveRunControllerDelegate?
@@ -28,7 +30,9 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
     var actualTotalDistance: Double = 0
     var tracking: Bool = true
     
+    @IBOutlet weak var runToggle: UIButton!
     
+    //Functions
     override func getDistanceAndTime(distance: Double, time: Double) {
         //prevents this inherited function from doing anything.
     }
@@ -77,7 +81,6 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
         // Dispose of any resources that can be recreated.
     }
   
-
     @IBAction func stopRun(_ sender: UIButton) {
         if (CLLocationManager.locationServicesEnabled()) {
             if (self.tracking == true)  {
@@ -95,7 +98,7 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
         //Allows the user to start and stop run tracking. Each Stopped run is treated as a complete run - stats are submitted.
     }
 
-    @IBOutlet weak var runToggle: UIButton!
+
     
     @IBAction func activeRunHelp(_ sender: UIButton) {
         let infoAlert = UIAlertController(title: "Run Tracking Help", message: "On this page you can see a record of your route on this trip. Select End Run! to stop recording and go back to the Route Planning page. Your total distance and time will be updated to include the distance and time from this trip.", preferredStyle: .alert)

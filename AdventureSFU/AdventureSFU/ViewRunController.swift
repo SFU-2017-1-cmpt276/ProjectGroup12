@@ -59,7 +59,7 @@ class ViewRunController: UIViewController, MapViewDelegate {
         //Alerts the user that no more coordinates can be added (limit set by Mapbox).
     }
     
-    //IBAction functions
+    //Actions
     @IBAction func restoreRoute(_ sender: AnyObject) {
         self.RunViewDelegate?.deleteAllPoints()
         GlobalVariables.sharedManager.plannedWaypoints.removeAll()
