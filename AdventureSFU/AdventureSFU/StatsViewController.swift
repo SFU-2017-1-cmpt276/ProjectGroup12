@@ -61,6 +61,7 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
         else if indexPath.row == 1{
 			celltoBeReturned.textLabel?.text = "Email"
             celltoBeReturned.detailTextLabel?.text = email
+
 		}
         else if indexPath.row == 2{
             celltoBeReturned.textLabel?.text = "Personal message"
@@ -76,6 +77,7 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         else if indexPath.row == 5{
             celltoBeReturned.textLabel?.text = "Total time run (H:M:S)"
+
             let seconds: Int = Int(totalTimeInSeconds) % 60;
             let minutes: Int = Int(totalTimeInSeconds / 60) % 60;
             let hours: Int = Int(totalTimeInSeconds / 3600);
@@ -148,7 +150,9 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
                 present(changeUsernameAlert, animated: true)
             
             //if height is selected
+
             } else if indexPath.row == 7 {
+
                //force the user to enter in inches
                 let changeHeight = UIAlertController(title: "New Height", message: "Please enter your new height in inches", preferredStyle: .alert)
                 
@@ -231,6 +235,7 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
                 present(changePersonalMessage, animated: true, completion: nil)
                 
             //if teams were selected
+
             } else if indexPath.row == 6{
                 //if there is no team, then let the user select one. 
                 if team == "No Team" {
@@ -238,7 +243,9 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
                     performSegue(withIdentifier: "teamSelect", sender: self)
                 }
             }
+
         }
+        
     }
 
 //Load Actions

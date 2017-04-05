@@ -79,6 +79,7 @@ class SignUpUITest: XCTestCase {
         let passwordSecureTextField = app.scrollViews.otherElements.secureTextFields["Password"]
         passwordSecureTextField.tap()
         passwordSecureTextField.typeText("A123456")
+        app.typeText("\r")
         app.buttons["Create Account"].tap()
         
         let fieldsMissingAlert = app.alerts["Fields Missing!"]
@@ -89,6 +90,31 @@ class SignUpUITest: XCTestCase {
         
     
     }
-    
+    func testWeakPasswordTooShort(){
+        XCUIApplication().buttons["Create Account"].tap()
+        
+        let scrollViewsQuery = XCUIApplication().scrollViews
+        let usernameTextField = scrollViewsQuery.otherElements.children(matching: .textField).matching(identifier: "Username").element(boundBy: 1)
+        usernameTextField.tap()
+        usernameTextField.typeText("kaan")
+        
+        let addressComTextField = XCUIApplication().scrollViews.otherElements.textFields["@address.com"]
+        addressComTextField.tap()
+        addressComTextField.typeText("k@S.CA")
+        
+        let app = XCUIApplication()
+        let passwordSecureTextField = app.scrollViews.otherElements.secureTextFields["Password"]
+        passwordSecureTextField.tap()
+        passwordSecureTextField.typeText("A1")
+        
+        app.buttons["Create Account"].tap()
+        
+        let accountCreationIssueAlert = app.alerts["Account Creation Issue!"]
+        let shortPasswordText = accountCreationIssueAlert.staticTexts["The password must be 6 characters long or more."]
+        
+        XCTAssertTrue(shortPasswordText.exists)
+        
+        
+    }
     
 }
