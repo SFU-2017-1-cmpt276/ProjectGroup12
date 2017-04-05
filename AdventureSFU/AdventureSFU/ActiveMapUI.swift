@@ -7,12 +7,11 @@
 //  Created by Group 12 on 3/14/17.
 //  Copyright © 2017 . All rights reserved.
 //
-//	Shows current user location and actual path on current outing.
+//	Shows current user location, planned route and actual path on current run.
 //	Programmers: Karan Aujla, Carlos Abaffy, Eleanor Lewis, Chris Norris-Jones
 //
 //	Known Bugs:
-//	Todo: zoom out to show both user location and planned start point.
-//
+//	Todo: //
 
 
 import UIKit

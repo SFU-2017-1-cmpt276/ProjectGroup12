@@ -10,7 +10,6 @@
 //
 
 import UIKit
-import MapboxDirections
 import Mapbox
 
 
@@ -26,7 +25,8 @@ class ExploreMapUI: MapUI {
         target.title = exploreTitle
         MapUI.addAnnotation(target)
         MapUI.userTrackingMode = .follow
-        MapUI.setCenter(CLLocationCoordinate2D(latitude: 49.276869, longitude: -122.919371), zoomLevel: 12, animated: false)        //Add target coordinate and user location to map.
+        MapUI.setCenter(CLLocationCoordinate2D(latitude: 49.276869, longitude: -122.919371), zoomLevel: 12, animated: false)
+        //Add target coordinate and user location to map.
     }
     
     override func handleSingleTap(tap: UITapGestureRecognizer) {
@@ -34,7 +34,7 @@ class ExploreMapUI: MapUI {
     }
 
     override func handleRoute() {
-        //do nothing
+        //do nothing; overwrites automatic planned route drawing function of MapUI class
     }
 
     

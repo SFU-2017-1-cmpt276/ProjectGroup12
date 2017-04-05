@@ -39,16 +39,11 @@ class GlobalVariables {
     var endTime: Date?
     var elapsedTimeThisRun: TimeInterval?
     var distanceThisRun: Double = 0
-    var hasRunData: Bool = false
     var plannedWaypoints: [Waypoint] = []
-    var waypointsTest: [Waypoint] = []
     var avgSpeed: Double? //use only for calculating speed in planned routes
     var weight: Double = 0.0
 
     var mapView: MGLMapView?
-
-    var ref: FIRDatabaseReference?
-    var userID: String?
     
     class var sharedManager: GlobalVariables {
         struct Static {
