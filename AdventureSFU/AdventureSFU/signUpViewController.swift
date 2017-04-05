@@ -245,7 +245,7 @@ class signUpViewController: UIViewController, UITextFieldDelegate {
                                                         self.ref?.child("Users").child(user!.uid).child("firstLogin").setValue(true)
                                                         self.ref?.child("Users").child(user!.uid).child("Team").setValue("No Team")
                                                         self.ref?.child("Users").child(user!.uid).child("TotalCalories").setValue(0.0)
-                                                        ////self.ref?.child("Users").child(user!.uid).child("presetRouteCoordinateCount").setValue(0)
+
                                                         var count:Int = 0
                                                       
                                                         self.ref?.child("ExploreItemTotal").observeSingleEvent(of: .value, with: { (snapshot) in

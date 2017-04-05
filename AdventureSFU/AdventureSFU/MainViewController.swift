@@ -84,6 +84,8 @@ class MainViewController: UIViewController, UITextFieldDelegate, MGLMapViewDeleg
                     if (avgSpeed > 0.0) {
                         GlobalVariables.sharedManager.avgSpeed = avgSpeed
                     }
+                } else {
+                    GlobalVariables.sharedManager.avgSpeed = 0.0
                 }
             })
         })//loading user total KM and distance to calculate average speed for later use
@@ -210,17 +212,15 @@ class MainViewController: UIViewController, UITextFieldDelegate, MGLMapViewDeleg
             let completedResources = progress.countOfResourcesCompleted
             let expectedResources = progress.countOfResourcesExpected
 
-            // Calculate current progress percentage.
-            let progressPercentage = Float(completedResources) / Float(expectedResources)
-
             // If this pack has finished, print its size and resource count.
             if completedResources == expectedResources {
-                let byteCount = ByteCountFormatter.string(fromByteCount: Int64(pack.progress.countOfBytesCompleted), countStyle: ByteCountFormatter.CountStyle.memory)
-                print("Offline pack “\(String(describing: userInfo["name"]))” completed: \(byteCount), \(completedResources) resources")
-            } else {
-                // Otherwise, print download/verification progress.
-                print("Offline pack “\(String(describing: userInfo["name"]))” has \(completedResources) of \(expectedResources) resources — \(progressPercentage * 100)%.")
-            }
+                let alert = UIAlertController(title: "Map download complete",
+                                              message: "",
+                    preferredStyle: .alert)
+                let alertConfirmation = UIAlertAction(title: "ok", style: .default, handler: nil)
+                alert.addAction(alertConfirmation)
+                self.present(alert, animated: true, completion: nil)
+            } 
         }
     }
 
@@ -230,6 +230,12 @@ class MainViewController: UIViewController, UITextFieldDelegate, MGLMapViewDeleg
             let userInfo = NSKeyedUnarchiver.unarchiveObject(with: pack.context) as? [String: String],
             let error = notification.userInfo?[MGLOfflinePackUserInfoKey.error] as? NSError {
             print("Offline pack “\(String(describing: userInfo["name"]))” received error: \(String(describing: error.localizedFailureReason))")
+            let alert = UIAlertController(title: "Could not download offline pack",
+                                         message: "Offline pack “\(String(describing: userInfo["name"]))” received error: \(String(describing: error.localizedFailureReason))",
+                                         preferredStyle: .alert)
+            let alertConfirmation = UIAlertAction(title: "ok", style: .default, handler: nil)
+            alert.addAction(alertConfirmation)
+            self.present(alert, animated: true, completion: nil)
         }
     }
 
@@ -237,7 +243,12 @@ class MainViewController: UIViewController, UITextFieldDelegate, MGLMapViewDeleg
         if let pack = notification.object as? MGLOfflinePack,
             let userInfo = NSKeyedUnarchiver.unarchiveObject(with: pack.context) as? [String: String],
             let maximumCount = (notification.userInfo?[MGLOfflinePackUserInfoKey.maximumCount] as AnyObject).uint64Value {
-            print("Offline pack “\(String(describing: userInfo["name"]))” reached limit of \(maximumCount) tiles.")
+            let alert = UIAlertController(title: "Could not download offline pack",
+                                                                                                                                                     message: "Offline pack “\(String(describing: userInfo["name"]))” reached limit of \(maximumCount) tiles.",
+                preferredStyle: .alert)
+            let alertConfirmation = UIAlertAction(title: "ok", style: .default, handler: nil)
+            alert.addAction(alertConfirmation)
+            self.present(alert, animated: true, completion: nil)
         }
     }
 
