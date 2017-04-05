@@ -161,15 +161,16 @@ class ActiveRunController: ViewRunController, ActiveMapViewDelegate, CLLocationM
                     }
                 }) //updates Firebase user and team records with time from this run
                 self.ref?.child("Users").child(self.userID!).child("KMRun").observeSingleEvent(of: .value, with: { [unowned self] (snapshot) in
-                    let tempTotalDistance = snapshot.value as? TimeInterval
+                    let tempTotalDistance = snapshot.value as? Double
                     if var totalKM = tempTotalDistance {
-                        totalKM = tempTotalDistance! + (self.actualTotalDistance as Double)
-                        self.ref?.child("Users").child(self.userID!).child("KMRun").setValue(totalKM as Double!)
-                        self.ref?.child("Teams").child(team).child("Totalkm").observeSingleEvent(of: .value, with: { (snapshot) in
+                        totalKM = tempTotalDistance! + (self.actualTotalDistance/1000 as Double)                   
+                        self.ref?.child("Users").child(self.userID!).child("KMRun").setValue(totalKM)
+                        self.ref?.child("Teams").child(team).child("TotalKm").observeSingleEvent(of: .value, with: { (snapshot) in
                             let tempTotalDistanceT = snapshot.value as? Double
+
                             if var totalkmT = tempTotalDistanceT {
-                                totalkmT = totalkmT + (self.actualTotalDistance as Double)
-                                self.ref?.child("Teams").child(team).child("Totalkm").setValue(totalkmT)
+                                totalkmT = totalkmT + (self.actualTotalDistance/1000 as Double)
+                                self.ref?.child("Teams").child(team).child("TotalKm").setValue(totalkmT)
                                 self.actualTotalDistance = 0
                             }
                         })

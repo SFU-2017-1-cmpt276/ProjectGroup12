@@ -121,6 +121,17 @@ class MainViewController: UIViewController, UITextFieldDelegate, MGLMapViewDeleg
         //Load or update offline map pack
     }
 
+    @IBAction func infoAlert(_ sender: Any) {
+        let alert = UIAlertController(title: "Main Page Help",
+                                      message: "Select 'Get Offline Map' to download or update a copy of the trail map for offline use. Select Teams to view your team leaderboard and all-team leaderboard. Select Run to plan your route and track your run. Select Explore to go geocaching. Select Stats to view your user information and statistics.",
+                                      preferredStyle: .alert)
+        let alertConfirmation = UIAlertAction(title: "ok", style: .default, handler: nil)
+        alert.addAction(alertConfirmation)
+        self.present(alert, animated: true, completion: nil)
+        
+        //Provides summary of buttons on main page.
+    }
+    
     @IBAction func toTeamsPage() {
         let userID = FIRAuth.auth()?.currentUser?.uid
         ref?.child("Users").child(userID!).child("Team").observeSingleEvent(of: .value, with: { (snapshot) in
