@@ -246,6 +246,15 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
 
         }
         
+        //if editing is not enabled and the user taps on their personal message display the full message
+        if indexPath.row == 2{
+            let personalMessageAlert = UIAlertController(title: "Your Personal Message", message: personalMessage, preferredStyle: .alert)
+            
+            let  personalMessageConfirm = UIAlertAction(title: "ok", style: .default, handler: nil)
+            personalMessageAlert.addAction(personalMessageConfirm)
+            
+            present(personalMessageAlert, animated: true, completion: nil)
+        }
     }
 
 //Load Actions
@@ -321,9 +330,9 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     //presents a button with a explanation on how to use stats page
     @IBAction func infoButton() {
-        let msg = "This page displays all tracked stats. You can edit info such as height, weight, username, and personal message by tapping the edit button and then the info you would like to edit. Tap done to finish editing. You can also choose a team if you did not do so earlier. Simply tap edit and then tap the team row. This will take you the team sign up page. \n" + "\n" + "To track calories burned, weight must be entered. The formula used is cals = 0.0175 x weight in kilos x M.E.T. x minutes of activity. An M.E.T. of 6 is assumed. Actual calories burned may vary widely. Formula and M.E.T. source: https://www.hss.edu/conditions_burning-calories-with-exercise-calculating-estimated-energy-expenditure.asp"
+        let msg = "This page displays all tracked stats. You can edit info such as height, weight, username, and personal message by tapping the edit button and then the info you would like to edit. Tap done to finish editing. You can also choose a team if you did not do so earlier. Simply tap edit and then tap the team row. This will take you the team sign up page. Also if you tap your personal message when not editing, you can see the full message \n" + "\n" + "To track calories burned, weight must be entered. The formula used is cals = 0.0175 x weight in kilos x M.E.T. x minutes of activity. An M.E.T. of 6 is assumed. Actual calories burned may vary widely. Formula and M.E.T. source: https://www.hss.edu/conditions_burning-calories-with-exercise-calculating-estimated-energy-expenditure.asp"
         let infoAlert = UIAlertController(title: "Information", message: msg, preferredStyle: .alert)
-        let infoConfirm = UIAlertAction(title: "ok", style: .default, handler: nil)
+        let infoConfirm = UIAlertAction(title: "Ok", style: .default, handler: nil)
         infoAlert.addAction(infoConfirm)
         present(infoAlert, animated: true, completion: nil)
     }
