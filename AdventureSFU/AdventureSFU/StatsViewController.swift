@@ -61,6 +61,7 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
         else if indexPath.row == 1{
 			celltoBeReturned.textLabel?.text = "Email"
             celltoBeReturned.detailTextLabel?.text = email
+
 		}
         else if indexPath.row == 2{
             celltoBeReturned.textLabel?.text = "Personal message"
@@ -76,6 +77,7 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         else if indexPath.row == 5{
             celltoBeReturned.textLabel?.text = "Total time run (H:M:S)"
+
             let seconds: Int = Int(totalTimeInSeconds) % 60;
             let minutes: Int = Int(totalTimeInSeconds / 60) % 60;
             let hours: Int = Int(totalTimeInSeconds / 3600);
@@ -148,7 +150,9 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
                 present(changeUsernameAlert, animated: true)
             
             //if height is selected
+
             } else if indexPath.row == 7 {
+
                //force the user to enter in inches
                 let changeHeight = UIAlertController(title: "New Height", message: "Please enter your new height in inches", preferredStyle: .alert)
                 
@@ -231,6 +235,7 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
                 present(changePersonalMessage, animated: true, completion: nil)
                 
             //if teams were selected
+
             } else if indexPath.row == 6{
                 //if there is no team, then let the user select one. 
                 if team == "No Team" {
@@ -238,6 +243,17 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
                     performSegue(withIdentifier: "teamSelect", sender: self)
                 }
             }
+
+        }
+        
+        //if editing is not enabled and the user taps on their personal message display the full message
+        if indexPath.row == 2{
+            let personalMessageAlert = UIAlertController(title: "Your Personal Message", message: personalMessage, preferredStyle: .alert)
+            
+            let  personalMessageConfirm = UIAlertAction(title: "ok", style: .default, handler: nil)
+            personalMessageAlert.addAction(personalMessageConfirm)
+            
+            present(personalMessageAlert, animated: true, completion: nil)
         }
     }
 
@@ -314,9 +330,9 @@ class StatsViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     //presents a button with a explanation on how to use stats page
     @IBAction func infoButton() {
-        let msg = "This page displays all tracked stats. You can edit info such as height, weight, username, and personal message by tapping the edit button and then the info you would like to edit. Tap done to finish editing. You can also choose a team if you did not do so earlier. Simply tap edit and then tap the team row. This will take you the team sign up page. \n" + "\n" + "To track calories burned, weight must be entered. The formula used is cals = 0.0175 x weight in kilos x M.E.T. x minutes of activity. An M.E.T. of 6 is assumed. Actual calories burned may vary widely. Formula and M.E.T. source: https://www.hss.edu/conditions_burning-calories-with-exercise-calculating-estimated-energy-expenditure.asp"
+        let msg = "This page displays all tracked stats. You can edit info such as height, weight, username, and personal message by tapping the edit button and then the info you would like to edit. Tap done to finish editing. You can also choose a team if you did not do so earlier. Simply tap edit and then tap the team row. This will take you the team sign up page. Also if you tap your personal message when not editing, you can see the full message \n" + "\n" + "To track calories burned, weight must be entered. The formula used is cals = 0.0175 x weight in kilos x M.E.T. x minutes of activity. An M.E.T. of 6 is assumed. Actual calories burned may vary widely. Formula and M.E.T. source: https://www.hss.edu/conditions_burning-calories-with-exercise-calculating-estimated-energy-expenditure.asp"
         let infoAlert = UIAlertController(title: "Information", message: msg, preferredStyle: .alert)
-        let infoConfirm = UIAlertAction(title: "ok", style: .default, handler: nil)
+        let infoConfirm = UIAlertAction(title: "Ok", style: .default, handler: nil)
         infoAlert.addAction(infoConfirm)
         present(infoAlert, animated: true, completion: nil)
     }

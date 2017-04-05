@@ -144,10 +144,13 @@ class LeaderBoardViewController: UIViewController, UITableViewDelegate, UITableV
                                 print("tempTime = \(String(describing: tempTime))")
                             }
                             
-                            if tempMessage != nil{
-                                newUser.personalMessage = tempMessage as! String
-                            }else{
+                            if let validMessage: String =  tempMessage as? String {
+                                print("personal message is of type \(type(of: tempMessage)))")
+                                newUser.personalMessage = validMessage
                                 
+                            }else{
+                                //a placeholder message if it can't be cast into a string
+                                newUser.personalMessage = "can not retrieve message at this time"
                             }
                             
                             print("--------")

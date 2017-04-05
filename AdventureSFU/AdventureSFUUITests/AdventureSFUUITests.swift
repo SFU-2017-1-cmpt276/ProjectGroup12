@@ -39,7 +39,7 @@ class AdventureSFUUITests: XCTestCase {
         
         let addressComTextField = XCUIApplication().textFields["@address.com"]
         addressComTextField.tap()
-        addressComTextField.typeText("k@s.ca")
+        addressComTextField.typeText("karan@gmail.com")
         
 
         let passwordSecureTextField = app.secureTextFields["Password"]
